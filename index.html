@@ -332,13 +332,31 @@
   }
 
   function sendOrder() {
-    if(cart.length === 0) return alert("Cart is empty");
-    const summary = cart.map(i => `${i.name} (x${i.qty})`).join(", ");
-    const total = document.getElementById('cart-total-val').textContent;
-    const body = encodeURIComponent(`New Order:\n${summary}\nTotal: ${total}`);
-    window.location.href = `mailto:${OWNER_EMAIL}?subject=New Egg Order&body=${body}`;
-  }
-</script>
+  if (cart.length === 0) return alert("Aapka cart khali hai!");
 
-</body>
-</html>
+  // 1. User se details puchenge
+  const userName = prompt("Aapka Naam kya hai?");
+  if (!userName) return alert("Order ke liye naam zaroori hai!");
+
+  const userAddress = prompt("Aapka Pura Pata (Address) likhein:");
+  if (!userAddress) return alert("Order ke liye address zaroori hai!");
+
+  // 2. APNA WHATSAPP NUMBER YAHAN LIKHEIN (91 ke sath)
+  const PHONE_NUMBER = "+919586095860"; 
+
+  // 3. Order ki list taiyar karenge
+  const summary = cart.map(i => `• *${i.name}* (x${i.qty})`).join("\n");
+  const total = document.getElementById('cart-total-val').textContent;
+  
+  // 4. WhatsApp Message Format (Naam aur Pata ke sath)
+  const message = `*--- NAYA EGG ORDER ---*\n\n` +
+                  `👤 *Naam:* ${userName}\n` +
+                  `📍 *Address:* ${userAddress}\n\n` +
+                  `📦 *Items:* \n${summary}\n\n` +
+                  `💰 *Total Amount: ${total}*\n\n` +
+                  `_Kripya mera order confirm karein._`;
+  
+  // 5. WhatsApp Open karein
+  const whatsappUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+}

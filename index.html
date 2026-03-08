@@ -3,360 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Egg Master – Fresh Finds, Best Price</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  
+  <title>Egg Master – Gujarat's Best Egg Dishes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --yolk: #F5A623;
-      --yolk-dark: #D4821A;
-      --shell: #FFF8ED;
-      --cream: #FEF3DC;
-      --brown: #3B2009;
-      --mid: #7A4B1E;
-      --white: #FFFFFF;
-      --shadow: 0 8px 40px rgba(59,32,9,0.13);
-      --radius: 18px;
-      --transition: 0.3s cubic-bezier(.4,0,.2,1);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--shell); color: var(--brown); overflow-x: hidden; padding-top: 64px; }
-
-    /* NAVBAR */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px; height: 64px;
-      background: rgba(255,248,237,0.88);
-      backdrop-filter: blur(14px);
-      border-bottom: 1.5px solid rgba(245,166,35,0.18);
-      box-shadow: 0 2px 18px rgba(59,32,9,0.08);
-    }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .nav-logo .egg-icon {
-      width: 38px; height: 38px; background: var(--yolk);
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 14px rgba(245,166,35,0.35);
-    }
-    .nav-logo span { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 900; color: var(--brown); }
-    .nav-logo span em { color: var(--yolk); font-style: normal; }
-
-    .cart-btn {
-      position: relative; background: var(--yolk); border: none; cursor: pointer;
-      width: 44px; height: 44px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 16px rgba(245,166,35,0.4);
-      transition: var(--transition);
-    }
-    .cart-count {
-      position: absolute; top: -4px; right: -4px; background: var(--brown); color: white;
-      font-size: 0.65rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; border: 2px solid var(--shell);
-    }
-    .hidden { display: none; }
-
-    /* HERO */
-    .hero { position: relative; width: 100%; height: 60vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .hero-img {
-      position: absolute; inset: 0;
-      https://i.ibb.co/m5vP3VY5/Screenshot-2026-03-08-155817.jpg
-      background: url('hero-bg.jpg') center/cover no-repeat;
-      animation: heroZoom 18s ease-in-out infinite alternate;
-    }
-    @keyframes heroZoom { from { transform: scale(1.06); } to { transform: scale(1.14); } }
-    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(59,32,9,0.6) 0%, rgba(59,32,9,0.3) 100%); }
-    .hero-content { position: relative; z-index: 2; text-align: center; color: white; padding: 20px; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 4rem); margin-bottom: 10px; }
-    .hero h1 span { color: var(--yolk); }
-
-    /* PRODUCTS SECTION */
-    #products { padding: 40px 20px; }
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 25px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .product-card { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); }
-    .product-img-wrap img { width: 100%; height: 200px; object-fit: cover; }
-    .product-body { padding: 20px; }
-    .product-price { font-size: 1.4rem; font-weight: 900; color: var(--yolk-dark); font-family: 'Playfair Display', serif; }
-
-    /* UTILS */
-    .btn-primary { cursor: pointer; border: none; transition: var(--transition); }
-    .btn-primary { background: var(--yolk); padding: 15px 35px; border-radius: 50px; font-weight: bold; text-decoration: none; color: var(--brown); display: inline-block; }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(245,166,35,0.4); }
-    .add-btn { padding: 8px 15px; font-size: 0.8rem; }
+    :root { --yolk: #F5A623; --brown: #3B2009; --shell: #FFF8ED; --radius: 15px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--shell); color: var(--brown); padding-top: 80px; }
     
-    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); padding: 12px 25px; border-radius: 50px; color: white; opacity: 0; transition: 0.3s; z-index: 2000; font-size: 0.9rem; }
-    .toast.show { opacity: 1; bottom: 50px; }
-    
-    /* CART DRAWER */
-    .cart-drawer { position: fixed; top: 0; right: 0; height: 100%; width: 350px; background: white; transform: translateX(100%); transition: 0.4s; z-index: 1001; padding: 20px; display: flex; flex-direction: column; box-shadow: -5px 0 30px rgba(0,0,0,0.1); }
-    .cart-drawer.open { transform: translateX(0); }
-    .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: 0.3s; z-index: 1000; }
-    .cart-overlay.open { opacity: 1; pointer-events: all; }
-    .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-    .close-cart { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #aaa; }
+    nav { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--brown); text-decoration: none; }
+    .cart-btn { background: var(--yolk); border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; position: relative; font-size: 1.2rem; }
+    .cart-count { position: absolute; top: -5px; right: -5px; background: red; color: white; font-size: 0.8rem; padding: 3px 8px; border-radius: 50%; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .card { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; text-align: center; }
+    .card:hover { transform: translateY(-5px); }
+    .card img { width: 100%; height: 200px; object-fit: cover; background: #eee; }
+    .card-info { padding: 15px; }
+    .price { font-weight: bold; color: #D4821A; font-size: 1.3rem; display: block; margin: 10px 0; }
+    .add-btn { background: var(--yolk); border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; width: 100%; }
+
+    /* CART */
+    .drawer { position: fixed; top: 0; right: 0; width: 100%; max-width: 350px; height: 100%; background: white; z-index: 2000; transform: translateX(100%); transition: 0.4s; padding: 20px; display: flex; flex-direction: column; box-shadow: -5px 0 20px rgba(0,0,0,0.2); }
+    .drawer.open { transform: translateX(0); }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; display: none; }
+    .overlay.show { display: block; }
+    .whatsapp-btn { background: #25D366; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 1rem; }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="#">
-    <div class="egg-icon">
-      <svg viewBox="0 0 24 24" width="20"><ellipse cx="12" cy="13" rx="8" ry="10" fill="white"/><circle cx="12" cy="13" r="4" fill="#F5A623"/></svg>
-    </div>
-    <span>Egg <em>Master</em></span>
-  </a>
-  <button class="cart-btn" onclick="openCart()">
-    <svg viewBox="0 0 24 24" width="20" stroke="white" fill="none" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-    <span class="cart-count hidden" id="cart-count">0</span>
-  </button>
+  <a href="#" class="logo">🍳 EGG MASTER</a>
+  <button class="cart-btn" onclick="toggleCart(true)">🛒<span class="cart-count" id="count">0</span></button>
 </nav>
 
-<section class="hero">
-  <div class="hero-img"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1>Welcome to<br><span>Egg Master</span></h1>
-    <p>Surat ki authentic egg dishes, delivered to your doorstep.</p><br>
-    <a href="#products" class="btn-primary">Shop Now</a>
+<div class="grid">
+  <div class="card">
+    <img src="gotalo.jpg" alt="Surti Gotalo">
+    <div class="card-info"><h3>Surti Egg Gotalo</h3><span class="price">₹60</span><button class="add-btn" onclick="addToCart('Surti Egg Gotalo', 140)">Add to Cart</button></div>
   </div>
-</section>
-
-<section id="products">
-  <div class="products-grid" id="products-container">
-    
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="gotalo.jpg" alt="Surti Egg Gotalo"></div>
-      <div class="product-body">
-        <h3>Surti Egg Gotalo</h3>
-        <p>Spicy gravy of half-fry and scrambled eggs. Served with 2 Pav.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹80</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Surti Egg Gotalo', 140, 'gotalo.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="tikka.jpg" alt="Boiled Egg Tikka"></div>
-      <div class="product-body">
-        <h3>Boiled Egg Tikka Masala</h3>
-        <p>Thick masala gravy with boiled egg chunks.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹60</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Boiled Egg Tikka Masala', 150, 'tikka.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="kheema.jpg" alt="Egg Kheema"></div>
-      <div class="product-body">
-        <h3>Egg Kheema</h3>
-        <p>Grated egg stir-fry with spicy onion masala.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹50</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Egg Kheema', 130, 'kheema.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="curry.jpg" alt="Egg Curry"></div>
-      <div class="product-body">
-        <h3>Egg Curry (Gujarati Style)</h3>
-        <p>Spicy garlic tomato gravy with boiled eggs.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹50</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Egg Curry (Gujarati Style)', 130, 'curry.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="fry.jpg" alt="Boiled Egg Fry"></div>
-      <div class="product-body">
-        <h3>Boiled Egg Fry (Tawa)</h3>
-        <p>Buttery tawa fry of sliced boiled eggs with spices.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹50</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Boiled Egg Fry (Tawa)', 50, 'fry.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="bhurji.jpg" alt="Cheese Egg Bhurji"></div>
-      <div class="product-body">
-        <h3>Cheese Egg Bhurji</h3>
-        <p>Classic egg bhurji loaded with cheese.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹50</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Cheese Egg Bhurji', 120, 'bhurji.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="lasan.jpg" alt="Garlic Egg"></div>
-      <div class="product-body">
-        <h3>Lasan Kachu (Garlic Egg)</h3>
-        <p>Surti garlic-egg delight with authentic spices.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹70</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Lasan Kachu (Garlic Egg)', 130, 'lasan.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="paplet.jpg" alt="Egg Paplet"></div>
-      <div class="product-body">
-        <h3>Egg Paplet (Omelet Curry)</h3>
-        <p>Layers of omelet topped with garma-garam gravy.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹60</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Egg Paplet (Omelet Curry)', 170, 'paplet.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="masala.jpg" alt="Boiled Masala Eggs"></div>
-      <div class="product-body">
-        <h3>Boiled Masala Eggs</h3>
-        <p>Perfectly boiled eggs with masala sprinkle.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹50</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Boiled Masala Eggs', 40, 'masala.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-wrap"><img src="rice.jpg" alt="Egg Pulav"></div>
-      <div class="product-body">
-        <h3>Egg Pulav / Rice</h3>
-        <p>Spicy rice with egg gravy and boiled eggs.</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-          <span class="product-price">₹70</span>
-          <button class="btn-primary add-btn" onclick="addToCart(this, 'Egg Pulav / Rice', 160, 'rice.jpg')">Add</button>
-        </div>
-      </div>
-    </div>
-
+  <div class="card">
+    <img src="tikka.jpg" alt="Egg Tikka">
+    <div class="card-info"><h3>Egg Tikka Masala</h3><span class="price">₹60</span><button class="add-btn" onclick="addToCart('Egg Tikka Masala', 150)">Add to Cart</button></div>
   </div>
-</section>
-
-<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
-<div class="cart-drawer" id="cart-drawer">
-  <div class="cart-header">
-    <h2>Your Cart</h2>
-    <button class="close-cart" onclick="closeCart()">×</button>
+  <div class="card">
+    <img src="bhurji.jpg" alt="Egg Bhurji">
+    <div class="card-info"><h3>Cheese Egg Bhurji</h3><span class="price">₹60</span><button class="add-btn" onclick="addToCart('Cheese Egg Bhurji', 120)">Add to Cart</button></div>
   </div>
-  <div id="cart-items" style="flex:1; overflow-y:auto; margin-top:20px;"></div>
-  <div id="cart-footer" style="border-top:1px solid #eee; padding-top:15px; margin-top: auto;">
-    <p>Total: <strong id="cart-total-val">₹0</strong></p>
-    <button class="btn-primary" onclick="sendOrder()" style="width:100%; margin-top:10px;">Place Order (via Email)</button>
+  <div class="card">
+    <img src="kheema.jpg" alt="Egg Kheema">
+    <div class="card-info"><h3>Egg Kheema</h3><span class="price">₹60</span><button class="add-btn" onclick="addToCart('Egg Kheema', 130)">Add to Cart</button></div>
+  </div>
+  <div class="card">
+    <img src="curry.jpg" alt="Egg Curry">
+    <div class="card-info"><h3>Gujarati Egg Curry</h3><span class="price">₹60</span><button class="add-btn" onclick="addToCart('Gujarati Egg Curry', 130)">Add to Cart</button></div>
+  </div>
+  <div class="card">
+    <img src="fry.jpg" alt="Egg Fry">
+    <div class="card-info"><h3>Boiled Egg Fry</h3><span class="price">₹50</span><button class="add-btn" onclick="addToCart('Boiled Egg Fry', 50)">Add to Cart</button></div>
+  </div>
+  <div class="card">
+    <img src="lasan.jpg" alt="Lasan Kachu">
+    <div class="card-info"><h3>Lasan Kachu</h3><span class="price">₹70</span><button class="add-btn" onclick="addToCart('Lasan Kachu', 130)">Add to Cart</button></div>
+  </div>
+  <div class="card">
+    <img src="paplet.jpg" alt="Egg Paplet">
+    <div class="card-info"><h3>Egg Paplet</h3><span class="price">₹70</span><button class="add-btn" onclick="addToCart('Egg Paplet', 170)">Add to Cart</button></div>
+  </div>
+  <div class="card">
+    <img src="masala.jpg" alt="Masala Eggs">
+    <div class="card-info"><h3>Boiled Masala Egg</h3><span class="price">₹40</span><button class="add-btn" onclick="addToCart('Boiled Masala Egg', 40)">Add to Cart</button></div>
+  </div>
+  <div class="card">
+    <img src="rice.jpg" alt="Egg Rice">
+    <div class="card-info"><h3>Egg Pulav Rice</h3><span class="price">₹100</span><button class="add-btn" onclick="addToCart('Egg Pulav Rice', 160)">Add to Cart</button></div>
   </div>
 </div>
 
-<div class="toast" id="toast" style="background: #333;"></div>
+<div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
+<div class="drawer" id="drawer">
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:10px;">
+    <h2>Cart Items</h2><button onclick="toggleCart(false)" style="background:none; border:none; font-size:1.5rem;">×</button>
+  </div>
+  <div id="cart-list" style="flex:1; overflow-y:auto; margin-top:20px;"></div>
+  <div style="border-top:2px solid var(--yolk); padding-top:15px;">
+    <h3>Total: <span id="total-price">₹0</span></h3>
+    <button class="whatsapp-btn" style="width:100%;" onclick="orderWhatsApp()">Order on WhatsApp</button>
+  </div>
+</div>
 
 <script>
   let cart = [];
-  const OWNER_EMAIL = "Ashishchavda95860@gmail.com";
+  const PHONE = "919586095860"; // Aapka number
 
-  function addToCart(btn, name, price, img) {
-    const existing = cart.find(i => i.name === name);
-    if (existing) { existing.qty++; } 
-    else { cart.push({ name, price, img, qty: 1 }); }
-    updateUI();
-    showToast(`Added ${name}`);
+  function toggleCart(s) {
+    document.getElementById('drawer').classList.toggle('open', s);
+    document.getElementById('overlay').classList.toggle('show', s);
   }
 
-  function updateUI() {
-    const count = cart.reduce((s, i) => s + i.qty, 0);
-    const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-    document.getElementById('cart-count').textContent = count;
-    document.getElementById('cart-count').classList.toggle('hidden', count === 0);
-    document.getElementById('cart-total-val').textContent = `₹${total}`;
+  function addToCart(name, price) {
+    const item = cart.find(i => i.name === name);
+    if (item) { item.qty++; } else { cart.push({ name, price, qty: 1 }); }
+    render();
+  }
+
+  function render() {
+    const list = document.getElementById('cart-list');
+    let total = 0, count = 0;
+    list.innerHTML = cart.map((item, i) => {
+      total += (item.price * item.qty);
+      count += item.qty;
+      return `<div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+        <div><b>${item.name}</b><br>₹${item.price} x ${item.qty}</div>
+        <div><button onclick="change(${i}, -1)">-</button> ${item.qty} <button onclick="change(${i}, 1)">+</button></div>
+      </div>`;
+    }).join('');
+    document.getElementById('count').innerText = count;
+    document.getElementById('total-price').innerText = `₹${total}`;
+  }
+
+  function change(i, d) {
+    cart[i].qty += d;
+    if (cart[i].qty <= 0) cart.splice(i, 1);
+    render();
+  }
+
+  function orderWhatsApp() {
+    if (cart.length === 0) return alert("Cart khali hai!");
+    const n = prompt("Aapka Naam?");
+    const a = prompt("Aapka Address?");
+    if (!n || !a) return alert("Details bharna zaroori hai!");
     
-    document.getElementById('cart-items').innerHTML = cart.map((item, idx) => `
-      <div style="display:flex; gap:10px; margin-bottom:15px; align-items:center;">
-        <img src="${item.img}" width="50" height="50" style="border-radius:8px; object-fit: cover;">
-        <div style="flex:1;">
-          <div style="font-weight:bold; font-size:0.9rem;">${item.name}</div>
-          <div style="font-size:0.8rem;">₹${item.price} x ${item.qty}</div>
-        </div>
-        <button onclick="changeQty(${idx}, -1)" style="padding:2px 8px;">-</button>
-        <span>${item.qty}</span>
-        <button onclick="changeQty(${idx}, 1)" style="padding:2px 8px;">+</button>
-      </div>
-    `).join('');
+    const items = cart.map(i => `• ${i.name} (x${i.qty})`).join("\n");
+    const total = document.getElementById('total-price').innerText;
+    const msg = `*NAYA ORDER*\n\n👤 *Naam:* ${n}\n📍 *Address:* ${a}\n\n📦 *Items:*\n${items}\n\n💰 *Total:* ${total}`;
+    window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
   }
-
-  function changeQty(idx, delta) {
-    cart[idx].qty += delta;
-    if (cart[idx].qty <= 0) cart.splice(idx, 1);
-    updateUI();
-  }
-
-  function openCart() { 
-    document.getElementById('cart-drawer').classList.add('open'); 
-    document.getElementById('cart-overlay').classList.add('open'); 
-  }
-  
-  function closeCart() { 
-    document.getElementById('cart-drawer').classList.remove('remove'); 
-    // Is line ko theek kar lijiye:
-    document.getElementById('cart-drawer').classList.remove('open');
-    document.getElementById('cart-overlay').classList.remove('open'); 
-  }
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2000);
-  }
-
-  function sendOrder() {
-  if (cart.length === 0) return alert("Aapka cart khali hai!");
-
-  // 1. User se details puchenge
-  const userName = prompt("Aapka Naam kya hai?");
-  if (!userName) return alert("Order ke liye naam zaroori hai!");
-
-  const userAddress = prompt("Aapka Pura Pata (Address) likhein:");
-  if (!userAddress) return alert("Order ke liye address zaroori hai!");
-
-  // 2. APNA WHATSAPP NUMBER YAHAN LIKHEIN (91 ke sath)
-  const PHONE_NUMBER = "+919586095860"; 
-
-  // 3. Order ki list taiyar karenge
-  const summary = cart.map(i => `• *${i.name}* (x${i.qty})`).join("\n");
-  const total = document.getElementById('cart-total-val').textContent;
-  
-  // 4. WhatsApp Message Format (Naam aur Pata ke sath)
-  const message = `*--- NAYA EGG ORDER ---*\n\n` +
-                  `👤 *Naam:* ${userName}\n` +
-                  `📍 *Address:* ${userAddress}\n\n` +
-                  `📦 *Items:* \n${summary}\n\n` +
-                  `💰 *Total Amount: ${total}*\n\n` +
-                  `_Kripya mera order confirm karein._`;
-  
-  // 5. WhatsApp Open karein
-  const whatsappUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, '_blank');
-}
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Egg Master | Luxury Elite Edition</title>
+  <title>Egg Master | Luxury Elite</title>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -18,61 +18,68 @@
     * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
     body { font-family: 'Outfit', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
 
-    /* --- Background 3D --- */
-    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.3; }
+    /* --- Background 3D Canvas --- */
+    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.35; }
 
-    /* --- Logo/Nav --- */
+    /* --- Luxury Navigation --- */
     nav { 
       position: fixed; top: 0; width: 100%; height: 80px; background: rgba(0,0,0,0.95);
       backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: space-between;
       padding: 0 5%; z-index: 1000; border-bottom: 1px solid var(--gold);
     }
-    .main-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; }
+    .main-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-weight: 900; }
 
-    /* --- Hero --- */
+    /* --- Hero Section --- */
     .hero { text-align: center; padding: 150px 20px 60px; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .timing { border: 1px solid var(--gold); padding: 5px 20px; border-radius: 50px; font-size: 0.8rem; color: var(--gold); margin-top: 10px; display: inline-block; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .open-tag { color: #25D366; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; border: 1px solid #25D366; padding: 5px 20px; border-radius: 50px; display: inline-block; }
 
-    /* --- Menu --- */
+    /* --- Menu Grid --- */
     .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-    .card-lux { background: var(--dark-grey); border: 1px solid #333; transition: 0.4s; overflow: hidden; position: relative; }
-    .card-lux:hover { border-color: var(--gold); transform: translateY(-10px); }
-    .card-lux img { width: 100%; height: 250px; object-fit: cover; }
-    .card-info { padding: 20px; text-align: center; }
-    .price { font-size: 1.5rem; color: var(--gold); margin: 10px 0; display: block; font-weight: 700; }
+    
+    .card-lux { 
+      background: var(--dark-grey); border: 1px solid rgba(212,175,55,0.1); 
+      transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1); overflow: hidden; position: relative;
+    }
+    .card-lux:hover { border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .card-lux img { width: 100%; height: 260px; object-fit: cover; transition: 0.5s; filter: brightness(0.8); }
+    .card-lux:hover img { transform: scale(1.05); filter: brightness(1); }
+    
+    .card-info { padding: 25px; text-align: center; }
+    .price { font-size: 1.6rem; color: var(--gold); margin: 10px 0; display: block; font-weight: 700; }
     
     .btn-gold { 
-      background: var(--gold-gradient); color: black; border: none; padding: 12px 25px; 
-      font-weight: 900; cursor: pointer; text-transform: uppercase; width: 100%; letter-spacing: 1px;
+      background: var(--gold-gradient); color: black; border: none; padding: 14px 25px; 
+      font-weight: 900; cursor: pointer; text-transform: uppercase; width: 100%; letter-spacing: 1.5px; transition: 0.3s;
     }
+    .btn-gold:active { transform: scale(0.95); }
 
-    /* --- Cart Slide --- */
+    /* --- Cart Slide Drawer --- */
     #cart-slide {
-      position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%;
-      background: #0d0d0d; z-index: 2000; transition: 0.5s; border-left: 2px solid var(--gold);
+      position: fixed; top: 0; right: -100%; width: 100%; max-width: 420px; height: 100%;
+      background: #0d0d0d; z-index: 2000; transition: 0.5s cubic-bezier(0.7, 0, 0.2, 1); border-left: 2px solid var(--gold);
       display: flex; flex-direction: column;
     }
     #cart-slide.active { right: 0; }
-    .cart-body { flex: 1; overflow-y: auto; padding: 20px; }
-    .cart-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #222; }
-    .qty-box { display: flex; align-items: center; gap: 10px; border: 1px solid var(--gold); padding: 2px 10px; border-radius: 50px; }
+    .cart-header { padding: 30px; background: var(--gold-gradient); color: black; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
+    .cart-body { flex: 1; overflow-y: auto; padding: 25px; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #222; }
+    .qty-btn { background: none; border: 1px solid var(--gold); color: var(--gold); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold; }
 
-    /* --- Checkout Modal --- */
-    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 3000; display: none; align-items: center; justify-content: center; }
-    .modal-content { background: #111; padding: 30px; border: 1px solid var(--gold); width: 95%; max-width: 450px; text-align: center; }
+    /* --- Luxury Bill & Payment Modal --- */
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal-content { background: #111; padding: 30px; border: 1px solid var(--gold); width: 100%; max-width: 450px; text-align: center; position: relative; }
     
-    /* Bill Styling with Logo */
-    #bill-canvas { background: white; color: black; padding: 20px; text-align: center; margin-bottom: 20px; border-radius: 10px; }
-    .bill-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #000; border-bottom: 2px solid #000; display: inline-block; margin-bottom: 10px; font-weight: 900; }
+    #bill-canvas { background: white; color: black; padding: 30px; text-align: center; border-radius: 5px; margin-bottom: 20px; }
+    .bill-header-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; border-bottom: 2px solid black; display: inline-block; margin-bottom: 5px; }
     
-    .pay-options { display: flex; gap: 10px; margin-top: 20px; }
-    .pay-btn { flex: 1; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: 900; border: none; }
-    .cod { background: #333; color: white; }
-    .online { background: #25D366; color: white; }
+    .pay-btn-group { display: flex; gap: 10px; margin-top: 20px; }
+    .pay-opt { flex: 1; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: 900; border: none; text-transform: uppercase; }
+    .opt-cod { background: #333; color: white; }
+    .opt-online { background: #25D366; color: white; }
 
-    #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--gold); color: black; padding: 10px 20px; border-radius: 50px; z-index: 9999; display: none; font-weight: bold; }
+    #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--gold); color: black; padding: 12px 25px; border-radius: 50px; z-index: 9999; display: none; font-weight: bold; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
   </style>
 </head>
 <body>
@@ -82,14 +89,15 @@
 
 <nav>
   <div class="main-logo">EGG MASTER</div>
-  <button onclick="toggleCart(true)" style="background:none; border:1px solid var(--gold); color:var(--gold); padding:8px 20px; border-radius:50px; cursor:pointer;">
+  <button onclick="toggleCart(true)" style="background:none; border:1px solid var(--gold); color:var(--gold); padding:10px 25px; border-radius:50px; cursor:pointer; font-weight:bold;">
     CART (<span id="cart-count">0</span>)
   </button>
 </nav>
 
 <div class="hero">
-  <h1>Elite Egg Hub</h1>
-  <div class="timing">9 AM - 2 PM | 7 PM - 12 AM</div>
+  <h1>Luxury Egg Dining</h1>
+  <div class="open-tag">● WE ARE OPEN NOW</div>
+  <p style="margin-top:15px; opacity:0.6; letter-spacing:1px;">Lagega Time Par Aayega Maza</p>
 </div>
 
 <div class="container">
@@ -97,45 +105,47 @@
 </div>
 
 <div id="cart-slide">
-  <div style="padding:30px; background:var(--gold-gradient); color:black; font-weight:900; display:flex; justify-content:space-between;">
-    <span>YOUR ORDER</span>
-    <button onclick="toggleCart(false)" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">✕</button>
+  <div class="cart-header">
+    <span style="font-size:1.2rem; letter-spacing:1px;">YOUR SELECTION</span>
+    <button onclick="toggleCart(false)" style="background:none; border:none; font-size:1.8rem; cursor:pointer;">✕</button>
   </div>
   <div class="cart-body" id="cart-items"></div>
-  <div style="padding:30px; border-top:1px solid #333;">
-    <h2 style="display:flex; justify-content:space-between; margin-bottom:20px;">
-      Total: <span id="total-price" style="color:var(--gold);">₹0</span>
+  <div style="padding:30px; border-top:1px solid #222;">
+    <h2 style="display:flex; justify-content:space-between; margin-bottom:20px; font-family:'Playfair Display';">
+      Subtotal: <span id="total-price" style="color:var(--gold);">₹0</span>
     </h2>
-    <button class="btn-gold" onclick="openPaymentModal()">Place Order Now</button>
+    <button class="btn-gold" onclick="openPaymentModal()">Proceed to Order</button>
   </div>
 </div>
 
 <div id="checkout-modal" class="modal">
   <div class="modal-content">
     <div id="bill-canvas">
-      <div class="bill-logo">🍳 EGG MASTER</div>
-      <p style="font-size:0.8rem;">Gujarat's Best Taste</p>
-      <div id="bill-items" style="text-align:left; margin:15px 0; font-family:monospace; font-size:0.9rem;"></div>
-      <hr>
-      <h3 id="bill-total" style="margin-top:10px;"></h3>
+      <div class="bill-header-logo">🍳 EGG MASTER</div>
+      <p style="font-size:0.7rem; letter-spacing:2px; margin-bottom:15px;">PREMIUM EGG DELICACY</p>
+      <div id="bill-items-list" style="text-align:left; font-family:monospace; font-size:0.9rem; line-height:1.6;"></div>
+      <hr style="border:0; border-top:1px dashed #ccc; margin:10px 0;">
+      <h3 id="bill-grand-total"></h3>
+      <p style="font-size:0.6rem; margin-top:10px; opacity:0.7;">Thank you for choosing quality!</p>
     </div>
 
-    <div id="online-pay-section" style="display:none;">
-      <h3 style="color:var(--gold); margin-bottom:10px;">SCAN & PAY ONLINE</h3>
-      <img id="upi-qr" style="width:180px; border:5px solid white; margin-bottom:10px;">
-      <p style="font-size:0.8rem; opacity:0.6;">ashishchavda9586@oksbi</p>
+    <div id="qr-section" style="display:none; margin-bottom:20px;">
+      <h3 style="color:var(--gold); margin-bottom:15px;">SCAN TO PAY</h3>
+      <div style="background:white; padding:15px; display:inline-block; border:3px solid var(--gold);">
+        <img id="upi-qr" style="width:180px;">
+      </div>
+      <p style="margin-top:10px; font-size:0.8rem; color:var(--gold);">UPI: ashishchavda9586@oksbi</p>
     </div>
 
-    <p style="margin-top:20px;">Choose Payment Mode:</p>
-    <div class="pay-options">
-      <button class="pay-btn cod" onclick="finalizeOrder('Cash on Delivery (COD)')">COD</button>
-      <button class="pay-btn online" onclick="showOnlinePayment()">Online Pay</button>
+    <p id="pay-msg">Select Payment Method:</p>
+    <div class="pay-btn-group" id="initial-btns">
+      <button class="pay-opt opt-cod" onclick="completeOrder('Cash on Delivery')">COD</button>
+      <button class="pay-opt opt-online" onclick="showQR()">Online Pay</button>
     </div>
     
-    <button class="btn-gold" onclick="finalizeOrder('Online Paid')" id="done-btn" style="display:none; margin-top:15px;">I Have Paid - Send WhatsApp</button>
+    <button class="btn-gold" id="final-send-btn" style="display:none; margin-top:10px;" onclick="completeOrder('Online Paid')">Confirm WhatsApp Order</button>
     
-    <br>
-    <button onclick="location.reload()" style="background:none; border:none; color:#555; margin-top:20px; cursor:pointer;">Cancel</button>
+    <button onclick="location.reload()" style="background:none; border:none; color:#555; margin-top:20px; cursor:pointer; font-size:0.8rem;">Cancel Order</button>
   </div>
 </div>
 
@@ -146,35 +156,39 @@
   const MY_UPI = "ashishchavda9586@oksbi";
   
   const menu = [
-    { id: 1, name: "Boiled Egg Fry", price: 50, img: "https://i.ibb.co/xSdzbzzf/boild-egg-fry.jpg" },
-    { id: 2, name: "Bombay Omlet", price: 60, img: "https://i.ibb.co/vv1xsk7G/bombe-omlet.jpg" },
-    { id: 3, name: "Bread Omlet", price: 60, img: "https://i.ibb.co/JRS6Lcyc/bread-omlet.jpg" },
-    { id: 4, name: "Egg Bhurji", price: 60, img: "https://i.ibb.co/4Rh3gjss/egg-bhurji.jpg" },
-    { id: 5, name: "Egg Kheema", price: 60, img: "https://i.ibb.co/7NJbpHnw/egg-khima.jpg" },
-    { id: 6, name: "Egg Lachko", price: 80, img: "https://i.ibb.co/LDhLfpZy/egg-Lachko.jpg" },
-    { id: 7, name: "Egg Masala Tikka", price: 70, img: "https://i.ibb.co/8DgfRBnK/egg-mashala-tikka.jpg" },
-    { id: 8, name: "Gujarati Egg Curry", price: , img: "https://i.ibb.co/sdhXXfNw/gujrati-egg-curry.jpg" },
+    { id: 1, name: "Boiled Egg Fry", price: 60, img: "https://i.ibb.co/xSdzbzzf/boild-egg-fry.jpg" },
+    { id: 2, name: "Bombay Omlet", price: 110, img: "https://i.ibb.co/vv1xsk7G/bombe-omlet.jpg" },
+    { id: 3, name: "Bread Omlet", price: 90, img: "https://i.ibb.co/JRS6Lcyc/bread-omlet.jpg" },
+    { id: 4, name: "Egg Bhurji", price: 120, img: "https://i.ibb.co/4Rh3gjss/egg-bhurji.jpg" },
+    { id: 5, name: "Egg Kheema", price: 130, img: "https://i.ibb.co/7NJbpHnw/egg-khima.jpg" },
+    { id: 6, name: "Egg Lachko", price: 140, img: "https://i.ibb.co/LDhLfpZy/egg-Lachko.jpg" },
+    { id: 7, name: "Egg Masala Tikka", price: 150, img: "https://i.ibb.co/8DgfRBnK/egg-mashala-tikka.jpg" },
+    { id: 8, name: "Gujarati Egg Curry", price: 140, img: "https://i.ibb.co/sdhXXfNw/gujrati-egg-curry.jpg" },
     { id: 9, name: "Masala Egg", price: 50, img: "https://i.ibb.co/QvV7YG8W/masala-egg.jpg" },
-    { id: 10, name: "Surti Gotalo", price: 80, img: "https://i.ibb.co/pv1FGXCr/surti-gotalo.jpg" }
+    { id: 10, name: "Surti Gotalo", price: 160, img: "https://i.ibb.co/pv1FGXCr/surti-gotalo.jpg" }
   ];
 
   let cart = [];
 
-  // --- 3D Background ---
+  // --- 1. Three.js Luxury Background ---
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ alpha: true });
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.getElementById('bg-canvas').appendChild(renderer.domElement);
-  const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(10, 3, 100, 16), new THREE.MeshPhongMaterial({ color: 0xD4AF37, wireframe: true }));
+  
+  const knot = new THREE.Mesh(
+    new THREE.TorusKnotGeometry(10, 3, 100, 16), 
+    new THREE.MeshPhongMaterial({ color: 0xD4AF37, wireframe: true })
+  );
   scene.add(knot);
   scene.add(new THREE.AmbientLight(0xffffff, 1));
   camera.position.z = 30;
 
-  function animate() { requestAnimationFrame(animate); knot.rotation.x += 0.005; renderer.render(scene, camera); }
+  function animate() { requestAnimationFrame(animate); knot.rotation.x += 0.003; knot.rotation.y += 0.003; renderer.render(scene, camera); }
   animate();
 
-  // --- Menu UI ---
+  // --- 2. Menu Logic ---
   function renderMenu() {
     const grid = document.getElementById('menu-grid');
     grid.innerHTML = menu.map(item => `
@@ -195,7 +209,8 @@
     const existing = cart.find(c => c.id === id);
     if(existing) existing.qty++;
     else cart.push({...item, qty: 1});
-    updateCartUI();
+    updateUI();
+    showToast("Added: " + item.name);
   }
 
   function removeFromCart(id) {
@@ -204,20 +219,20 @@
       if(cart[index].qty > 1) cart[index].qty--;
       else cart.splice(index, 1);
     }
-    updateCartUI();
+    updateUI();
   }
 
-  function updateCartUI() {
+  function updateUI() {
     const list = document.getElementById('cart-items');
     let total = 0, count = 0;
     list.innerHTML = cart.map(i => {
       total += (i.price * i.qty); count += i.qty;
       return `<div class="cart-item">
-        <div><b>${i.name}</b><br>₹${i.price * i.qty}</div>
-        <div class="qty-box">
-          <button onclick="removeFromCart(${i.id})" style="background:none; border:none; color:white; cursor:pointer;">-</button>
+        <div><b>${i.name}</b><br><span style="color:var(--gold)">₹${i.price * i.qty}</span></div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="qty-btn" onclick="removeFromCart(${i.id})">-</button>
           <span>${i.qty}</span>
-          <button onclick="addToCart(${i.id})" style="background:none; border:none; color:white; cursor:pointer;">+</button>
+          <button class="qty-btn" onclick="addToCart(${i.id})">+</button>
         </div>
       </div>`;
     }).join('');
@@ -227,40 +242,47 @@
 
   function toggleCart(s) { document.getElementById('cart-slide').classList.toggle('active', s); }
 
-  // --- Payment & Bill ---
+  // --- 3. Checkout & Bill Management ---
   function openPaymentModal() {
-    if(cart.length === 0) return alert("Pehle items select karein!");
+    if(cart.length === 0) return alert("Selection is empty!");
     const total = document.getElementById('total-price').innerText;
     
-    // Fill Bill for Screenshot
-    document.getElementById('bill-items').innerHTML = cart.map(i => `${i.name} x ${i.qty} = ₹${i.price*i.qty}`).join('<br>');
-    document.getElementById('bill-total').innerText = "GRAND TOTAL: " + total;
+    // Build Bill UI
+    document.getElementById('bill-items-list').innerHTML = cart.map(i => `• ${i.name.padEnd(20)} x${i.qty} = ₹${i.price*i.qty}`).join('<br>');
+    document.getElementById('bill-grand-total').innerText = "TOTAL: " + total;
     
-    // QR Code
+    // Prep QR Code
     document.getElementById('upi-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=${MY_UPI}&pn=EggMaster&am=${total.replace('₹','')}&cu=INR`;
     
     document.getElementById('checkout-modal').style.display = 'flex';
   }
 
-  function showOnlinePayment() {
-    document.getElementById('online-pay-section').style.display = 'block';
-    document.getElementById('done-btn').style.display = 'block';
-    document.querySelector('.pay-options').style.display = 'none';
+  function showQR() {
+    document.getElementById('qr-section').style.display = 'block';
+    document.getElementById('final-send-btn').style.display = 'block';
+    document.getElementById('initial-btns').style.display = 'none';
+    document.getElementById('pay-msg').innerText = "Scan QR and Click Below:";
   }
 
-  async function finalizeOrder(method) {
-    // Generate Bill Image (Auto Download)
+  async function completeOrder(method) {
+    // 1. Auto Download Bill JPG
     const canvas = await html2canvas(document.getElementById('bill-canvas'));
     const link = document.createElement('a');
-    link.download = 'EggMaster_Bill.jpg';
-    link.href = canvas.toDataURL();
+    link.download = `EggMaster_Bill_${Date.now()}.jpg`;
+    link.href = canvas.toDataURL("image/jpeg");
     link.click();
 
-    // Send WhatsApp
+    // 2. Prepare & Send WhatsApp Message
     let items = cart.map(i => `• ${i.name} (x${i.qty})`).join('%0A');
     const total = document.getElementById('total-price').innerText;
-    const msg = `*EGG MASTER ORDER*%0A━━━━━━━━━━━━━━%0A${items}%0A━━━━━━━━━━━━━━%0A*TOTAL:* ${total}%0A*PAYMENT:* ${method}%0A%0A_Aavse maza!_`;
+    const msg = `*NEW EGG MASTER ORDER*%0A━━━━━━━━━━━━━━%0A${items}%0A━━━━━━━━━━━━━━%0A*TOTAL:* ${total}%0A*PAYMENT:* ${method}%0A%0A_Shop is Open! Confirm please._`;
     window.open(`https://wa.me/${PHONE}?text=${msg}`, '_blank');
+  }
+
+  function showToast(m) {
+    const t = document.getElementById('toast');
+    t.innerText = m; t.style.display = 'block';
+    setTimeout(() => t.style.display = 'none', 2500);
   }
 
   renderMenu();

@@ -7,7 +7,6 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <!-- Playfair Display Font for that Image Style -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet" />
 
   <style>
@@ -20,7 +19,6 @@
     
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     
-    /* GLOBAL FONT CHANGE */
     body { font-family: 'Playfair Display', serif; background: var(--black); color: white; overflow-x: hidden; }
 
     #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.2; pointer-events: none; }
@@ -67,7 +65,7 @@
       justify-content: center;
       padding: 5px 15px;
       border: 2px solid var(--gold);
-      border-radius: 50px; /* Pill shape */
+      border-radius: 50px; 
       position: relative;
       background: rgba(0,0,0,0.5);
       animation: logoFloat 4s ease-in-out infinite;
@@ -79,7 +77,6 @@
       box-shadow: 0 0 20px rgba(212,175,55,0.4);
     }
     
-    /* Decorative line inside logo */
     .logo-line {
       width: 60%;
       height: 1px;
@@ -169,6 +166,8 @@
       box-shadow: 0 0 0 2px #5D4037, 0 0 0 5px #D4AF37, 0 0 0 7px #5D4037, 0 25px 80px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
       animation: scrollUnroll 0.6s ease-out;
       transform-style: preserve-3d; transition: transform 0.1s ease-out;
+      max-height: 90vh;
+      overflow-y: auto;
     }
     
     .modal-content:hover { transform: rotateX(2deg) rotateY(-2deg); }
@@ -195,6 +194,10 @@
     .seal-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
     .seal-btn.main { background: var(--gold-gradient); color: #3E2723; width: 100%; border-radius: 8px; font-weight: 900; }
     
+    /* Location Status Style */
+    .location-status { font-size: 0.8rem; color: #888; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
+    .location-status.active { color: #00ff88; }
+
     #qr-area { text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #8D6E63; }
     #upi-qr { border: 8px solid #5D4037; border-radius: 5px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
     
@@ -210,7 +213,6 @@
 <div id="particle-container"></div>
 
 <nav>
-  <!-- Language Switcher -->
   <div class="lang-switcher">
     <button class="lang-btn" onclick="toggleLangDropdown()">
       <span>🌐</span>
@@ -223,7 +225,6 @@
     </div>
   </div>
 
-  <!-- Designed Logo -->
   <div class="logo-wrapper" id="logo-area" onclick="burstParticles(event)">
     <div class="logo-design">
       <span class="logo-main-text">EGG</span>
@@ -267,6 +268,7 @@
     <h3 class="royal-title" data-translate="delivery_info">DELIVERY INFO</h3>
     <p class="royal-subtitle" data-translate="enter_details">Enter your royal details</p>
     <div class="ornament">❧ ❧ ❧</div>
+    
     <div class="form-group">
       <input type="text" id="c-name" data-translate-placeholder="ph_name" placeholder="Your Royal Name...">
     </div>
@@ -275,7 +277,12 @@
     </div>
     <div class="form-group">
       <textarea id="c-addr" data-translate-placeholder="ph_addr" placeholder="Kingdom Address..." rows="2"></textarea>
+      <div id="loc-status" class="location-status">
+        <span id="loc-icon">📍</span>
+        <span id="loc-text">Fetching live location...</span>
+      </div>
     </div>
+    
     <div class="ornament">❧ ❧ ❧</div>
     <div style="display:flex; gap:12px; margin-top:20px;">
       <button onclick="submitOrder('Cash On Delivery')" class="seal-btn cash" style="flex:1;" data-translate="cash">CASH</button>
@@ -299,10 +306,11 @@
 </div>
 
 <script>
-  const WHATSAPP_NUMBER = "919586096174";
+  const WHATSAPP_NUMBER = "919586096174"; // Admin Number
   const UPI_ID = "ashishchavda9586@oksbi";
   let cart = [];
   let currentLang = 'en';
+  let liveLocationUrl = ""; // Store live location
 
   // ========== TRANSLATIONS ==========
   const translations = {
@@ -379,6 +387,30 @@
     { id: 10, name: "Surti Gotalo", price: 80, img: "https://i.ibb.co/pv1FGXCr/surti-gotalo.jpg", quote: "The ultimate egg masterpiece." }
   ];
 
+  // ========== GEOLOCATION FUNCTION ==========
+  function getLiveLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          liveLocationUrl = `https://maps.google.com/?q=${lat},${lon}`;
+          document.getElementById('loc-status').classList.add('active');
+          document.getElementById('loc-icon').innerText = "✅";
+          document.getElementById('loc-text').innerText = "Location Captured!";
+        },
+        (error) => {
+          console.error("Location error:", error);
+          document.getElementById('loc-icon').innerText = "⚠️";
+          document.getElementById('loc-text').innerText = "Location permission denied";
+          liveLocationUrl = "Location not available";
+        }
+      );
+    } else {
+      liveLocationUrl = "Geolocation not supported";
+    }
+  }
+
   // ========== LANGUAGE FUNCTIONS ==========
   function toggleLangDropdown() { document.getElementById('lang-dropdown').classList.toggle('active'); }
   function setLanguage(lang) {
@@ -444,7 +476,14 @@
   }
 
   function toggleCart(s) { document.getElementById('cart-slide').classList.toggle('active', s); }
-  function openOrderForm() { if(cart.length > 0) document.getElementById('order-modal').style.display = 'flex'; }
+  
+  function openOrderForm() { 
+    if(cart.length > 0) {
+      document.getElementById('order-modal').style.display = 'flex';
+      getLiveLocation(); // Start fetching location when modal opens
+    }
+  }
+  
   function closeModal() { document.getElementById('order-modal').style.display = 'none'; }
 
   function renderMenu() {
@@ -493,45 +532,78 @@
     document.getElementById('qr-area').style.display = 'block';
   }
 
-  // ========== SUBMIT ORDER FIX ==========
+  // ========== MAIN ORDER SUBMISSION LOGIC ==========
   async function submitOrder(method) {
     const name = document.getElementById('c-name').value;
     const phone = document.getElementById('c-phone').value;
     const addr = document.getElementById('c-addr').value;
+    
     if(!name || !phone || !addr) {
       alert(currentLang === 'hi' ? "कृपया सभी विवरण भरें!" : currentLang === 'gu' ? "કૃપા કરીને બધી વિગતો ભરો!" : "Please fill all details!");
       return;
     }
-    const t = translations[currentLang];
-    const orderText = cart.map(i => `${i.name} x${i.qty}`).join('\n');
-    const totalPrice = document.getElementById('total-price').innerText;
-    const msg = `*NEW ORDER*\nName: ${name}\nPhone: ${phone}\nAddress: ${addr}\nItems:\n${orderText}\nTotal: ${totalPrice}\nPayment: ${method}`;
 
+    // Construct Digital Bill Message
+    const t = translations[currentLang];
+    const totalPrice = document.getElementById('total-price').innerText;
+    const orderItems = cart.map(i => `• ${i.name} x${i.qty} = ${t.rupee}${i.price * i.qty}`).join('\n');
+    
+    const message = `🍳 *EGG MASTER ORDER*
+━━━━━━━━━━━━━━━
+*Customer:* ${name}
+*Phone:* ${phone}
+*Address:* ${addr}
+*📍 Live Location:* ${liveLocationUrl}
+━━━━━━━━━━━━━━━
+*Items:*
+ ${orderItems}
+━━━━━━━━━━━━━━━
+*Total Amount:* ${totalPrice}
+*Payment:* ${method}
+━━━━━━━━━━━━━━━
+_Thank you for ordering!_`;
+
+    // Generate Visual Bill (For Download)
     const now = new Date();
     document.getElementById('bill-date').innerText = `Date: ${now.toLocaleDateString()} | Time: ${now.toLocaleTimeString()}`;
     document.getElementById('bill-items-list').innerHTML = cart.map(i => `<div style="display:flex; justify-content:space-between; margin:5px 0;"><span>${i.name} x${i.qty}</span><span>${t.rupee}${i.price*i.qty}</span></div>`).join('');
     document.getElementById('bill-grand-total').innerText = "TOTAL: " + totalPrice;
 
     const billArea = document.getElementById('bill-area');
-    billArea.style.position = 'fixed'; billArea.style.left = '0'; billArea.style.top = '0'; billArea.style.zIndex = '99999';
-    await new Promise(r => setTimeout(r, 100));
+    
+    // 1. Open WhatsApp Directly with the Text Bill
+    const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(waLink, '_blank');
 
+    // 2. Download Bill Image for Customer Record
+    // We make the bill visible temporarily to capture it
+    billArea.style.position = 'fixed'; 
+    billArea.style.left = '0'; 
+    billArea.style.top = '0'; 
+    billArea.style.zIndex = '99999';
+    
     try {
-      const canvas = await html2canvas(billArea, { scale: 2, useCORS: true, allowTaint: true });
-      canvas.toBlob(async (blob) => {
-        if (!blob) { fallbackWhatsApp(msg, name); return; }
-        const file = new File([blob], `Bill_${name}.jpg`, { type: 'image/jpeg' });
-        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-          try { await navigator.share({ files: [file], title: 'Egg Master Order', text: msg }); } catch (err) { console.log("Share cancelled", err); fallbackWhatsApp(msg, name); }
-        } else { fallbackWhatsApp(msg, name, canvas.toDataURL('image/jpeg')); }
-        billArea.style.position = 'fixed'; billArea.style.left = '-9999px'; billArea.style.zIndex = '-1';
-      }, 'image/jpeg', 0.9);
-    } catch (err) { console.error("Canvas error:", err); fallbackWhatsApp(msg, name); billArea.style.left = '-9999px'; }
-  }
+      const canvas = await html2canvas(billArea, { scale: 2 });
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      
+      // Trigger download for customer
+      const link = document.createElement('a');
+      link.download = `EggMaster_Bill_${name}.jpg`;
+      link.href = dataUrl;
+      link.click();
+    } catch (e) {
+      console.error("Bill generation failed", e);
+    }
 
-  function fallbackWhatsApp(msg, name, dataUrl) {
-    if (dataUrl) { const link = document.createElement('a'); link.download = `Bill_${name}.jpg`; link.href = dataUrl; link.click(); }
-    setTimeout(() => { window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(msg)}`, '_blank'); }, dataUrl ? 500 : 0);
+    // Hide bill area again
+    billArea.style.position = 'fixed'; billArea.style.left = '-9999px'; billArea.style.zIndex = '-1';
+    
+    // Reset UI
+    closeModal();
+    cart = [];
+    updateUI();
+    toggleCart(false);
+    alert(currentLang === 'hi' ? "ऑर्डर भेज दिया गया!" : currentLang === 'gu' ? "ઓર્ડર મોકલી દેવામાં આવ્યો!" : "Order Sent Successfully!");
   }
 
   // ========== BACKGROUND ANIMATION ==========

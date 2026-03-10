@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Egg Master | Universal Elite</title>
+  <title>Egg Master | Ultra Luxury</title>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -13,7 +13,7 @@
     :root { 
       --gold: #D4AF37; 
       --gold-light: #F5D77A;
-      --black: #080808; 
+      --black: #050505; 
       --gold-gradient: linear-gradient(135deg, #B8860B 0%, #D4AF37 25%, #F1D37E 50%, #D4AF37 75%, #8B6914 100%);
     }
     
@@ -24,16 +24,17 @@
     #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.2; pointer-events: none; }
 
     /* ========== PARTICLE CONTAINER ========== */
-    #particle-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99999; overflow: hidden; }
+    #particle-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99990; overflow: hidden; }
     .grain-particle { position: absolute; border-radius: 50%; pointer-events: none; }
 
     /* ========== NAVBAR ========== */
     nav { 
       position: fixed; top: 0; width: 100%; height: 70px; 
-      background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 100%);
       display: flex; align-items: center; justify-content: center; 
       padding: 0 15px; z-index: 10000; 
       border-bottom: 2px solid var(--gold);
+      backdrop-filter: blur(10px);
     }
     
     /* ========== LANGUAGE SWITCHER ========== */
@@ -48,63 +49,30 @@
     .lang-option:hover { background: var(--gold); color: #000; }
     .lang-option.selected { background: rgba(212,175,55,0.2); color: var(--gold); }
 
-    /* ========== DESIGNED LOGO ========== */
+    /* ========== UPDATED LOGO WITH ICON ========== */
     .logo-wrapper {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      cursor: pointer;
-      user-select: none;
-      text-decoration: none;
+      position: absolute; left: 50%; transform: translateX(-50%);
+      cursor: pointer; user-select: none; text-decoration: none;
     }
     
     .logo-design {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 5px 15px;
-      border: 2px solid var(--gold);
-      border-radius: 50px; 
-      position: relative;
-      background: rgba(0,0,0,0.5);
-      animation: logoFloat 4s ease-in-out infinite;
-      transition: all 0.3s ease;
+      display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px;
+      padding: 8px 20px; border: 2px solid var(--gold); border-radius: 50px; 
+      position: relative; background: rgba(0,0,0,0.5);
+      animation: logoFloat 4s ease-in-out infinite; transition: all 0.3s ease;
     }
+    .logo-design:hover { background: rgba(212,175,55,0.1); box-shadow: 0 0 20px rgba(212,175,55,0.4); }
     
-    .logo-design:hover {
-      background: rgba(212,175,55,0.1);
-      box-shadow: 0 0 20px rgba(212,175,55,0.4);
-    }
+    .logo-icon { font-size: 1.5rem; filter: drop-shadow(0 0 5px var(--gold)); }
     
-    .logo-line {
-      width: 60%;
-      height: 1px;
-      background: var(--gold);
-      margin: 2px 0;
-    }
-
-    .logo-main-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-weight: 900;
-      color: var(--gold);
-      letter-spacing: 3px;
-      line-height: 1;
-    }
-    
-    .logo-sub-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.7rem;
-      font-weight: 400;
-      color: #fff;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
+    .logo-text-box { display: flex; flex-direction: column; align-items: center; }
+    .logo-line { width: 100%; height: 1px; background: var(--gold); margin: 2px 0; }
+    .logo-main-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; color: var(--gold); letter-spacing: 3px; line-height: 1; }
+    .logo-sub-text { font-family: 'Playfair Display', serif; font-size: 0.7rem; font-weight: 400; color: #fff; letter-spacing: 2px; text-transform: uppercase; }
 
     @keyframes logoFloat {
-      0%, 100% { transform: translateY(0) rotate(-0.5deg) scale(1); filter: drop-shadow(0 5px 15px rgba(212,175,55,0.4)); }
-      50% { transform: translateY(-5px) rotate(0.5deg) scale(1.02); filter: drop-shadow(0 10px 20px rgba(212,175,55,0.6)); }
+      0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 5px 15px rgba(212,175,55,0.4)); }
+      50% { transform: translateY(-3px) scale(1.02); filter: drop-shadow(0 10px 20px rgba(212,175,55,0.6)); }
     }
     
     .cart-btn {
@@ -113,98 +81,179 @@
     .cart-btn:hover { transform: scale(1.1); background: rgba(212,175,55,0.2); box-shadow: 0 0 20px rgba(212,175,55,0.3); }
     .cart-badge { position: absolute; top: 5px; right: 5px; background: linear-gradient(135deg, #ff4757, #c0392b); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.75rem; font-family: 'Playfair Display', serif; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-    /* ========== HERO BANNER ========== */
-    .hero-banner { margin-top: 90px; padding: 30px 15px; text-align: center; background: linear-gradient(135deg, rgba(15,15,15,0.95) 0%, rgba(30,25,15,0.95) 100%); border: 2px solid var(--gold); margin-left: auto; margin-right: auto; max-width: 95%; border-radius: 20px; position: relative; z-index: 5000; box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(212,175,55,0.3); overflow: hidden; }
-    .hero-banner h1 { font-family: 'Playfair Display', serif; font-size: 1.6rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; letter-spacing: 3px; position: relative; z-index: 2; font-style: italic; }
-    .timing-box { font-size: 0.9rem; color: #ddd; border-top: 1px solid rgba(212,175,55,0.3); padding-top: 12px; position: relative; z-index: 2; }
+    /* ========== HERO BANNER REDESIGNED ========== */
+    .hero-banner { 
+      margin-top: 90px; padding: 60px 20px; text-align: center; 
+      background: radial-gradient(circle at center, rgba(30,25,15,0.9) 0%, rgba(0,0,0,1) 100%);
+      margin-left: auto; margin-right: auto; max-width: 95%; border-radius: 20px; 
+      position: relative; z-index: 5000; 
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5); 
+      overflow: hidden; 
+      border-bottom: 2px solid var(--gold); /* Clean bottom border only */
+    }
+    
+    .hero-banner::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('https://z-cdn-media.chatglm.cn/files/92384995-230b-4dd0-b5b2-6f3155543114.png?auth_key=1873132354-dba3580c2a7e4f0ca780cee7072d45a1-0-75f5f3b634bcd4974ce6ec29f1d65b04');
+      background-size: cover; background-position: center; opacity: 0.15; mix-blend-mode: overlay; z-index: 0;
+    }
+    
+    .hero-content { position: relative; z-index: 2; transform-style: preserve-3d; }
+    
+    .hero-banner h1 { 
+      font-family: 'Playfair Display', serif; font-size: 2.2rem; 
+      background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+      margin-bottom: 10px; letter-spacing: 3px; 
+      font-style: normal; /* STRAIGHT FONT */
+      text-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+      animation: titleGlow 3s infinite alternate;
+    }
+    
+    .hero-divider {
+        width: 100px; height: 2px; background: var(--gold-gradient); margin: 15px auto;
+        box-shadow: 0 0 10px var(--gold);
+    }
+
+    .timing-box { font-size: 1rem; color: #ddd; padding-top: 15px; margin-top: 15px; display: inline-block; }
     .neon-dot { height: 10px; width: 10px; background: #00ff88; display: inline-block; border-radius: 50%; margin-right: 8px; box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88; animation: neonPulse 1.5s infinite; }
     @keyframes neonPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
     /* ========== MENU GRID ========== */
-    .main-content { position: relative; z-index: 5000; padding: 20px 10px; max-width: 1200px; margin: 0 auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-
-    @media (max-width: 600px) {
-      .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .logo-main-text { font-size: 1rem; }
-      .hero-banner h1 { font-size: 1.2rem; }
-      .lang-btn { padding: 5px 10px; font-size: 0.7rem; }
+    .main-content { position: relative; z-index: 5000; padding: 40px 10px; max-width: 1200px; margin: 0 auto; }
+    
+    .grid-bg-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('https://z-cdn-media.chatglm.cn/files/92384995-230b-4dd0-b5b2-6f3155543114.png?auth_key=1873132354-dba3580c2a7e4f0ca780cee7072d45a1-0-75f5f3b634bcd4974ce6ec29f1d65b04');
+      background-size: cover; background-position: center;
+      opacity: 0.08; mix-blend-mode: luminosity; pointer-events: none; z-index: -1;
     }
 
-    /* ========== CARD FRAME ========== */
-    .card-wrapper { position: relative; background: linear-gradient(145deg, #151515 0%, #0a0a0a 100%); border-radius: 20px; overflow: visible; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); padding: 12px; }
-    .card-wrapper::before { content: ''; position: absolute; inset: 0; border-radius: 20px; padding: 3px; background: var(--gold-gradient); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
-    .card-wrapper::after { content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; border-radius: 25px; background: radial-gradient(circle at 8px 8px, var(--gold) 4px, transparent 5px), radial-gradient(circle at calc(100% - 8px) 8px, var(--gold) 4px, transparent 5px), radial-gradient(circle at 8px calc(100% - 8px), var(--gold) 4px, transparent 5px), radial-gradient(circle at calc(100% - 8px) calc(100% - 8px), var(--gold) 4px, transparent 5px); pointer-events: none; opacity: 0.8; transition: all 0.5s; }
-    .card-wrapper:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 50px rgba(212,175,55,0.2); }
-    .card-wrapper:hover::after { opacity: 1; transform: scale(1.05); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; perspective: 1000px; }
 
-    .frame-box { position: relative; width: 100%; height: 160px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 4px solid; border-image: var(--gold-gradient) 1; background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%); border-radius: 15px; }
-    .dish-img { width: 100%; height: 100%; object-fit: cover; z-index: 2; transition: all 0.5s ease; filter: brightness(0.9) contrast(1.1); }
-    .card-wrapper:hover .dish-img { transform: scale(1.1); filter: brightness(1.1) contrast(1.2); }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+      .logo-main-text { font-size: 1rem; }
+      .hero-banner h1 { font-size: 1.5rem; }
+    }
 
-    .dish-info { padding: 15px 10px 10px; text-align: center; }
-    .dish-name { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 4px; font-family: 'Playfair Display', serif; }
-    .dish-quote { font-family: 'Playfair Display', serif; font-size: 0.8rem; color: #888; font-style: italic; margin-bottom: 8px; }
-    .price { color: var(--gold-light); font-size: 1.15rem; font-weight: 900; margin-bottom: 10px; display: block; text-shadow: 0 0 10px rgba(212,175,55,0.3); font-family: 'Playfair Display', serif; }
+    /* ========== 3D CARD FRAME ========== */
+    .card-wrapper { 
+      position: relative; height: 380px; 
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+      transform-style: preserve-3d;
+    }
+    
+    .card-inner {
+      position: relative; width: 100%; height: 100%;
+      transition: transform 0.8s; transform-style: preserve-3d;
+    }
+    
+    /* FLIP ONLY ON CLASS */
+    .card-wrapper.touch-flip .card-inner {
+      transform: rotateY(180deg);
+    }
 
-    .btn-gold { background: var(--gold-gradient); color: #000; border: none; padding: 12px; font-weight: 900; width: 100%; cursor: pointer; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; border-radius: 8px; position: relative; overflow: hidden; font-family: 'Playfair Display', serif; }
-    .btn-gold:hover { transform: scale(1.03); box-shadow: 0 5px 25px rgba(212,175,55,0.5); }
+    .card-front, .card-back {
+      position: absolute; width: 100%; height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 2px solid var(--gold);
+      background: linear-gradient(145deg, #151515 0%, #0a0a0a 100%);
+    }
+    
+    .card-front::after {
+      content: ''; position: absolute; inset: -2px; background: var(--gold-gradient); z-index: -1;
+      filter: blur(15px); opacity: 0.3; transition: opacity 0.3s;
+    }
+    .card-wrapper:hover .card-front::after { opacity: 0.8; }
+
+    .frame-box { position: relative; width: 100%; height: 160px; overflow: hidden; border-bottom: 1px solid #222; }
+    .dish-img { width: 100%; height: 100%; object-fit: cover; transition: all 0.5s ease; filter: brightness(0.9) contrast(1.1); }
+
+    .dish-info { padding: 15px; text-align: center; height: calc(100% - 160px); display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .dish-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; font-family: 'Playfair Display', serif; }
+    .dish-quote { font-family: 'Playfair Display', serif; font-size: 0.75rem; color: #888; font-style: italic; margin-bottom: 8px; }
+    .price { color: var(--gold-light); font-size: 1.2rem; font-weight: 900; margin-bottom: 15px; text-shadow: 0 0 10px rgba(212,175,55,0.3); font-family: 'Playfair Display', serif; }
+
+    .btn-gold { background: var(--gold-gradient); color: #000; border: none; padding: 12px 20px; font-weight: 900; width: 90%; cursor: pointer; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; border-radius: 50px; }
+    .btn-gold:hover { transform: scale(1.05); box-shadow: 0 5px 25px rgba(212,175,55,0.5); }
+
+    /* ========== CARD BACK (CHHAS OFFER) ========== */
+    .card-back {
+      transform: rotateY(180deg);
+      background: #000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 20px;
+    }
+    
+    .chhas-img-container {
+      width: 140px; height: 140px; border-radius: 10px; overflow: hidden;
+      border: 3px solid var(--gold); margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+    }
+    .chhas-img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .offer-text { color: var(--gold-light); font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
+    .offer-sub { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; }
 
     .premium-tag { text-align: center; margin: 50px 0 30px; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold); text-shadow: 0 0 20px rgba(212,175,55,0.5); letter-spacing: 2px; font-style: italic; }
     
-    #cart-slide { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%; background: #050505; z-index: 11000; transition: 0.5s; border-left: 3px solid var(--gold); display: flex; flex-direction: column; }
+    /* ========== CART SLIDE ========== */
+    #cart-slide { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%; background: #050505; z-index: 11000; transition: 0.5s; border-left: 3px solid var(--gold); display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
     #cart-slide.active { right: 0; }
     
-    /* ========== MAHARAJA STYLE ORDER FORM ========== */
-    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 15000; display: none; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(5px); perspective: 1000px; }
+    .cart-header { padding:20px; background:var(--gold-gradient); color:black; font-weight: 900; display:flex; justify-content:space-between; align-items:center; font-size: 1.1rem; }
     
+    .cart-item-box { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding:15px; border: 1px solid #222; border-radius: 10px; background: rgba(255,255,255,0.02); }
+    .cart-item-info h4 { color: #fff; font-size: 1rem; margin-bottom: 5px; }
+    .cart-item-info span { color: #888; font-size: 0.8rem; }
+    
+    .qty-controls { display: flex; align-items: center; gap: 10px; }
+    .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--gold); background: transparent; color: var(--gold); font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: 0.2s; }
+    .qty-btn:hover { background: var(--gold); color: #000; }
+    .qty-num { color: #fff; font-weight: bold; min-width: 20px; text-align: center; }
+    .item-total { color: var(--gold); font-weight: 700; margin-left: 15px; }
+
+    /* ========== MAHARAJA STYLE ORDER FORM ========== */
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 15000; display: none; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(5px); }
     .modal-content {
       position: relative; width: 100%; max-width: 420px; padding: 50px 30px 35px;
-      background: linear-gradient(to right, rgba(139,90,43,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(139,90,43,0.1) 1px, transparent 1px), radial-gradient(ellipse at top, #F5E6C8 0%, #E8D5A5 40%, #D4C298 100%);
-      background-size: 20px 20px, 20px 20px, 100% 100%;
+      background: radial-gradient(ellipse at top, #F5E6C8 0%, #E8D5A5 40%, #D4C298 100%);
       border-radius: 5px; color: #3E2723;
-      box-shadow: 0 0 0 2px #5D4037, 0 0 0 5px #D4AF37, 0 0 0 7px #5D4037, 0 25px 80px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
-      animation: scrollUnroll 0.6s ease-out;
-      transform-style: preserve-3d; transition: transform 0.1s ease-out;
-      max-height: 90vh;
-      overflow-y: auto;
+      box-shadow: 0 0 0 2px #5D4037, 0 0 0 5px #D4AF37, 0 25px 80px rgba(0,0,0,0.8);
+      animation: scrollUnroll 0.6s ease-out; max-height: 90vh; overflow-y: auto;
     }
+    @keyframes scrollUnroll { 0% { transform: scaleY(0.1); opacity: 0; } 100% { transform: scaleY(1); opacity: 1; } }
     
-    .modal-content:hover { transform: rotateX(2deg) rotateY(-2deg); }
+    .modal-content::before, .modal-content::after { content: ''; position: absolute; left: 0; right: 0; height: 25px; background: linear-gradient(90deg, #8B5A2B, #A0522D, #8B5A2B); }
+    .modal-content::before { top: -8px; border-radius: 5px 5px 0 0; }
+    .modal-content::after { bottom: -8px; border-radius: 0 0 5px 5px; }
     
-    @keyframes scrollUnroll { 0% { transform: scaleY(0.1) translateY(-100px) rotateX(-90deg); opacity: 0; } 100% { transform: scaleY(1) translateY(0) rotateX(0); opacity: 1; } }
+    .royal-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: #3E2723; text-align: center; margin-bottom: 8px; }
+    .royal-subtitle { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5D4037; text-align: center; margin-bottom: 25px; border-bottom: 1px dashed #8D6E63; padding-bottom: 15px; }
+    .ornament { text-align: center; font-size: 1.2rem; color: #8B5A2B; margin: 10px 0; }
     
-    .modal-content::before, .modal-content::after { content: ''; position: absolute; left: 0; right: 0; height: 25px; background: linear-gradient(90deg, #8B5A2B, #A0522D, #8B5A2B); border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.5); transform: translateZ(20px); }
-    .modal-content::before { top: -8px; border-bottom: 2px solid #5D4037; }
-    .modal-content::after { bottom: -8px; border-top: 2px solid #5D4037; }
+    .modal-content input, .modal-content textarea { width: 100%; background: transparent; border: none; border-bottom: 2px solid #8D6E63; color: #3E2723; padding: 12px 5px; margin-top: 5px; font-size: 1.2rem; outline: none; }
+    .modal-content input:focus { border-bottom-color: #D4AF37; }
     
-    .royal-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: #3E2723; text-align: center; margin-bottom: 8px; letter-spacing: 2px; }
-    .royal-subtitle { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5D4037; text-align: center; margin-bottom: 25px; border-bottom: 1px dashed #8D6E63; padding-bottom: 15px; font-style: italic; }
-    .ornament { text-align: center; font-size: 1.2rem; color: #8B5A2B; margin: 10px 0; letter-spacing: 5px; }
-    
-    .form-group { position: relative; margin-bottom: 20px; }
-    
-    .modal-content input, .modal-content textarea { width: 100%; background: transparent; border: none; border-bottom: 2px solid #8D6E63; color: #3E2723; padding: 12px 5px; margin-top: 5px; font-family: 'Playfair Display', serif; font-size: 1.2rem; transition: all 0.3s; outline: none; }
-    .modal-content input::placeholder, .modal-content textarea::placeholder { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(93,64,55,0.6); }
-    .modal-content input:focus, .modal-content textarea:focus { border-bottom-color: #D4AF37; background: rgba(212,175,55,0.1); }
-    
-    .seal-btn { position: relative; padding: 15px 30px; border: none; font-family: 'Playfair Display', serif; font-weight: 700; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .seal-btn { padding: 15px 30px; border: none; font-family: 'Playfair Display', serif; font-weight: 700; cursor: pointer; transition: all 0.3s; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
     .seal-btn.cash { background: linear-gradient(145deg, #5D4037, #3E2723); color: #F5E6C8; border-radius: 8px; }
     .seal-btn.online { background: linear-gradient(145deg, #25D366, #128C7E); color: white; border-radius: 8px; }
-    .seal-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
-    .seal-btn.main { background: var(--gold-gradient); color: #3E2723; width: 100%; border-radius: 8px; font-weight: 900; }
+    .seal-btn.main { background: var(--gold-gradient); color: #3E2723; width: 100%; border-radius: 8px; font-weight: 900; margin-top: 15px; }
     
-    /* Location Status Style */
     .location-status { font-size: 0.8rem; color: #888; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
     .location-status.active { color: #00ff88; }
 
-    #qr-area { text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #8D6E63; }
-    #upi-qr { border: 8px solid #5D4037; border-radius: 5px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+    #payment-area { text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #8D6E63; }
     
-    .close-text { color: #8D6E63; text-align: center; margin-top: 20px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 0.9rem; transition: color 0.3s; }
-    .close-text:hover { color: #D4AF37; }
+    .payment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+    .pay-btn { padding: 12px 5px; border: 2px solid #5D4037; background: #fff; border-radius: 8px; cursor: pointer; font-weight: 700; color: #3E2723; font-size: 0.8rem; transition: 0.2s; }
+    .pay-btn:hover { background: #3E2723; color: #fff; border-color: #D4AF37; }
     
-    #bill-area { background: white; color: black; padding: 30px; position: fixed; left: -9999px; width: 400px; text-align: center; z-index: -1; font-family: 'Playfair Display', serif; }
+    .close-text { color: #8D6E63; text-align: center; margin-top: 20px; cursor: pointer; }
+    
+    #bill-area { background: white; color: black; padding: 30px; position: fixed; left: -9999px; width: 400px; text-align: center; z-index: -1; }
   </style>
 </head>
 <body>
@@ -225,11 +274,15 @@
     </div>
   </div>
 
-  <div class="logo-wrapper" id="logo-area" onclick="burstParticles(event)">
+  <!-- UPDATED LOGO WITH ICON -->
+  <div class="logo-wrapper" onclick="burstParticles(event)">
     <div class="logo-design">
-      <span class="logo-main-text">EGG</span>
-      <div class="logo-line"></div>
-      <span class="logo-sub-text">MASTER</span>
+      <span class="logo-icon">🍳</span>
+      <div class="logo-text-box">
+        <span class="logo-main-text">EGG MASTER</span>
+        <div class="logo-line"></div>
+        <span class="logo-sub-text">UNIVERSAL ELITE</span>
+      </div>
     </div>
   </div>
   
@@ -239,20 +292,25 @@
   </div>
 </nav>
 
+<!-- REDESIGNED HERO BANNER -->
 <div class="hero-banner" id="hero-banner">
-  <h1 data-translate="banner_title">GUJARAT SPECIAL EGG DISHES</h1>
-  <div class="timing-box">
-    <span class="neon-dot"></span> <span data-translate="timing">8:00 AM - 2:00 PM | 7:00 PM - 12:00 AM</span>
+  <div class="hero-content">
+    <h1 data-translate="banner_title">GUJARAT SPECIAL EGG DISHES</h1>
+    <div class="hero-divider"></div>
+    <div class="timing-box">
+      <span class="neon-dot"></span> <span data-translate="timing">8:00 AM - 2:00 PM | 7:00 PM - 12:00 AM</span>
+    </div>
   </div>
 </div>
 
 <div class="main-content">
+  <div class="grid-bg-overlay"></div>
   <div class="grid" id="menu-grid"></div>
   <div class="premium-tag" data-translate="premium_tag">Tasted By Kings, Made For You</div>
 </div>
 
 <div id="cart-slide">
-  <div style="padding:20px; background:var(--gold-gradient); color:black; font-weight: 900; display:flex; justify-content:space-between; align-items:center; font-size: 1.1rem;">
+  <div class="cart-header">
     <span data-translate="your_cart">YOUR CART</span>
     <button onclick="toggleCart(false)" style="background:none; border:none; font-size:1.5rem; font-weight:900; cursor:pointer; color:black;">✕</button>
   </div>
@@ -263,8 +321,9 @@
   </div>
 </div>
 
+<!-- ORDER MODAL -->
 <div id="order-modal" class="modal">
-  <div class="modal-content" id="modal-scroll">
+  <div class="modal-content">
     <h3 class="royal-title" data-translate="delivery_info">DELIVERY INFO</h3>
     <p class="royal-subtitle" data-translate="enter_details">Enter your royal details</p>
     <div class="ornament">❧ ❧ ❧</div>
@@ -286,93 +345,60 @@
     <div class="ornament">❧ ❧ ❧</div>
     <div style="display:flex; gap:12px; margin-top:20px;">
       <button onclick="submitOrder('Cash On Delivery')" class="seal-btn cash" style="flex:1;" data-translate="cash">CASH</button>
-      <button onclick="showUPIDetails()" class="seal-btn online" style="flex:1;" data-translate="online">ONLINE</button>
+      <button onclick="showPaymentOptions()" class="seal-btn online" style="flex:1;" data-translate="online">ONLINE</button>
     </div>
-    <div id="qr-area" style="display:none;">
-      <img id="upi-qr" style="width:150px; margin:10px 0;">
-      <button onclick="submitOrder('Paid Online')" class="seal-btn main" data-translate="confirm">CONFIRM & SEND</button>
+    
+    <div id="payment-area" style="display:none;">
+      <p style="font-size: 1.1rem; color: #3E2723; margin-bottom: 10px;">Total: <strong id="pay-amt-display">₹0</strong></p>
+      <p style="font-size: 0.85rem; color: #5D4037; margin-bottom: 15px; font-style: italic;">Select App to Pay</p>
+      
+      <div class="payment-grid">
+        <button class="pay-btn" onclick="openApp('gpay')">Google Pay</button>
+        <button class="pay-btn" onclick="openApp('phonepe')">PhonePe</button>
+        <button class="pay-btn" onclick="openApp('paytm')">Paytm</button>
+      </div>
+      
+      <button onclick="submitOrder('Paid Online')" class="seal-btn main" data-translate="confirm">PAID? SEND ORDER</button>
     </div>
+    
     <p class="close-text" onclick="closeModal()" data-translate="close">✕ Close Scroll</p>
   </div>
 </div>
 
 <div id="bill-area">
     <h1 style="border-bottom:2px solid black; padding-bottom:10px;">🍳 EGG MASTER RECEIPT</h1>
-    <div style="margin:20px 0; text-align:left;">
-      <p style="font-size:14px; color:#333;" id="bill-date"></p>
-    </div>
+    <div style="margin:20px 0; text-align:left;"><p style="font-size:14px; color:#333;" id="bill-date"></p></div>
     <div id="bill-items-list" style="text-align:left; margin:20px 0; font-size:16px;"></div>
     <h2 id="bill-grand-total" style="border-top:2px solid black; padding-top:10px;"></h2>
 </div>
 
 <script>
-  const WHATSAPP_NUMBER = "919586096174"; // Admin Number
+  const WHATSAPP_NUMBER = "919586096174"; 
   const UPI_ID = "ashishchavda9586@oksbi";
+  const MERCHANT_NAME = "Egg Master";
   let cart = [];
   let currentLang = 'en';
-  let liveLocationUrl = ""; // Store live location
+  let liveLocationUrl = ""; 
 
   // ========== TRANSLATIONS ==========
   const translations = {
     en: {
-      banner_title: "GUJARAT SPECIAL EGG DISHES",
-      timing: "8:00 AM - 2:00 PM | 7:00 PM - 12:00 AM",
-      premium_tag: "Tasted By Kings, Made For You",
-      your_cart: "YOUR CART",
-      total: "Total",
-      checkout: "CHECKOUT NOW",
-      delivery_info: "DELIVERY INFO",
-      enter_details: "Enter your royal details",
-      ph_name: "Your Royal Name...",
-      ph_phone: "Royal Contact Number...",
-      ph_addr: "Kingdom Address...",
-      cash: "CASH",
-      online: "ONLINE",
-      confirm: "CONFIRM & SEND",
-      close: "✕ Close Scroll",
-      add_to_cart: "ADD TO CART",
-      added: "ADDED!",
-      rupee: "₹"
+      banner_title: "GUJARAT SPECIAL EGG DISHES", timing: "8:00 AM - 2:00 PM | 7:00 PM - 12:00 AM", premium_tag: "Tasted By Kings, Made For You",
+      your_cart: "YOUR CART", total: "Total", checkout: "CHECKOUT NOW", delivery_info: "DELIVERY INFO", enter_details: "Enter your royal details",
+      ph_name: "Your Royal Name...", ph_phone: "Royal Contact Number...", ph_addr: "Kingdom Address...",
+      cash: "CASH", online: "ONLINE", confirm: "PAID? SEND ORDER", close: "✕ Close Scroll", add_to_cart: "ADD TO CART", added: "ADDED!", rupee: "₹"
     },
     hi: {
-      banner_title: "गुजरात स्पेशल एग डिशेज",
-      timing: "सुबह 8:00 - दोपहर 2:00 | शाम 7:00 - रात 12:00",
-      premium_tag: "राजाओं का स्वाद, आपके लिए बना",
-      your_cart: "आपका कार्ट",
-      total: "कुल",
-      checkout: "अभी ऑर्डर करें",
-      delivery_info: "डिलीवरी जानकारी",
-      enter_details: "अपना विवरण दर्ज करें",
-      ph_name: "आपका नाम...",
-      ph_phone: "संपर्क नंबर...",
-      ph_addr: "पूरा पता...",
-      cash: "कैश",
-      online: "ऑनलाइन",
-      confirm: "कन्फर्म करें",
-      close: "✕ बंद करें",
-      add_to_cart: "कार्ट में डालें",
-      added: "जोड़ा गया!",
-      rupee: "₹"
+      banner_title: "गुजरात स्पेशल एग डिशेज", timing: "सुबह 8:00 - दोपहर 2:00 | शाम 7:00 - रात 12:00", premium_tag: "राजाओं का स्वाद, आपके लिए बना",
+      your_cart: "आपका कार्ट", total: "कुल", checkout: "अभी ऑर्डर करें", delivery_info: "डिलीवरी जानकारी", enter_details: "अपना विवरण दर्ज करें",
+      ph_name: "आपका नाम...", ph_phone: "संपर्क नंबर...", ph_addr: "पूरा पता...",
+      cash: "कैश", online: "ऑनलाइन", confirm: "भुगतान किया? ऑर्डर भेजें", close: "✕ बंद करें", add_to_cart: "कार्ट में डालें", added: "जोड़ा गया!", rupee: "₹"
     },
     gu: {
-      banner_title: "ગુજરાત સ્પેશિયલ એગ ડિશેસ",
-      timing: "સવારે 8:00 - બપોરે 2:00 | સાંજે 7:00 - રાત્રે 12:00",
-      premium_tag: "રાજાઓનો સ્વાદ, તમારા માટે બનાવેલ",
-      your_cart: "તમારું કાર્ટ",
-      total: "કુલ",
-      checkout: "હવે ઓર્ડર કરો",
-      delivery_info: "ડિલિવરી માહિતી",
-      enter_details: "તમારી વિગતો દાખલ કરો",
-      ph_name: "તમારું નામ...",
-      ph_phone: "સંપર્ક નંબર...",
-      ph_addr: "સંપૂર્ણ સરનામું...",
-      cash: "કેશ",
-      online: "ઓનલાઈન",
-      confirm: "ખાતરી કરો",
-      close: "✕ બંધ કરો",
-      add_to_cart: "કાર્ટમાં ઉમેરો",
-      added: "ઉમેર્યું!",
-      rupee: "₹"
+      banner_title: "ગુજરાત સ્પેશિયલ એગ ડિશેસ", timing: "સવારે 8:00 - બપોરે 2:00 | સાંજે 7:00 - રાત્રે 12:00", premium_tag: "રાજાઓનો સ્વાદ, તમારા માટે બનાવેલ",
+      your_cart: "તમારું કાર્ટ", total: "કુલ", checkout: "હવે ઓર્ડર કરો", delivery_info: "ડિલિવરી માહિતી", enter_details: "તમારી વિગતો દાખલ કરો",
+      ph_name: "તમારું નામ...", ph_phone: "સંપર્ક નંબર...", ph_addr: "સંપૂર્ણ સરનામું...",
+      cash: "કેશ", online: "ઓનલાઈન", confirm: "ચૂકવણી કરી? ઓર્ડર મોકલો", close: "✕ બંધ કરો", add_to_cart: "કાર્ટમાં ઉમેરો", added: "ઉમેર્યું!", rupee: "₹"
     }
   };
 
@@ -387,27 +413,25 @@
     { id: 10, name: "Surti Gotalo", price: 80, img: "https://i.ibb.co/pv1FGXCr/surti-gotalo.jpg", quote: "The ultimate egg masterpiece." }
   ];
 
-  // ========== GEOLOCATION FUNCTION ==========
+  // UPDATED CHHAS IMAGE URL
+  const chhasImg = "https://i.ibb.co/5W7r68NC/masala-chhas.jpg";
+
+  // ========== GEOLOCATION ==========
   function getLiveLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          liveLocationUrl = `https://maps.google.com/?q=${lat},${lon}`;
+        (pos) => {
+          liveLocationUrl = `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
           document.getElementById('loc-status').classList.add('active');
           document.getElementById('loc-icon').innerText = "✅";
           document.getElementById('loc-text').innerText = "Location Captured!";
         },
-        (error) => {
-          console.error("Location error:", error);
+        (err) => {
           document.getElementById('loc-icon').innerText = "⚠️";
           document.getElementById('loc-text').innerText = "Location permission denied";
-          liveLocationUrl = "Location not available";
+          liveLocationUrl = "N/A";
         }
       );
-    } else {
-      liveLocationUrl = "Geolocation not supported";
     }
   }
 
@@ -426,52 +450,27 @@
   }
   document.addEventListener('click', (e) => { if (!e.target.closest('.lang-switcher')) { document.getElementById('lang-dropdown').classList.remove('active'); } });
 
-  // ========== PARTICLE EFFECTS ==========
-  const heroBanner = document.getElementById('hero-banner');
-  const particleContainer = document.getElementById('particle-container');
-  let lastMoveTime = 0;
-
-  function createFloatingGrain(x, y) {
-    const particle = document.createElement('div');
-    particle.className = 'grain-particle';
-    const size = 2 + Math.random() * 3;
-    particle.style.width = size + 'px';
-    particle.style.height = size + 'px';
-    particle.style.background = `radial-gradient(circle at 30% 30%, #fff, #D4AF37)`;
-    particle.style.boxShadow = `0 0 ${size}px rgba(212,175,55,0.8)`;
-    particle.style.left = x + 'px';
-    particle.style.top = y + 'px';
-    particle.style.opacity = '1';
-    particleContainer.appendChild(particle);
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 20 + Math.random() * 40;
-    const endX = Math.cos(angle) * distance;
-    const endY = Math.sin(angle) * distance - 30;
-    particle.animate([ { transform: 'translate(0, 0) scale(1)', opacity: 1 }, { transform: `translate(${endX}px, ${endY}px) scale(0)`, opacity: 0 } ], { duration: 600 + Math.random() * 400, easing: 'ease-out', fill: 'forwards' });
-    setTimeout(() => particle.remove(), 1000);
-  }
-  heroBanner.addEventListener('touchmove', (e) => { const now = Date.now(); if (now - lastMoveTime > 30) { const touch = e.touches[0]; createFloatingGrain(touch.clientX, touch.clientY); lastMoveTime = now; } });
-  heroBanner.addEventListener('mousemove', (e) => { const now = Date.now(); if (now - lastMoveTime > 50) { createFloatingGrain(e.clientX, e.clientY); lastMoveTime = now; } });
-
+  // ========== PARTICLE & BURST ==========
   function burstParticles(e) {
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
+    const container = document.getElementById('particle-container');
     for (let i = 0; i < 40; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'grain-particle';
+      const p = document.createElement('div');
+      p.className = 'grain-particle';
       const size = 4 + Math.random() * 6;
-      particle.style.width = size + 'px'; particle.style.height = size + 'px';
-      particle.style.background = `radial-gradient(circle at 30% 30%, #fff, #D4AF37)`;
-      particle.style.boxShadow = `0 0 ${size}px #D4AF37`;
-      particle.style.left = centerX + 'px'; particle.style.top = centerY + 'px';
-      particleContainer.appendChild(particle);
+      p.style.width = size + 'px'; p.style.height = size + 'px';
+      p.style.background = `radial-gradient(circle at 30% 30%, #fff, #D4AF37)`;
+      p.style.boxShadow = `0 0 ${size}px #D4AF37`;
+      p.style.left = centerX + 'px'; p.style.top = centerY + 'px';
+      container.appendChild(p);
       const angle = (Math.PI * 2 * Math.random());
       const velocity = 100 + Math.random() * 150;
       const endX = Math.cos(angle) * velocity;
       const endY = Math.sin(angle) * velocity - 80;
-      particle.animate([ { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 }, { transform: `translate(calc(-50% + ${endX}px), calc(-50% + ${endY}px)) scale(0)`, opacity: 0 } ], { duration: 800 + Math.random() * 600, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', fill: 'forwards' });
-      setTimeout(() => particle.remove(), 1500);
+      p.animate([ { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 }, { transform: `translate(calc(-50% + ${endX}px), calc(-50% + ${endY}px)) scale(0)`, opacity: 0 } ], { duration: 800 + Math.random() * 600, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', fill: 'forwards' });
+      setTimeout(() => p.remove(), 1500);
     }
   }
 
@@ -480,130 +479,172 @@
   function openOrderForm() { 
     if(cart.length > 0) {
       document.getElementById('order-modal').style.display = 'flex';
-      getLiveLocation(); // Start fetching location when modal opens
+      document.getElementById('payment-area').style.display = 'none'; 
+      getLiveLocation(); 
     }
   }
-  
   function closeModal() { document.getElementById('order-modal').style.display = 'none'; }
 
+  // ========== RENDER MENU ==========
   function renderMenu() {
     const t = translations[currentLang];
     document.getElementById('menu-grid').innerHTML = menu.map((item, index) => `
       <div class="card-wrapper" style="animation: fadeInUp 0.6s ease ${index * 0.1}s both;">
-        <div class="frame-box">
-            <img class="dish-img" src="${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200/1a1a1a/D4AF37?text=EGG+DISH'">
-        </div>
-        <div class="dish-info">
-            <div class="dish-name">${item.name}</div>
-            <div class="dish-quote">"${item.quote}"</div>
-            <div class="price">${t.rupee}${item.price}</div>
-            <button class="btn-gold" onclick="addToCart(${item.id}, this)">${t.add_to_cart}</button>
+        <div class="card-inner">
+          <!-- FRONT -->
+          <div class="card-front">
+            <div class="frame-box">
+                <img class="dish-img" src="${item.img}" alt="${item.name}">
+            </div>
+            <div class="dish-info">
+                <div class="dish-name">${item.name}</div>
+                <div class="dish-quote">"${item.quote}"</div>
+                <div class="price">${t.rupee}${item.price}</div>
+                <button class="btn-gold" onclick="event.stopPropagation(); addToCart(${item.id}, this)">${t.add_to_cart}</button>
+            </div>
+          </div>
+          <!-- BACK (CHHAS OFFER) -->
+          <div class="card-back">
+            <div class="chhas-img-container">
+              <img src="${chhasImg}" class="chhas-img" alt="Masala Chhas">
+            </div>
+            <div class="offer-text">Add Masala Chhas?</div>
+            <div class="offer-sub">Perfect side for your dish.</div>
+            <button class="btn-gold" onclick="event.stopPropagation(); addChhas(); this.closest('.card-wrapper').classList.remove('touch-flip');">
+              Add ₹10 Only
+            </button>
+          </div>
         </div>
       </div>`).join('');
   }
 
+  // ========== CART LOGIC ==========
   function addToCart(id, btn) {
     const item = menu.find(m => m.id === id);
     const existing = cart.find(c => c.id === id);
-    if(existing) existing.qty++; else cart.push({...item, qty:1});
+    if(existing) existing.qty++; 
+    else cart.push({...item, qty:1});
     updateUI();
+    
+    // FLIP CARD LOGIC
+    const cardWrapper = btn.closest('.card-wrapper');
+    if(cardWrapper) {
+      cardWrapper.classList.add('touch-flip');
+      // Auto flip back after 3 seconds
+      setTimeout(() => {
+        cardWrapper.classList.remove('touch-flip');
+      }, 3000);
+    }
+
+    // Visual feedback
     const t = translations[currentLang];
     btn.textContent = t.added;
     btn.style.background = '#00ff88';
     setTimeout(() => { btn.textContent = t.add_to_cart; btn.style.background = ''; }, 800);
   }
 
+  function addChhas() {
+    const chhasItem = { id: 99, name: "Masala Chhas", price: 10, qty: 1 };
+    const existing = cart.find(c => c.id === 99);
+    if(existing) existing.qty++;
+    else cart.push(chhasItem);
+    updateUI();
+    alert("Masala Chhas Added! 🥛");
+  }
+
+  function changeQty(id, amount) {
+    let itemIndex = cart.findIndex(c => c.id === id);
+    if(itemIndex > -1) {
+      cart[itemIndex].qty += amount;
+      if(cart[itemIndex].qty <= 0) {
+        cart.splice(itemIndex, 1);
+      }
+    }
+    updateUI();
+  }
+
   function updateUI() {
     let total = 0, count = 0;
     const t = translations[currentLang];
+    
     document.getElementById('cart-items').innerHTML = cart.map(item => {
-      total += (item.price * item.qty); count += item.qty;
-      return `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid #222;">
-        <div><div style="font-weight:700; color:#fff;">${item.name}</div><div style="color:#888; font-size:0.85rem;">Qty: ${item.qty} × ${t.rupee}${item.price}</div></div>
-        <b style="color:var(--gold);">${t.rupee}${item.price * item.qty}</b></div>`;
+      total += (item.price * item.qty); 
+      count += item.qty;
+      return `
+        <div class="cart-item-box">
+          <div class="cart-item-info">
+            <h4>${item.name}</h4>
+            <span>${t.rupee}${item.price} each</span>
+          </div>
+          <div style="display:flex; align-items:center;">
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+            </div>
+            <span class="item-total">${t.rupee}${item.price * item.qty}</span>
+          </div>
+        </div>`;
     }).join('');
+    
     document.getElementById('total-price').innerText = t.rupee + total;
     document.getElementById('cart-count').innerText = count;
   }
 
-  function showUPIDetails() {
+  function showPaymentOptions() {
     const amt = document.getElementById('total-price').innerText.replace('₹','');
-    document.getElementById('upi-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=${UPI_ID}&pn=EggMaster&am=${amt}&cu=INR`;
-    document.getElementById('qr-area').style.display = 'block';
+    if(!amt || amt === "0") { alert("Cart is empty!"); return; }
+    document.getElementById('pay-amt-display').innerText = "₹" + amt;
+    document.getElementById('payment-area').style.display = 'block';
   }
 
-  // ========== MAIN ORDER SUBMISSION LOGIC ==========
+  function openApp(appType) {
+    const amt = document.getElementById('total-price').innerText.replace('₹','');
+    const pa = UPI_ID; 
+    const pn = encodeURIComponent(MERCHANT_NAME);
+    const url = appType === 'gpay' ? `gpay://upi/pay?pa=${pa}&pn=${pn}&am=${amt}&cu=INR` :
+                appType === 'phonepe' ? `phonepe://pay?pa=${pa}&pn=${pn}&am=${amt}&cu=INR` :
+                `paytmmp://pay?pa=${pa}&pn=${pn}&am=${amt}&cu=INR`;
+    window.location.href = url;
+  }
+
+  // ========== ORDER SUBMISSION ==========
   async function submitOrder(method) {
     const name = document.getElementById('c-name').value;
     const phone = document.getElementById('c-phone').value;
     const addr = document.getElementById('c-addr').value;
     
-    if(!name || !phone || !addr) {
-      alert(currentLang === 'hi' ? "कृपया सभी विवरण भरें!" : currentLang === 'gu' ? "કૃપા કરીને બધી વિગતો ભરો!" : "Please fill all details!");
-      return;
-    }
+    if(!name || !phone || !addr) { alert("Please fill all details!"); return; }
 
-    // Construct Digital Bill Message
     const t = translations[currentLang];
     const totalPrice = document.getElementById('total-price').innerText;
     const orderItems = cart.map(i => `• ${i.name} x${i.qty} = ${t.rupee}${i.price * i.qty}`).join('\n');
     
-    const message = `🍳 *EGG MASTER ORDER*
-━━━━━━━━━━━━━━━
-*Customer:* ${name}
-*Phone:* ${phone}
-*Address:* ${addr}
-*📍 Live Location:* ${liveLocationUrl}
-━━━━━━━━━━━━━━━
-*Items:*
- ${orderItems}
-━━━━━━━━━━━━━━━
-*Total Amount:* ${totalPrice}
-*Payment:* ${method}
-━━━━━━━━━━━━━━━
-_Thank you for ordering!_`;
+    const message = `🍳 *EGG MASTER ORDER*\n━━━━━━━━━━━━━━━\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${addr}\n*📍 Live Location:* ${liveLocationUrl}\n━━━━━━━━━━━━━━━\n*Items:*\n ${orderItems}\n━━━━━━━━━━━━━━━\n*Total Amount:* ${totalPrice}\n*Payment:* ${method}\n━━━━━━━━━━━━━━━\n_Thank you for ordering!_`;
 
-    // Generate Visual Bill (For Download)
     const now = new Date();
     document.getElementById('bill-date').innerText = `Date: ${now.toLocaleDateString()} | Time: ${now.toLocaleTimeString()}`;
     document.getElementById('bill-items-list').innerHTML = cart.map(i => `<div style="display:flex; justify-content:space-between; margin:5px 0;"><span>${i.name} x${i.qty}</span><span>${t.rupee}${i.price*i.qty}</span></div>`).join('');
     document.getElementById('bill-grand-total').innerText = "TOTAL: " + totalPrice;
 
     const billArea = document.getElementById('bill-area');
-    
-    // 1. Open WhatsApp Directly with the Text Bill
-    const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(waLink, '_blank');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
 
-    // 2. Download Bill Image for Customer Record
-    // We make the bill visible temporarily to capture it
-    billArea.style.position = 'fixed'; 
-    billArea.style.left = '0'; 
-    billArea.style.top = '0'; 
-    billArea.style.zIndex = '99999';
-    
+    billArea.style.position = 'fixed'; billArea.style.left = '0'; billArea.style.top = '0'; billArea.style.zIndex = '99999';
     try {
       const canvas = await html2canvas(billArea, { scale: 2 });
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-      
-      // Trigger download for customer
       const link = document.createElement('a');
-      link.download = `EggMaster_Bill_${name}.jpg`;
-      link.href = dataUrl;
+      link.download = `EggMaster_Bill.jpg`;
+      link.href = canvas.toDataURL('image/jpeg', 0.9);
       link.click();
-    } catch (e) {
-      console.error("Bill generation failed", e);
-    }
-
-    // Hide bill area again
+    } catch (e) { console.error(e); }
     billArea.style.position = 'fixed'; billArea.style.left = '-9999px'; billArea.style.zIndex = '-1';
     
-    // Reset UI
-    closeModal();
     cart = [];
     updateUI();
+    closeModal();
     toggleCart(false);
-    alert(currentLang === 'hi' ? "ऑर्डर भेज दिया गया!" : currentLang === 'gu' ? "ઓર્ડર મોકલી દેવામાં આવ્યો!" : "Order Sent Successfully!");
+    alert("Order Sent Successfully!");
   }
 
   // ========== BACKGROUND ANIMATION ==========
@@ -612,15 +653,12 @@ _Thank you for ordering!_`;
   const renderer = new THREE.WebGLRenderer({ alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.getElementById('bg-canvas').appendChild(renderer.domElement);
-  const torusKnot = new THREE.Mesh(new THREE.TorusKnotGeometry(8, 2, 100, 16), new THREE.MeshPhongMaterial({ color: 0xD4AF37, wireframe: true, transparent: true, opacity: 0.8 }));
+  const torusKnot = new THREE.Mesh(new THREE.TorusKnotGeometry(8, 2, 100, 16), new THREE.MeshPhongMaterial({ color: 0xD4AF37, wireframe: true, transparent: true, opacity: 0.6 }));
   scene.add(torusKnot);
-  const dodecahedron = new THREE.Mesh(new THREE.DodecahedronGeometry(15, 0), new THREE.MeshPhongMaterial({ color: 0xB8860B, wireframe: true, transparent: true, opacity: 0.3 }));
-  scene.add(dodecahedron);
   scene.add(new THREE.AmbientLight(0xffffff, 1)); camera.position.z = 30;
-  function animate() { requestAnimationFrame(animate); torusKnot.rotation.x += 0.003; torusKnot.rotation.y += 0.005; dodecahedron.rotation.x -= 0.002; dodecahedron.rotation.y -= 0.003; renderer.render(scene, camera); }
+  function animate() { requestAnimationFrame(animate); torusKnot.rotation.x += 0.003; torusKnot.rotation.y += 0.005; renderer.render(scene, camera); }
   animate();
 
-  // ========== INIT ==========
   renderMenu();
 </script>
 </body>

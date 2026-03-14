@@ -5,18 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#0a0a0a" />
   <title>Egg Master | The Royal Taste</title>
+  
+  <!-- PWA Manifest for Android Shortcut -->
+  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkVnZyBNYXN0ZXIiLAogICJzaG9ydF9uYW1lIjogIkVnZ01hc3RlciIsCiAgInN0YXJ0X3VybCI6ICIuLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBhMGEwYSIsCiAgInRoZW1lX2NvbG9yIjogIiNDOUEyMjciLAogICJpY29ucyI6IFt7CiAgICAic3JjIjogImh0dHBzOi8vaS5pYmIuY28vUlRGakI3TW4vZHVibGUtZWdnLW9tbGV0LmpwZyIsCiAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAidHlwZSI6ICJpbWFnZS9qcGVnIiwKICAgICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSIKICB9XQp9">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Egg Master">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- Preconnect for performance -->
+  <link rel="apple-touch-icon" href="https://i.ibb.co/RTFjB7Mn/duble-egg-omlet.jpg">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 <style>
-/* ===== ROOT VARIABLES ===== */
 :root {
   --gold: #C9A227; --gold-light: #E8D48B; --gold-dark: #8B6914;
   --neon-green: #39ff14; --neon-red: #ff3131;
@@ -31,47 +36,25 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Outfit', sans-serif; background: var(--bg-dark); color: var(--text-primary); overflow-x: hidden; user-select: none; -webkit-user-select: none; }
 img { pointer-events: none; max-width: 100%; }
 
-/* ===== ANTI-HACK / SECURITY ===== */
-/* DevTools detection via debugger or blocking keys handled in JS, CSS helps cursor */
-
 /* ===== SPLASH SCREEN ===== */
-#splash {
-  position: fixed; inset: 0; background: #050505; z-index: 999999;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  overflow: hidden; transition: opacity 0.8s ease, visibility 0.8s;
-}
+#splash { position: fixed; inset: 0; background: #050505; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.8s ease, visibility 0.8s; }
 #splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 .splash-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at center, #1a1100 0%, #050505 70%); }
 .hex-grid { position: absolute; inset: 0; opacity: 0.08; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34zM0 50l28 16 28-16' fill='none' stroke='%23C9A227' stroke-width='0.5'/%3E%3C/svg%3E"); }
 .splash-logo-wrap { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 30px; width: 100%; }
-
-/* Logo Animation */
 .logo-ring-outer { width: 200px; height: 200px; position: relative; animation: logoSpin 8s linear infinite; }
 .logo-ring-outer svg { width: 100%; height: 100%; }
 .logo-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; animation: logoPulse 2s ease-in-out infinite; }
 @keyframes logoSpin { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) } }
 @keyframes logoPulse { 0%, 100% { filter: drop-shadow(0 0 10px rgba(201,162,39,0.6)) } 50% { filter: drop-shadow(0 0 25px rgba(201,162,39,1)) } }
-
-/* Splash Brand */
 .splash-brand { text-align: center; animation: fadeUpSplash 1s ease 0.5s both; }
 @keyframes fadeUpSplash { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } }
 .splash-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 600; letter-spacing: 0.2em; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
 .splash-tagline { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; letter-spacing: 0.5em; color: var(--gold); text-transform: uppercase; margin-top: 8px; opacity: 0.8; }
 .splash-divider { width: 120px; height: 1px; background: var(--gradient-gold); margin: 10px auto; box-shadow: var(--glow); }
-
-/* Typing Effect Styles */
-.typing-container {
-  min-height: 60px; display: flex; align-items: center; justify-content: center;
-  opacity: 0; animation: fadeUpSplash 1s ease 1s forwards; 
-}
-.typing-text {
-  font-family: sans-serif; /* For Hindi Support */
-  font-size: 1.4rem; font-weight: 600; color: var(--gold-light);
-  border-right: 3px solid var(--gold); padding-right: 5px;
-  animation: blink 0.7s infinite; white-space: nowrap;
-}
+.typing-container { min-height: 60px; display: flex; align-items: center; justify-content: center; opacity: 0; animation: fadeUpSplash 1s ease 1s forwards; }
+.typing-text { font-family: sans-serif; font-size: 1.4rem; font-weight: 600; color: var(--gold-light); border-right: 3px solid var(--gold); padding-right: 5px; animation: blink 0.7s infinite; white-space: nowrap; }
 @keyframes blink { 0%, 100% { border-color: var(--gold) } 50% { border-color: transparent } }
-
 .splash-bottom-text { font-size: 0.65rem; letter-spacing: 0.3em; color: rgba(201,162,39,0.4); text-transform: uppercase; animation: fadeUpSplash 1s ease 1.5s both; }
 
 /* ===== PRELOADER ===== */
@@ -83,7 +66,7 @@ img { pointer-events: none; max-width: 100%; }
 .loader-line { width: 0; height: 1px; background: var(--gradient-gold); margin-top: 20px; animation: expandLine 1.5s forwards; box-shadow: var(--glow); }
 @keyframes expandLine { to { width: 200px } }
 
-/* ===== MAIN CONTENT (Hidden Initially) ===== */
+/* ===== MAIN CONTENT ===== */
 #main-content { opacity: 0; visibility: hidden; transition: opacity 0.5s ease; }
 #main-content.visible { opacity: 1; visibility: visible; }
 
@@ -96,8 +79,6 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; letter-spacing: 0.15em; color: var(--text-primary); }
 .nav-logo-sub { font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; position: absolute; bottom: -8px; left: 0; white-space: nowrap; }
 .nav-right { display: flex; align-items: center; gap: 15px; }
-
-/* Language & Cart Buttons */
 .lang-btn { background: transparent; border: 1px solid rgba(201,162,39,0.3); color: var(--text-primary); padding: 8px 16px; border-radius: 30px; cursor: pointer; font-size: 0.75rem; letter-spacing: 0.1em; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
 .lang-btn:hover { border-color: var(--gold); color: var(--gold); box-shadow: var(--glow); }
 .lang-dropdown { position: absolute; top: 50px; right: 0; background: rgba(12,12,12,0.98); border: 1px solid rgba(201,162,39,0.2); border-radius: 8px; overflow: hidden; min-width: 140px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; backdrop-filter: blur(10px); }
@@ -123,18 +104,13 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 .hero-divider { width: 80px; height: 1px; background: var(--gold); margin: 0 auto 30px; opacity: 0; transform: scaleX(0); animation: scaleIn 1s 0.7s forwards; box-shadow: var(--glow); }
 @keyframes scaleIn { to { opacity: 1; transform: scaleX(1) } }
 
-/* Neon Timing Display */
+/* Neon Timing */
 .hero-timing { display: flex; flex-direction: column; align-items: center; gap: 12px; opacity: 0; animation: fadeUp 1s 0.9s forwards; }
-.timing-status {
-  font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  transition: all 0.5s;
-}
+.timing-status { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; transition: all 0.5s; }
 .timing-status.open { color: var(--neon-green); animation: neonFlicker 2s infinite alternate; }
 .timing-status.closed { color: var(--neon-red); }
 .timing-hours { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.1em; }
 @keyframes neonFlicker { 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor, 0 0 80px currentColor; } 20%, 24%, 55% { text-shadow: none; } }
-
 .hero-scroll { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeUp 1s 1.2s forwards; }
 .scroll-text { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); }
 .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollBounce 1.5s infinite; }
@@ -150,7 +126,7 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; }
 @media(max-width: 600px) { .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 14px } }
 
-/* ===== CARD DESIGN ===== */
+/* ===== CARD ===== */
 .card-wrapper { perspective: 1200px; height: 420px; opacity: 0; transform: translateY(60px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .card-wrapper.visible { opacity: 1; transform: translateY(0) }
 @media(max-width: 600px) { .card-wrapper { height: 360px } }
@@ -169,21 +145,23 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 .badge.popular { background: rgba(201,162,39,0.15); border: 1px solid rgba(201,162,39,0.3); color: var(--gold) }
 .badge.new { background: rgba(74,222,128,0.15); border: 1px solid rgba(74,222,128,0.3); color: #4ade80 }
 .card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; margin-bottom: 4px; }
-.card-price { font-size: 1rem; color: var(--gold); font-weight: 500; margin-bottom: 8px; font-family: 'Rajdhani', sans-serif; }
 
-/* Special Dish Info Style - UNIQUE */
+/* FIX: Price Size Increased */
+.card-price { 
+    font-size: 1.3rem; 
+    color: var(--gold); 
+    font-weight: 700; 
+    margin-bottom: 8px; 
+    font-family: 'Rajdhani', sans-serif; 
+    letter-spacing: 0.05em; 
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Special Dish Info */
 .card-dish-info {
-  font-size: 0.75rem;
-  color: rgba(232, 212, 139, 0.85); /* Light Gold */
-  margin-bottom: 12px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.4;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  font-size: 0.75rem; color: rgba(232, 212, 139, 0.85); margin-bottom: 12px;
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400;
+  letter-spacing: 0.02em; line-height: 1.4; opacity: 0; transition: opacity 0.3s;
 }
 .card-wrapper:hover .card-dish-info { opacity: 1; }
 
@@ -225,9 +203,21 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 .qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(201,162,39,0.3); background: transparent; color: var(--gold); cursor: pointer; font-size: 1rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
 .qty-btn:hover { background: var(--gold); color: #000; box-shadow: var(--glow) }
 .item-total { font-size: 0.95rem; color: var(--gold); font-weight: 600; margin-left: 12px; font-family: 'Rajdhani', sans-serif; }
+
+/* Cart Upsell & Footer */
+.cart-upsell { margin: 0; padding: 16px; border-radius: 12px; background: rgba(201,162,39,0.05); border: 1px dashed rgba(201,162,39,0.25); display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.upsell-img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(201,162,39,0.4); flex-shrink: 0; box-shadow: var(--glow); }
+.upsell-info { flex: 1 }
+.upsell-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--gold) }
+.upsell-price { font-size: 0.78rem; color: var(--text-muted); font-family: 'Rajdhani', sans-serif; }
+.upsell-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 8px 16px; border-radius: 20px; font-size: 0.75rem; letter-spacing: 0.1em; cursor: pointer; transition: all 0.3s; white-space: nowrap; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
+.upsell-btn:hover { background: var(--gold); color: #000; box-shadow: var(--glow); }
+
 .cart-footer { padding: 22px; border-top: 1px solid rgba(201,162,39,0.1); background: linear-gradient(0deg, rgba(201,162,39,0.03), transparent); }
-.cart-total { display: flex; justify-content: space-between; font-size: 1.2rem; margin-bottom: 18px; font-family: 'Cormorant Garamond', serif; }
-.cart-total span:last-child { color: var(--gold); font-weight: 600 }
+.cart-subtotals { margin-bottom: 15px }
+.subtotal-row { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; }
+.cart-total { display: flex; justify-content: space-between; font-size: 1.3rem; margin-bottom: 18px; font-family: 'Cormorant Garamond', serif; padding-top: 12px; border-top: 1px solid rgba(201,162,39,0.2); }
+.cart-total span:last-child { color: var(--gold); font-weight: 700; }
 .checkout-btn { width: 100%; background: var(--gradient-gold); border: none; color: #000; padding: 15px; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 40px; cursor: pointer; transition: all 0.3s; box-shadow: var(--glow); }
 .checkout-btn:hover { transform: scale(1.02); box-shadow: var(--glow-strong) }
 
@@ -246,20 +236,26 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 .payment-btn.online { background: linear-gradient(145deg, #25D366, #128C7E); color: white; }
 .payment-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.3) }
 
-/* Payment Modal (Separate Popup) */
+/* Payment Modal */
 #payment-modal .modal-content { max-width: 400px; padding: 30px; text-align: center; }
 #payment-modal .qr-section { margin: 20px 0; }
 #payment-modal .payment-apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
 #payment-modal .pay-app-btn { padding: 12px 8px; background: white; border: 1.5px solid #8D6E63; border-radius: 10px; cursor: pointer; font-weight: 700; color: #3E2723; font-size: 0.75rem; transition: all 0.25s; font-family: 'Rajdhani', sans-serif; display: flex; flex-direction: column; align-items: center; gap: 5px; }
 #payment-modal .pay-app-btn:hover { background: #3E2723; color: white; border-color: #C9A227; }
-#payment-modal .confirm-btn { width: 100%; background: var(--gradient-gold); border: none; color: #3E2723; padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+#payment-modal .confirm-btn { width: 100%; background: var(--gradient-gold); border: none; color: #3E2723; padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; margin-top: 10px; }
 .modal-close { text-align: center; margin-top: 18px; color: #8D6E63; font-size: 0.85rem; cursor: pointer; transition: color 0.3s; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.1em; }
 
-/* Closed Message Modal */
+/* Closed Modal */
 .msg-icon { font-size: 4rem; margin-bottom: 15px; display: block; animation: shake 0.5s ease-in-out; }
 @keyframes shake { 0%, 100% { transform: translateX(0) } 25% { transform: translateX(-10px) } 75% { transform: translateX(10px) } }
 .msg-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: #3E2723; margin-bottom: 10px; }
 .msg-text { font-family: 'Outfit', sans-serif; font-size: 1rem; color: #5D4037; line-height: 1.6; margin-bottom: 20px; }
+
+/* Install Modal (Shortcut) */
+#install-modal .modal-content { max-width: 360px; text-align: center; padding: 30px; }
+.install-icon { font-size: 3rem; margin-bottom: 10px; }
+.ios-guide { margin-top: 15px; text-align: left; background: rgba(255,255,255,0.3); padding: 15px; border-radius: 10px; font-size: 0.9rem; }
+.ios-guide li { margin-bottom: 8px; list-style: none; display: flex; align-items: center; gap: 8px; }
 
 /* ===== BILL AREA ===== */
 #bill-area { position: fixed; left: -9999px; background: white; color: #222; padding: 25px; width: 380px; font-family: 'Outfit', sans-serif; border: 8px solid #C9A227; }
@@ -281,16 +277,9 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
   <div class="hex-grid"></div>
   <div class="splash-logo-wrap">
     <div class="logo-ring-outer">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8B6914"/><stop offset="50%" style="stop-color:#E8D48B"/><stop offset="100%" style="stop-color:#8B6914"/></linearGradient></defs>
-        <circle cx="100" cy="100" r="95" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
-      </svg>
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8B6914"/><stop offset="50%" style="stop-color:#E8D48B"/><stop offset="100%" style="stop-color:#8B6914"/></linearGradient></defs><circle cx="100" cy="100" r="95" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/></svg>
       <div class="logo-center">
-        <svg width="80" height="90" viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
-          <defs><linearGradient id="crownGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8B6914"/><stop offset="50%" style="stop-color:#E8D48B"/><stop offset="100%" style="stop-color:#8B6914"/></linearGradient></defs>
-          <path d="M10 35 L10 50 L70 50 L70 35 L58 45 L40 20 L22 45 Z" fill="url(#crownGrad)"/>
-          <ellipse cx="40" cy="72" rx="20" ry="26" fill="url(#crownGrad)" opacity="0.9"/>
-        </svg>
+        <svg width="80" height="90" viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="crownGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8B6914"/><stop offset="50%" style="stop-color:#E8D48B"/><stop offset="100%" style="stop-color:#8B6914"/></linearGradient></defs><path d="M10 35 L10 50 L70 50 L70 35 L58 45 L40 20 L22 45 Z" fill="url(#crownGrad)"/><ellipse cx="40" cy="72" rx="20" ry="26" fill="url(#crownGrad)" opacity="0.9"/></svg>
       </div>
     </div>
     <div class="splash-brand">
@@ -298,10 +287,7 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
       <div class="splash-divider"></div>
       <div class="splash-tagline">✦ The Royal Taste ✦</div>
     </div>
-    <!-- Typing Effect Container -->
-    <div class="typing-container">
-      <div class="typing-text" id="typing-text"></div>
-    </div>
+    <div class="typing-container"><div class="typing-text" id="typing-text"></div></div>
     <p class="splash-bottom-text">Gujarat's Finest Egg Cuisine Since 2020</p>
   </div>
 </div>
@@ -309,7 +295,7 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 <!-- Preloader -->
 <div id="preloader" style="display:none"><div class="loader-text" id="loader-text"></div><div class="loader-line"></div></div>
 
-<!-- Main Content (Hidden Initially) -->
+<!-- Main Content -->
 <div id="main-content">
   <canvas id="bg-canvas"></canvas>
   <div class="scroll-progress" id="scroll-progress"></div>
@@ -317,22 +303,9 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 
   <!-- NAV -->
   <nav id="navbar">
-    <a href="#" class="nav-logo">
-      <div class="nav-logo-icon-wrap"><span class="nav-logo-icon">🍳</span></div>
-      <div>
-        <span class="nav-logo-text">EGG MASTER</span>
-        <span class="nav-logo-sub">✦ The Royal Taste ✦</span>
-      </div>
-    </a>
+    <a href="#" class="nav-logo"><div class="nav-logo-icon-wrap"><span class="nav-logo-icon">🍳</span></div><div><span class="nav-logo-text">EGG MASTER</span><span class="nav-logo-sub">✦ The Royal Taste ✦</span></div></a>
     <div class="nav-right">
-      <div class="lang-switcher">
-        <button class="lang-btn" onclick="toggleLangDropdown()"><span>🌐</span><span id="current-lang">ENG</span></button>
-        <div class="lang-dropdown" id="lang-dropdown">
-          <div class="lang-option selected" onclick="setLanguage('en')">ENGLISH</div>
-          <div class="lang-option" onclick="setLanguage('hi')">हिंदी</div>
-          <div class="lang-option" onclick="setLanguage('gu')">ગુજરાતી</div>
-        </div>
-      </div>
+      <div class="lang-switcher"><button class="lang-btn" onclick="toggleLangDropdown()"><span>🌐</span><span id="current-lang">ENG</span></button><div class="lang-dropdown" id="lang-dropdown"><div class="lang-option selected" onclick="setLanguage('en')">ENGLISH</div><div class="lang-option" onclick="setLanguage('hi')">हिंदी</div><div class="lang-option" onclick="setLanguage('gu')">ગુજરાતી</div></div></div>
       <button class="cart-nav-btn" onclick="toggleCart(true)" id="cart-icon-btn"><span>🛒</span><span id="cart-count" class="cart-badge" style="display:none">0</span></button>
     </div>
   </nav>
@@ -340,41 +313,22 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
   <!-- HERO -->
   <section class="hero">
     <p class="hero-eyebrow" data-translate="hero_eyebrow">Gujarat's Finest</p>
-    <h1 class="hero-title">
-      <span class="line"><span data-translate="line1">Special Egg</span></span>
-      <span class="line"><span><em data-translate="line2">Delicacies</em></span></span>
-    </h1>
+    <h1 class="hero-title"><span class="line"><span data-translate="line1">Special Egg</span></span><span class="line"><span><em data-translate="line2">Delicacies</em></span></span></h1>
     <div class="hero-divider"></div>
-    <div class="hero-timing">
-      <div class="timing-status" id="timing-status">WE ARE OPEN</div>
-      <div class="timing-hours">8:00 AM – 2:00 PM &nbsp;|&nbsp; 7:00 PM – 12:00 AM</div>
-    </div>
+    <div class="hero-timing"><div class="timing-status" id="timing-status">WE ARE OPEN</div><div class="timing-hours">8:00 AM – 2:00 PM &nbsp;|&nbsp; 7:00 PM – 12:00 AM</div></div>
     <div class="hero-scroll"><span class="scroll-text">Scroll</span><div class="scroll-line"></div></div>
   </section>
 
   <!-- MENU -->
-  <section class="menu-section">
-    <div class="section-header">
-      <p class="section-label">✦ Our Menu ✦</p>
-      <h2 class="section-title" data-translate="menu_title">Signature <em>Dishes</em></h2>
-    </div>
-    <div class="menu-grid" id="menu-grid"></div>
-  </section>
+  <section class="menu-section"><div class="section-header"><p class="section-label">✦ Our Menu ✦</p><h2 class="section-title" data-translate="menu_title">Signature <em>Dishes</em></h2></div><div class="menu-grid" id="menu-grid"></div></section>
   <div class="premium-tag"><p data-translate="premium_tag">Tasted By Kings, Made For You</p></div>
 
-  <!-- CARTS & FLOATING -->
+  <!-- CART -->
   <div class="cart-overlay" id="cart-overlay" onclick="toggleCart(false)"></div>
   <div id="cart-slide">
-    <div class="cart-header">
-      <h3 class="cart-title">🛒 <span data-translate="your_cart">Your Cart</span></h3>
-      <button class="cart-close" onclick="toggleCart(false)">✕</button>
-    </div>
-    <div id="cart-items-wrapper"><div id="cart-items"><div class="cart-empty"><span class="cart-empty-icon">🍽️</span><span>Your cart is empty</span></div></div><div id="cart-upsell-container"></div></div>
-    <div class="cart-footer">
-      <div class="cart-subtotals" id="cart-subtotals"></div>
-      <div class="cart-total"><span data-translate="total">Total</span><span id="total-price">₹0</span></div>
-      <button class="checkout-btn" onclick="openOrderForm()" data-translate="checkout">Checkout Now →</button>
-    </div>
+    <div class="cart-header"><h3 class="cart-title">🛒 <span data-translate="your_cart">Your Cart</span></h3><button class="cart-close" onclick="toggleCart(false)">✕</button></div>
+    <div id="cart-items-wrapper"><div id="cart-items"></div><div id="cart-upsell-container"></div></div>
+    <div class="cart-footer"><div class="cart-subtotals" id="cart-subtotals"></div><div class="cart-total"><span data-translate="total">Total</span><span id="total-price">₹0</span></div><button class="checkout-btn" onclick="openOrderForm()" data-translate="checkout">Checkout Now →</button></div>
   </div>
   <div id="floating-cart" onclick="toggleCart(true)"><div class="floating-cart-inner"><div class="floating-cart-glow"></div><div class="floating-cart-body"><span>🛒</span><div><span class="fc-label">Cart</span><span class="fc-total" id="fc-total">₹0</span></div><div class="fc-badge" id="fc-count">0</div></div></div></div>
 
@@ -385,52 +339,38 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
       <h3 class="modal-title" data-translate="delivery_info">Delivery Info</h3>
       <p class="modal-subtitle" data-translate="enter_details">Enter your details</p>
       <div class="form-group"><label class="form-label">👤 Name</label><input type="text" id="c-name" placeholder="Full Name"></div>
-      <div class="form-group"><label class="form-label">📱 Phone</label><input type="tel" id="c-phone" placeholder="Phone Number"></div>
-      <div class="form-group"><label class="form-label">📍 Address</label><textarea id="c-addr" placeholder="Address" rows="2"></textarea><div id="loc-status" class="location-status"><span id="loc-icon">📍</span><span id="loc-text">Fetching...</span></div></div>
-      <div class="payment-buttons">
-        <button class="payment-btn cash" onclick="submitOrder('Cash')">💵 Cash</button>
-        <button class="payment-btn online" onclick="showPaymentOptions()">📲 Online</button>
+      <!-- FIX: Number Validation -->
+      <div class="form-group">
+        <label class="form-label">📱 Phone (10 Digits)</label>
+        <input type="tel" id="c-phone" placeholder="10 Digit Number" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
       </div>
+      <div class="form-group"><label class="form-label">📍 Address</label><textarea id="c-addr" placeholder="Address" rows="2"></textarea><div id="loc-status" class="location-status"><span id="loc-icon">📍</span><span id="loc-text">Fetching...</span></div></div>
+      <div class="payment-buttons"><button class="payment-btn cash" onclick="submitOrder('Cash')">💵 Cash</button><button class="payment-btn online" onclick="showPaymentOptions()">📲 Online</button></div>
       <p class="modal-close" onclick="closeModal()">✕ Close</p>
     </div>
   </div>
 
-  <!-- Payment Modal (Separate) -->
-  <div id="payment-modal" class="modal">
+  <div id="payment-modal" class="modal"><div class="modal-content"><div style="text-align:center; margin-bottom:15px;"><div style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:#3E2723;">💳 PAYMENT</div></div><h3 class="modal-title">Online Payment</h3><p class="modal-subtitle">Scan QR or select app</p><p style="text-align:center; margin:10px 0; font-size:1.2rem; font-weight:bold;">Total: <span id="pay-amt-display-modal">₹0</span></p><div class="qr-section" style="text-align:center;"><img id="qr-code-img-modal" src="" alt="QR" width="150" height="150"></div><p style="text-align:center;font-size:0.8rem;color:#5D4037;margin:15px 0 8px 0;">— OR Select App —</p><div class="payment-apps"><button class="pay-app-btn" onclick="openApp('gpay')"><span style="font-size:1.5rem;">G</span><span>Google Pay</span></button><button class="pay-app-btn" onclick="openApp('phonepe')"><span style="font-size:1.5rem;">P</span><span>PhonePe</span></button><button class="pay-app-btn" onclick="openApp('paytm')"><span style="font-size:1.5rem;">P</span><span>Paytm</span></button></div><button class="confirm-btn" onclick="submitOrder('Online')">✅ Paid? Confirm</button><p class="modal-close" onclick="closePaymentModal()">✕ Cancel</p></div></div>
+
+  <div id="closed-modal" class="modal"><div class="modal-content" style="max-width: 380px;"><div style="text-align:center; padding: 20px 0;"><span class="msg-icon">🔒</span><h3 class="msg-title" data-translate="closed_title">Oho! Band Ho Gaya</h3><p class="msg-text" data-translate="closed_msg">Kitchen is closed. 😴<br>Come tomorrow!</p><button class="checkout-btn" onclick="closeClosedModal()" style="background: #3E2723; color: #F5E6C8;">Theek Hai 👍</button></div></div></div>
+
+  <!-- Install Modal (For Shortcut) -->
+  <div id="install-modal" class="modal">
     <div class="modal-content">
-      <div style="text-align:center; margin-bottom:15px;"><div style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:#3E2723;">💳 PAYMENT</div></div>
-      <h3 class="modal-title">Online Payment</h3>
-      <p class="modal-subtitle">Scan QR or select app</p>
-      <p style="text-align:center; margin:10px 0; font-size:1.2rem; font-weight:bold;">Total: <span id="pay-amt-display-modal">₹0</span></p>
-      <div class="qr-section" style="text-align:center;">
-        <img id="qr-code-img-modal" src="" alt="QR" width="150" height="150">
-        <p class="qr-label" style="font-size:0.78rem;color:#5D4037;margin-top:8px;font-weight:600; font-family:'Rajdhani',sans-serif;letter-spacing:0.1em;">Scan to Pay via Any UPI App</p>
-        <p style="font-size:0.7rem;color:#5D4037;margin-top:3px">UPI ID: ashishchavda9586@oksbi</p>
-      </div>
-      <p style="text-align:center;font-size:0.8rem;color:#5D4037;margin:15px 0 8px 0;">— OR Select App —</p>
-      <div class="payment-apps">
-        <button class="pay-app-btn" onclick="openApp('gpay')"><span style="font-size:1.5rem;">G</span><span>Google Pay</span></button>
-        <button class="pay-app-btn" onclick="openApp('phonepe')"><span style="font-size:1.5rem;">P</span><span>PhonePe</span></button>
-        <button class="pay-app-btn" onclick="openApp('paytm')"><span style="font-size:1.5rem;">P</span><span>Paytm</span></button>
-      </div>
-      <button class="confirm-btn" onclick="submitOrder('Online')">✅ Paid? Confirm</button>
-      <p class="modal-close" onclick="closePaymentModal()">✕ Cancel</p>
+        <div class="install-icon">📲</div>
+        <h3 class="modal-title">Add to Home Screen</h3>
+        <p class="modal-subtitle" style="margin-bottom: 20px;">Install Egg Master for easy access next time!</p>
+        <div id="ios-instructions" class="ios-guide" style="display:none;">
+            <p style="font-weight:bold; margin-bottom:10px; text-align:center;">iPhone Instructions:</p>
+            <li>Tap the <strong>Share</strong> button <span>⬆️</span></li>
+            <li>Scroll down and tap <strong>"Add to Home Screen"</strong></li>
+            <li>Tap <strong>"Add"</strong> in the top right corner</li>
+        </div>
+        <button id="install-btn" class="checkout-btn" style="margin-top:15px;">➕ Install Now</button>
+        <p class="modal-close" onclick="closeInstallModal()">Later</p>
     </div>
   </div>
 
-  <!-- Closed Modal -->
-  <div id="closed-modal" class="modal">
-    <div class="modal-content" style="max-width: 380px;">
-      <div style="text-align:center; padding: 20px 0;">
-        <span class="msg-icon">🔒</span>
-        <h3 class="msg-title" data-translate="closed_title">Oho! Band Ho Gaya</h3>
-        <p class="msg-text" data-translate="closed_msg">Kitchen is closed. 😴<br>Come tomorrow!</p>
-        <button class="checkout-btn" onclick="closeClosedModal()" style="background: #3E2723; color: #F5E6C8;">Theek Hai 👍</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bill -->
   <div id="bill-area"><div class="bill-header"><div class="bill-name">🍳 EGG MASTER</div><div style="font-size:0.75rem;color:#555">THE ROYAL TASTE</div></div><p id="bill-date" style="font-size:11px;color:#555;margin:8px 0"></p><hr style="border:none;border-top:1px dashed #999;margin:8px 0"><div id="bill-items-list"></div><hr><div class="bill-total-row" id="bill-grand-total"></div></div>
 </div>
 
@@ -446,180 +386,106 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 
 const $ = id => document.getElementById(id);
 
-// ===== TYPING EFFECT & AUTO ENTER =====
+// ===== TYPING EFFECT =====
 const textToType = "लगेगा टाइम पर, आएगा मज़ा...!";
 let typeIndex = 0;
-
-function typeWriter() {
-  const el = $('typing-text');
-  if (typeIndex < textToType.length) {
-    el.textContent += textToType.charAt(typeIndex);
-    typeIndex++;
-    setTimeout(typeWriter, 80);
-  } else {
-    // Typing complete -> Wait 2s -> Enter Site
-    setTimeout(enterSite, 2000);
-  }
-}
-
-function enterSite() {
-  $('splash').classList.add('hidden');
-  setTimeout(() => {
-    $('preloader').style.display = 'flex';
-    runPreloader();
-    initSite();
-  }, 600);
-}
-
-function runPreloader() {
-  const lt = $('loader-text');
-  lt.innerHTML = '';
-  'EGG MASTER'.split('').forEach((c, i) => {
-    const s = document.createElement('span');
-    s.textContent = c === ' ' ? '\u00A0' : c;
-    s.style.animationDelay = `${i * 0.06}s`;
-    lt.appendChild(s);
-  });
-  setTimeout(() => {
-    $('preloader').classList.add('hidden');
-    $('main-content').classList.add('visible');
-    setTimeout(() => { $('preloader').style.display = 'none'; }, 500);
-  }, 2000);
-}
-
-// Start Logic immediately
-document.addEventListener('DOMContentLoaded', () => {
-  // Wait for logo fade in (1s) then start typing
-  setTimeout(typeWriter, 1000);
-});
+function typeWriter() { const el = $('typing-text'); if (typeIndex < textToType.length) { el.textContent += textToType.charAt(typeIndex); typeIndex++; setTimeout(typeWriter, 80); } else { setTimeout(enterSite, 2000); } }
+function enterSite() { $('splash').classList.add('hidden'); setTimeout(() => { $('preloader').style.display = 'flex'; runPreloader(); initSite(); }, 600); }
+function runPreloader() { const lt = $('loader-text'); lt.innerHTML = ''; 'EGG MASTER'.split('').forEach((c, i) => { const s = document.createElement('span'); s.textContent = c === ' ' ? '\u00A0' : c; s.style.animationDelay = `${i * 0.06}s`; lt.appendChild(s); }); setTimeout(() => { $('preloader').classList.add('hidden'); $('main-content').classList.add('visible'); setTimeout(() => { $('preloader').style.display = 'none'; initPWA(); }, 500); }, 2000); }
+document.addEventListener('DOMContentLoaded', () => { setTimeout(typeWriter, 1000); });
 
 // ===== SITE INIT =====
 function initSite() {
-  updateTimingStatus();
-  setInterval(updateTimingStatus, 60000);
-  
-  // Cursor
-  const cursor = $('cursor');
-  let cx=0, cy=0, tx=0, ty=0;
-  document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+  updateTimingStatus(); setInterval(updateTimingStatus, 60000);
+  const cursor = $('cursor'); let cx=0, cy=0, tx=0, ty=0; document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
   (function anim() { cx += (tx - cx) * 0.15; cy += (ty - cy) * 0.15; cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px'; requestAnimationFrame(anim); })();
-
-  // Scroll
-  window.addEventListener('scroll', () => {
-    const st = window.scrollY, dh = document.documentElement.scrollHeight - window.innerHeight;
-    $('scroll-progress').style.width = (st / dh * 100) + '%';
-    $('navbar').classList.toggle('scrolled', st > 50);
-  });
-
-  // 3D Background (Performance Optimized)
-  if (typeof THREE !== 'undefined') {
-    try {
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas: $('bg-canvas'), alpha: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.isMobile ? 1 : 1.5));
-      
-      // Low poly for mobile
-      const seg = window.isMobile ? 0 : 1;
-      const shape = new THREE.Mesh(new THREE.IcosahedronGeometry(15, seg), new THREE.MeshBasicMaterial({ color: 0xC9A227, wireframe: true, transparent: true, opacity: 0.2 }));
-      scene.add(shape);
-      camera.position.z = 40;
-      (function anim() { requestAnimationFrame(anim); shape.rotation.x += 0.001; shape.rotation.y += 0.001; renderer.render(scene, camera); })();
-      
-      window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
-    } catch (e) { console.warn("3D failed", e); }
-  }
-
-  renderMenu();
-  updateUI();
+  window.addEventListener('scroll', () => { const st = window.scrollY, dh = document.documentElement.scrollHeight - window.innerHeight; $('scroll-progress').style.width = (st / dh * 100) + '%'; $('navbar').classList.toggle('scrolled', st > 50); });
+  if (typeof THREE !== 'undefined') { try { const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); const renderer = new THREE.WebGLRenderer({ canvas: $('bg-canvas'), alpha: true }); renderer.setSize(window.innerWidth, window.innerHeight); renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.isMobile ? 1 : 1.5)); const seg = window.isMobile ? 0 : 1; const shape = new THREE.Mesh(new THREE.IcosahedronGeometry(15, seg), new THREE.MeshBasicMaterial({ color: 0xC9A227, wireframe: true, transparent: true, opacity: 0.2 })); scene.add(shape); camera.position.z = 40; (function anim() { requestAnimationFrame(anim); shape.rotation.x += 0.001; shape.rotation.y += 0.001; renderer.render(scene, camera); })(); window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); }); } catch (e) { } }
+  renderMenu(); updateUI();
 }
+
+// ===== PWA & INSTALL PROMPT =====
+let deferredPrompt;
+function initPWA() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+    });
+}
+
+function showInstallPrompt() {
+    // Check if iOS
+    const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    if (isIos) {
+        $('ios-instructions').style.display = 'block';
+        $('install-btn').style.display = 'none';
+        $('install-modal').classList.add('active');
+    } else if (deferredPrompt) {
+        $('install-modal').classList.add('active');
+        $('ios-instructions').style.display = 'none';
+        $('install-btn').style.display = 'block';
+        $('install-btn').onclick = () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(() => { deferredPrompt = null; closeInstallModal(); });
+        };
+    }
+}
+
+function closeInstallModal() { $('install-modal').classList.remove('active'); }
 
 // ===== LOGIC FUNCS =====
 let isRestaurantOpen = false;
-function updateTimingStatus() {
-  const h = new Date().getHours();
-  isRestaurantOpen = (h >= 8 && h < 14) || (h >= 19);
-  const el = $('timing-status');
-  if (el) {
-    el.textContent = isRestaurantOpen ? "WE ARE OPEN" : "WE ARE CLOSED";
-    el.className = "timing-status " + (isRestaurantOpen ? "open" : "closed");
-  }
-}
-
+function updateTimingStatus() { const h = new Date().getHours(); isRestaurantOpen = (h >= 8 && h < 14) || (h >= 19); const el = $('timing-status'); if (el) { el.textContent = isRestaurantOpen ? "WE ARE OPEN" : "WE ARE CLOSED"; el.className = "timing-status " + (isRestaurantOpen ? "open" : "closed"); } }
 function toggleLangDropdown() { $('lang-dropdown').classList.toggle('active'); }
-function setLanguage(l) {
-  currentLang = l;
-  const d = translations[l];
-  document.querySelectorAll('[data-translate]').forEach(e => { const k = e.getAttribute('data-translate'); if (d[k]) e.textContent = d[k]; });
-  $('current-lang').textContent = { en: 'ENG', hi: 'HIN', gu: 'GUJ' }[l];
-  document.querySelectorAll('.lang-option').forEach(o => { o.classList.remove('selected'); if (o.getAttribute('onclick').includes(`'${l}'`)) o.classList.add('selected'); });
-  $('lang-dropdown').classList.remove('active');
-  renderMenu(); updateUI();
-}
+function setLanguage(l) { currentLang = l; const d = translations[l]; document.querySelectorAll('[data-translate]').forEach(e => { const k = e.getAttribute('data-translate'); if (d[k]) e.textContent = d[k]; }); $('current-lang').textContent = { en: 'ENG', hi: 'HIN', gu: 'GUJ' }[l]; document.querySelectorAll('.lang-option').forEach(o => { o.classList.remove('selected'); if (o.getAttribute('onclick').includes(`'${l}'`)) o.classList.add('selected'); }); $('lang-dropdown').classList.remove('active'); renderMenu(); updateUI(); }
 document.addEventListener('click', e => { if (!e.target.closest('.lang-switcher')) $('lang-dropdown').classList.remove('active'); });
 
 function renderMenu() {
   const t = translations[currentLang];
+  // Items where instruction should be HIDDEN
+  const hideInfoIds = [2, 3, 15, 16, 17]; // Bombay, Bread, Paratha, Maggi, Rice
+
   $('menu-grid').innerHTML = menu.map((item, i) => {
     const b = item.badge === 'spicy' ? '<span class="badge spicy">🌶️ Spicy</span>' : item.badge === 'popular' ? '<span class="badge popular">⭐ Popular</span>' : item.badge === 'new' ? '<span class="badge new">✨ New</span>' : '';
     const n = t[item.name] || item.name;
-    return `<div class="card-wrapper" data-index="${i}"><div class="menu-card"><div class="card-front"><div class="card-front-img"><img src="${item.img}" alt="${n}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400'"></div><div class="card-front-content"><div class="badge-row">${b}</div><h3 class="card-name">${n}</h3><p class="card-price">${t.rupee}${item.price}</p><div class="card-dish-info">${t.dish_info}</div><button class="card-add-btn" onclick="event.stopPropagation();addToCart(${item.id},this)"><span>${t.add_to_cart}</span></button></div></div></div></div>`;
+    const showInfo = !hideInfoIds.includes(item.id);
+    const infoHtml = showInfo ? `<div class="card-dish-info">${t.dish_info}</div>` : '';
+    
+    return `<div class="card-wrapper" data-index="${i}"><div class="menu-card"><div class="card-front"><div class="card-front-img"><img src="${item.img}" alt="${n}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400'"></div><div class="card-front-content"><div class="badge-row">${b}</div><h3 class="card-name">${n}</h3><p class="card-price">${t.rupee}${item.price}</p>${infoHtml}<button class="card-add-btn" onclick="event.stopPropagation();addToCart(${item.id},this)"><span>${t.add_to_cart}</span></button></div></div></div></div>`;
   }).join('');
   const obs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), parseInt(e.target.dataset.index) * 80); obs.unobserve(e.target); } }); }, { threshold: 0.1 });
   document.querySelectorAll('.card-wrapper').forEach(c => obs.observe(c));
   document.querySelectorAll('.card-wrapper').forEach(c => { c.addEventListener('mouseenter', () => $('cursor').classList.add('hover')); c.addEventListener('mouseleave', () => $('cursor').classList.remove('hover')); });
 }
 
-function addToCart(id, btn) {
-  const item = menu.find(m => m.id === id);
-  const ex = cart.find(c => c.id === id);
-  ex ? ex.qty++ : cart.push({ ...item, qty: 1 });
-  const t = translations[currentLang];
-  const s = btn.querySelector('span');
-  s.textContent = t.added; btn.classList.add('added');
-  setTimeout(() => { s.textContent = t.add_to_cart; btn.classList.remove('added'); }, 600);
-  updateUI();
-}
+function addToCart(id, btn) { const item = menu.find(m => m.id === id); const ex = cart.find(c => c.id === id); ex ? ex.qty++ : cart.push({ ...item, qty: 1 }); const t = translations[currentLang]; const s = btn.querySelector('span'); s.textContent = t.added; btn.classList.add('added'); setTimeout(() => { s.textContent = t.add_to_cart; btn.classList.remove('added'); }, 600); updateUI(); }
 function addChhas() { const e = cart.find(c => c.id === CHHAS_ID); e ? e.qty++ : cart.push({ id: CHHAS_ID, name: "Masala Chhas", price: 10, qty: 1, img: chhasImg }); updateUI(); }
 function changeQty(id, d) { const i = cart.findIndex(c => c.id === id); if (i > -1) { cart[i].qty += d; if (cart[i].qty <= 0) cart.splice(i, 1); } updateUI(); }
 function toggleCart(v) { $('cart-slide').classList.toggle('active', v); $('cart-overlay').classList.toggle('active', v); }
 
 function updateUI() {
   let total = 0, count = 0; const t = translations[currentLang];
-  if (cart.length === 0) {
-    $('cart-items').innerHTML = '<div class="cart-empty"><span class="cart-empty-icon">🍽️</span><span>Empty</span></div>';
-  } else {
-    $('cart-items').innerHTML = cart.map(i => { total += i.price * i.qty; count += i.qty; const n = t[i.name] || i.name; return `<div class="cart-item"><img src="${i.img || chhasImg}" class="cart-item-img"><div class="cart-item-info"><h4>${n}</h4><span>${t.rupee}${i.price}</span></div><div class="qty-controls"><button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button><span class="qty-num">${i.qty}</span><button class="qty-btn" onclick="changeQty(${i.id},1)">+</button></div><span class="item-total">${t.rupee}${i.price * i.qty}</span></div>`; }).join('');
-  }
+  if (cart.length === 0) { $('cart-items').innerHTML = '<div class="cart-empty"><span class="cart-empty-icon">🍽️</span><span>Empty</span></div>'; }
+  else { $('cart-items').innerHTML = cart.map(i => { total += i.price * i.qty; count += i.qty; const n = t[i.name] || i.name; return `<div class="cart-item"><img src="${i.img || chhasImg}" class="cart-item-img"><div class="cart-item-info"><h4>${n}</h4><span>${t.rupee}${i.price}</span></div><div class="qty-controls"><button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button><span class="qty-num">${i.qty}</span><button class="qty-btn" onclick="changeQty(${i.id},1)">+</button></div><span class="item-total">${t.rupee}${i.price * i.qty}</span></div>`; }).join(''); }
   if (!cart.some(i => i.id === CHHAS_ID) && cart.length > 0) { $('cart-upsell-container').innerHTML = `<div class="cart-upsell"><img src="${chhasImg}" class="upsell-img"><div class="upsell-info"><div class="upsell-title">${t.upsell_title}</div><div class="upsell-price">₹10</div></div><button class="upsell-btn" onclick="addChhas()">${t.upsell_btn}</button></div>`; } else { $('cart-upsell-container').innerHTML = ''; }
   $('cart-subtotals').innerHTML = `<div class="subtotal-row"><span>Items</span><span>${count}</span></div><div class="subtotal-row"><span>Delivery</span><span style="color:#4ade80">FREE</span></div>`;
-  $('total-price').textContent = t.rupee + total;
-  $('fc-total').textContent = t.rupee + total;
-  $('fc-count').textContent = count;
-  const b = $('cart-count');
-  if (count > 0) { b.textContent = count; b.style.display = 'flex'; $('cart-icon-btn').classList.add('active'); $('floating-cart').classList.add('visible'); } else { b.style.display = 'none'; $('cart-icon-btn').classList.remove('active'); $('floating-cart').classList.remove('visible'); }
+  $('total-price').textContent = t.rupee + total; $('fc-total').textContent = t.rupee + total; $('fc-count').textContent = count;
+  const b = $('cart-count'); if (count > 0) { b.textContent = count; b.style.display = 'flex'; $('cart-icon-btn').classList.add('active'); $('floating-cart').classList.add('visible'); } else { b.style.display = 'none'; $('cart-icon-btn').classList.remove('active'); $('floating-cart').classList.remove('visible'); }
 }
 
 function openOrderForm() { if (cart.length === 0) return; $('order-modal').classList.add('active'); getLoc(); }
 function closeModal() { $('order-modal').classList.remove('active'); }
 function getLoc() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => { liveLocationUrl = `https://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`; $('loc-status').classList.add('active'); $('loc-icon').textContent = '✅'; $('loc-text').textContent = 'Location captured'; }, () => { $('loc-icon').textContent = '⚠️'; $('loc-text').textContent = 'Denied'; }); }
-
-// Payment Popup Logic
-function showPaymentOptions() {
-  const amt = $('total-price').textContent.replace('₹', '');
-  if (!amt || amt === '0') { alert('Cart is empty!'); return; }
-  $('pay-amt-display-modal').textContent = '₹' + amt;
-  $('qr-code-img-modal').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`upi://pay?pa=${UPI_ID}&pn=${MERCHANT_NAME}&am=${amt}&cu=INR`)}`;
-  $('order-modal').classList.remove('active');
-  $('payment-modal').classList.add('active');
-}
+function showPaymentOptions() { const amt = $('total-price').textContent.replace('₹', ''); if (!amt || amt === '0') return; $('pay-amt-display-modal').textContent = '₹' + amt; $('qr-code-img-modal').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`upi://pay?pa=${UPI_ID}&pn=${MERCHANT_NAME}&am=${amt}&cu=INR`)}`; $('order-modal').classList.remove('active'); $('payment-modal').classList.add('active'); }
 function closePaymentModal() { $('payment-modal').classList.remove('active'); }
 function openApp(t) { const a = $('total-price').textContent.replace('₹', ''); const u = t === 'gpay' ? `gpay://upi/pay?pa=${UPI_ID}&pn=${MERCHANT_NAME}&am=${a}&cu=INR` : t === 'phonepe' ? `phonepe://pay?pa=${UPI_ID}&pn=${MERCHANT_NAME}&am=${a}&cu=INR` : `upi://pay?pa=${UPI_ID}&pn=${MERCHANT_NAME}&am=${a}&cu=INR`; window.location.href = u; }
 
 async function submitOrder(m) {
   const n = $('c-name').value.trim(), p = $('c-phone').value.trim(), a = $('c-addr').value.trim();
-  if (!n || !p || !a) { alert('Fill all fields'); return; }
+  // Validation: 10 digits
+  if (!n || !a) { alert('Please fill Name and Address'); return; }
+  if (!/^\d{10}$/.test(p)) { alert('Please enter valid 10 digit phone number'); return; }
+  
   if (!isRestaurantOpen) { closeModal(); closePaymentModal(); $('closed-modal').classList.add('active'); return; }
   
   const t = translations[currentLang], tot = $('total-price').textContent, oid = Math.floor(Math.random() * 9000) + 1000, d = new Date().toLocaleString('en-IN');
@@ -632,7 +498,9 @@ async function submitOrder(m) {
   ba.style.cssText = 'position:fixed;left:-9999px;';
   const msg = `🍳 *ORDER* \n👤 ${n}\n📞 ${p}\n📍 ${a}\n💰 ${tot}\n🗺 ${liveLocationUrl}\n📋 ${cart.map(i => `• ${t[i.name]} x${i.qty}`).join('\n')}`;
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-  cart = []; updateUI(); closeModal(); closePaymentModal(); toggleCart(false); showToast();
+  cart = []; updateUI(); closeModal(); closePaymentModal(); toggleCart(false); 
+  showToast();
+  setTimeout(showInstallPrompt, 1000); // Ask for shortcut
 }
 
 function closeClosedModal() { $('closed-modal').classList.remove('active'); }
@@ -649,7 +517,7 @@ let currentLang='en';
 let liveLocationUrl="";
 
 const translations={
-  en:{ hero_eyebrow:"Gujarat's Finest", line1:"Special Egg", line2:"Delicacies", menu_title:"Signature Dishes", premium_tag:"Tasted By Kings, Made For You", your_cart:"Your Cart", total:"Total", checkout:"Checkout Now", delivery_info:"Delivery Info", enter_details:"Enter details", cash:"💵 Cash", online:"📲 Online", add_to_cart:"Add", added:"Added!", rupee:"₹", upsell_title:"Add Chhas?", upsell_btn:"Add ₹10", dish_info: "Made with 2 eggs + 2 rotis in our special style", closed_title: "Oho! Closed", closed_msg: "Kitchen is closed. 😴<br>Come tomorrow!" },
+  en:{ hero_eyebrow:"Gujarat's Finest", line1:"Special Egg", line2:"Delicacies", menu_title:"Signature Dishes", premium_tag:"Tasted By Kings, Made For You", your_cart:"Your Cart", total:"Total", checkout:"Checkout Now", delivery_info:"Delivery Info", enter_details:"Enter your details", cash:"💵 Cash", online:"📲 Online", add_to_cart:"Add", added:"Added!", rupee:"₹", upsell_title:"Add Chhas?", upsell_btn:"Add ₹10", dish_info: "Made with 2 eggs + 2 rotis in our special style", closed_title: "Oho! Closed", closed_msg: "Kitchen is closed. 😴<br>Come tomorrow!" },
   hi:{ hero_eyebrow:"गुजरात का सर्वश्रेष्ठ", line1:"विशेष अंडा", line2:"व्यंजन", menu_title:"हस्ताक्षर व्यंजन", premium_tag:"राजाओं का स्वाद", your_cart:"आपका कार्ट", total:"कुल", checkout:"ऑर्डर करें", delivery_info:"डिलीवरी जानकारी", enter_details:"विवरण दर्ज करें", cash:"💵 कैश", online:"📲 ऑनलाइन", add_to_cart:"जोड़ें", added:"जोड़ा गया!", rupee:"₹", upsell_title:"छाछ जोड़ें?", upsell_btn:"जोड़ें ₹10", dish_info: "2 अंडे से बनेगा और साथ में 2 रोटी, अपनी स्टाइल में कुछ स्पेशल", closed_title: "ओहो! बंद हो गया", closed_msg: "किचन बंद है। 😴<br>कल आना!" },
   gu:{ hero_eyebrow:"ગુજરાતનું શ્રેષ્ઠ", line1:"વિશેષ ઇંડા", line2:"વાનગીઓ", menu_title:"હસ્તાક્ષર વાનગીઓ", premium_tag:"રાજાઓનો સ્વાદ", your_cart:"તમારું કાર્ટ", total:"કુલ", checkout:"ઓર્ડર કરો", delivery_info:"ડિલિવરી", enter_details:"વિગતો", cash:"💵 કેશ", online:"📲 ઓનલાઈન", add_to_cart:"ઉમેરો", added:"ઉમેર્યું!", rupee:"₹", upsell_title:"છાસ ઉમેરો?", upsell_btn:"ઉમેરો ₹10", dish_info: "2 ઇંડાથી બનશે અને સાથે 2 રોટલી, અમારી ખાસ સ્ટાઇલમાં", closed_title: "અરે! બંધ થયું", closed_msg: "કિચન બંધ છે. 😴<br>કાલે આવજો!" }
 };

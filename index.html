@@ -171,11 +171,11 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 #cart-slide.active { right: 0 }
 .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10999; opacity: 0; visibility: hidden; transition: all 0.4s; }
 .cart-overlay.active { opacity: 1; visibility: visible }
-.cart-header { padding: 25px; border-bottom: 1px solid rgba(201,162,39,0.1); display: flex; justify-content: space-between; align-items: center; }
+.cart-header { padding: 25px; border-bottom: 1px solid rgba(201,162,39,0.1); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
 .cart-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold-light); }
 .cart-close { background: none; border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s; }
 .cart-close:hover { border-color: var(--gold); color: var(--gold); }
-#cart-items-wrapper { flex: 1; overflow-y: auto; padding: 20px }
+#cart-items-wrapper { flex: 1 1 auto; overflow-y: auto; overflow-x: hidden; padding: 20px; min-height: 0; }
 .cart-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px; color: var(--text-muted); gap: 10px; text-align: center; }
 .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .cart-item-img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; border: 1px solid rgba(201,162,39,0.2); margin-right: 12px; }
@@ -200,26 +200,34 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 .pairing-add-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-family: 'Rajdhani', sans-serif; font-weight: 600; letter-spacing: 0.1em; cursor: pointer; transition: all 0.3s; }
 .pairing-add-btn:hover { background: var(--gold); color: #000; }
 
-/* ===== BILL SUMMARY ===== */
-.bill-summary-section { background: rgba(0,0,0,0.4); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-.bill-summary-title { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+/* ===== UNIQUE BILL SUMMARY ===== */
+.bill-summary-wrapper { background: linear-gradient(145deg, rgba(201,162,39,0.08), rgba(0,0,0,0.4)); border: 1px solid rgba(201,162,39,0.2); border-radius: 16px; overflow: hidden; margin-bottom: 12px; }
+.bill-summary-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; cursor: pointer; transition: background 0.3s; }
+.bill-summary-header:hover { background: rgba(201,162,39,0.05); }
+.bill-summary-left { display: flex; align-items: center; gap: 10px; }
+.bill-summary-label { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.bill-save-badge { background: linear-gradient(135deg, #4ade80, #22c55e); color: #000; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; animation: savePulse 2s ease-in-out infinite; }
+@keyframes savePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+.bill-toggle-icon { color: var(--gold); transition: transform 0.3s; font-size: 0.9rem; }
+.bill-toggle-icon.open { transform: rotate(180deg); }
+.bill-grand-total-mini { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; color: var(--gold); font-weight: 700; }
+.bill-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; background: rgba(0,0,0,0.3); }
+.bill-details.open { max-height: 400px; padding: 12px 16px; }
 .bill-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 0.9rem; }
-.bill-row.discount span:last-child { color: #4ade80; }
-.bill-row.total { font-size: 1.1rem; font-weight: 600; padding-top: 12px; margin-top: 8px; border-top: 1px dashed rgba(201,162,39,0.2); }
-.bill-row.total span:last-child { color: var(--gold); font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; }
+.bill-row.discount span:last-child { color: #4ade80; font-weight: 600; }
+.bill-divider { height: 1px; background: rgba(201,162,39,0.15); margin: 8px 0; }
 .strike-text { text-decoration: line-through; color: var(--text-muted); font-size: 0.8rem; margin-left: 6px; }
-.save-badge { background: linear-gradient(135deg, #4ade80, #22c55e); color: #000; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; margin-left: 8px; }
 
 /* ===== TIP SECTION ===== */
-.tip-section { background: rgba(201,162,39,0.05); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-.tip-title { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 12px; }
-.tip-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
-.tip-btn { flex: 1; min-width: 60px; padding: 10px; background: transparent; border: 1px solid rgba(201,162,39,0.3); color: var(--gold); border-radius: 8px; font-family: 'Rajdhani', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+.tip-section-compact { background: rgba(201,162,39,0.05); border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+.tip-title { font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 10px; }
+.tip-buttons { display: flex; gap: 8px; }
+.tip-btn { flex: 1; padding: 8px; background: transparent; border: 1px solid rgba(201,162,39,0.3); color: var(--gold); border-radius: 8px; font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
 .tip-btn:hover, .tip-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
 
 /* ===== CART FOOTER ===== */
-.cart-footer { padding: 22px; border-top: 1px solid rgba(201,162,39,0.1); background: linear-gradient(0deg, rgba(201,162,39,0.03), transparent); }
-.checkout-btn { width: 100%; background: var(--gradient-gold); border: none; color: #000; padding: 16px; font-family: 'Rajdhani', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 40px; cursor: pointer; transition: all 0.3s; box-shadow: var(--glow); }
+.cart-footer { padding: 16px; border-top: 1px solid rgba(201,162,39,0.1); background: linear-gradient(0deg, rgba(201,162,39,0.03), transparent); flex-shrink: 0; }
+.checkout-btn { width: 100%; background: var(--gradient-gold); border: none; color: #000; padding: 14px; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 40px; cursor: pointer; transition: all 0.3s; box-shadow: var(--glow); }
 .checkout-btn:hover { transform: scale(1.02); box-shadow: var(--glow-strong) }
 
 /* ===== PAIRING MODAL ===== */
@@ -241,7 +249,7 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 .pairing-modal-add-btn:hover { transform: scale(1.05); box-shadow: var(--glow); }
 .pairing-modal-add-btn.added { background: #4ade80; }
 
-/* ===== INSTALL MODAL - ENHANCED ===== */
+/* ===== INSTALL MODAL ===== */
 #install-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 999999; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(20px); }
 #install-modal.active { display: flex; }
 .install-modal-content { width: 100%; max-width: 400px; background: linear-gradient(145deg, #151515, #0a0a0a); border: 1px solid rgba(201,162,39,0.3); border-radius: 24px; padding: 30px; text-align: center; position: relative; overflow: hidden; animation: installModalIn 0.4s ease; }
@@ -255,8 +263,6 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 .install-btn:hover { transform: scale(1.02); box-shadow: var(--glow-strong); }
 .install-later { color: var(--text-muted); font-size: 0.85rem; cursor: pointer; transition: color 0.3s; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.1em; }
 .install-later:hover { color: var(--gold); }
-
-/* iOS Guide */
 .ios-guide { text-align: left; background: rgba(201,162,39,0.05); border-radius: 16px; padding: 18px; margin-top: 15px; border: 1px solid rgba(201,162,39,0.15); }
 .ios-guide-title { font-size: 0.8rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; font-family: 'Rajdhani', sans-serif; }
 .ios-step { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 10px; }
@@ -303,8 +309,6 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 #bg-canvas { position: fixed; inset: 0; z-index: 1; opacity: 0.4; pointer-events: none; }
 .cursor-follower { position: fixed; width: 20px; height: 20px; border: 1px solid var(--gold); border-radius: 50%; pointer-events: none; z-index: 99997; transition: transform 0.15s; transform: translate(-50%, -50%); display: none; }
 @media(min-width: 768px) { .cursor-follower { display: block } }
-
-/* Toast */
 .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--gradient-gold); color: #000; padding: 15px 30px; border-radius: 40px; font-family: Rajdhani, sans-serif; z-index: 999999; box-shadow: var(--glow); animation: toastIn 0.4s ease; }
 @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 </style>
@@ -383,11 +387,11 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
   <!-- PAIRING MODAL -->
   <div id="pairing-modal">
     <div class="pairing-modal-header">
-      <h3 class="pairing-modal-title" data-translate="pairing_title">Recommended Pairings</h3>
+      <h3 class="pairing-modal-title" data-translate="pairing_title">Add Extra</h3>
       <button class="pairing-modal-close" onclick="closePairingModal()">✕</button>
     </div>
     <div class="pairing-modal-content">
-      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;" data-translate="pairing_subtitle">Complete your meal with these popular additions</p>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;" data-translate="pairing_subtitle">Complete your meal with these</p>
       <div class="pairing-modal-items" id="pairing-modal-items"></div>
     </div>
   </div>
@@ -397,29 +401,17 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
     <div class="install-modal-content">
       <div class="install-icon-wrap">📲</div>
       <h3 class="install-title">Install Egg Master</h3>
-      <p class="install-subtitle">Add to home screen for quick access and better experience!</p>
-      
+      <p class="install-subtitle">Add to home screen for quick access!</p>
       <div id="android-install">
         <button class="install-btn" id="install-btn">Install Now</button>
         <p class="install-later" onclick="closeInstallModal()">Maybe Later</p>
       </div>
-      
       <div id="ios-install" style="display:none;">
         <div class="ios-guide">
           <div class="ios-guide-title">Follow These Steps</div>
-          <div class="ios-step">
-            <span class="ios-step-num">1</span>
-            <span class="ios-step-text">Tap <strong>Share</strong> button</span>
-            <span class="ios-step-icon">⬆️</span>
-          </div>
-          <div class="ios-step">
-            <span class="ios-step-num">2</span>
-            <span class="ios-step-text">Scroll down & tap <strong>Add to Home Screen</strong></span>
-          </div>
-          <div class="ios-step">
-            <span class="ios-step-num">3</span>
-            <span class="ios-step-text">Tap <strong>Add</strong> in top right corner</span>
-          </div>
+          <div class="ios-step"><span class="ios-step-num">1</span><span class="ios-step-text">Tap <strong>Share</strong> button</span><span class="ios-step-icon">⬆️</span></div>
+          <div class="ios-step"><span class="ios-step-num">2</span><span class="ios-step-text">Tap <strong>Add to Home Screen</strong></span></div>
+          <div class="ios-step"><span class="ios-step-num">3</span><span class="ios-step-text">Tap <strong>Add</strong></span></div>
         </div>
         <p class="install-later" onclick="closeInstallModal()" style="margin-top:15px;">Close</p>
       </div>
@@ -445,7 +437,7 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 
   <div id="payment-modal" class="modal"><div class="modal-content"><div style="text-align:center; margin-bottom:15px;"><div style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:#3E2723;">💳 PAYMENT</div></div><h3 class="modal-title">Online Payment</h3><p class="modal-subtitle">Scan QR or select app</p><p style="text-align:center; margin:10px 0; font-size:1.2rem; font-weight:bold;">Total: <span id="pay-amt-display-modal">₹0</span></p><div class="qr-section" style="text-align:center;"><img id="qr-code-img-modal" src="" alt="QR" width="150" height="150"></div><p style="text-align:center;font-size:0.8rem;color:#5D4037;margin:15px 0 8px 0;">— OR Select App —</p><div class="payment-apps"><button class="pay-app-btn" onclick="openApp('gpay')"><span style="font-size:1.5rem;">G</span><span>Google Pay</span></button><button class="pay-app-btn" onclick="openApp('phonepe')"><span style="font-size:1.5rem;">P</span><span>PhonePe</span></button><button class="pay-app-btn" onclick="openApp('paytm')"><span style="font-size:1.5rem;">P</span><span>Paytm</span></button></div><button class="confirm-btn" onclick="submitOrder('Online')">✅ Paid? Confirm</button><p class="modal-close-text" onclick="closePaymentModal()">✕ Cancel</p></div></div>
 
-  <div id="closed-modal" class="modal"><div class="modal-content" style="max-width: 380px;"><div style="text-align:center; padding: 20px 0;"><span class="msg-icon">🔒</span><h3 class="msg-title" data-translate="closed_title">Oho! Band Ho Gaya</h3><p class="msg-text" data-translate="closed_msg">Kitchen is closed. Come tomorrow!</p><button class="checkout-btn" onclick="closeClosedModal()" style="background: #3E2723; color: #F5E6C8;">Theek Hai</button></div></div></div>
+  <div id="closed-modal" class="modal"><div class="modal-content" style="max-width: 380px;"><div style="text-align:center; padding: 20px 0;"><span class="msg-icon">🔒</span><h3 class="msg-title" data-translate="closed_title">Oho! Closed</h3><p class="msg-text" data-translate="closed_msg">Kitchen is closed. Come tomorrow!</p><button class="checkout-btn" onclick="closeClosedModal()" style="background: #3E2723; color: #F5E6C8;">Theek Hai</button></div></div></div>
 
   <div id="bill-area"><div class="bill-header"><div class="bill-name">🍳 EGG MASTER</div><div style="font-size:0.75rem;color:#555">THE ROYAL TASTE</div></div><p id="bill-date" style="font-size:11px;color:#555;margin:8px 0"></p><hr style="border:none;border-top:1px dashed #999;margin:8px 0"><div id="bill-items-list"></div><hr><div class="bill-total-row" id="bill-grand-total"></div></div>
 </div>
@@ -455,9 +447,7 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 (function(){
   document.addEventListener('contextmenu', e => e.preventDefault());
   window.addEventListener('keydown', e => { if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['I','J','C'].includes(e.key))||(e.ctrlKey&&['U','S'].includes(e.key))){ e.preventDefault(); return false; } });
-  console.log('%c⚠️ STOP!','color:red;font-size:50px;font-weight:bold;');
   window.isMobile = window.innerWidth < 768;
-  window.particleCount = window.isMobile ? 15 : 40;
 })();
 
 const $ = id => document.getElementById(id);
@@ -476,86 +466,60 @@ function initSite() {
   const cursor = $('cursor'); let cx=0, cy=0, tx=0, ty=0; document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
   (function anim() { cx += (tx - cx) * 0.15; cy += (ty - cy) * 0.15; cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px'; requestAnimationFrame(anim); })();
   window.addEventListener('scroll', () => { const st = window.scrollY, dh = document.documentElement.scrollHeight - window.innerHeight; $('scroll-progress').style.width = (st / dh * 100) + '%'; $('navbar').classList.toggle('scrolled', st > 50); });
-  if (typeof THREE !== 'undefined') { try { const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); const renderer = new THREE.WebGLRenderer({ canvas: $('bg-canvas'), alpha: true }); renderer.setSize(window.innerWidth, window.innerHeight); renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.isMobile ? 1 : 1.5)); const seg = window.isMobile ? 0 : 1; const shape = new THREE.Mesh(new THREE.IcosahedronGeometry(15, seg), new THREE.MeshBasicMaterial({ color: 0xC9A227, wireframe: true, transparent: true, opacity: 0.2 })); scene.add(shape); camera.position.z = 40; (function anim() { requestAnimationFrame(anim); shape.rotation.x += 0.001; shape.rotation.y += 0.001; renderer.render(scene, camera); })(); window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); }); } catch (e) { } }
+  if (typeof THREE !== 'undefined') { try { const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); const renderer = new THREE.WebGLRenderer({ canvas: $('bg-canvas'), alpha: true }); renderer.setSize(window.innerWidth, window.innerHeight); renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.isMobile ? 1 : 1.5)); const shape = new THREE.Mesh(new THREE.IcosahedronGeometry(15, window.isMobile ? 0 : 1), new THREE.MeshBasicMaterial({ color: 0xC9A227, wireframe: true, transparent: true, opacity: 0.2 })); scene.add(shape); camera.position.z = 40; (function anim() { requestAnimationFrame(anim); shape.rotation.x += 0.001; shape.rotation.y += 0.001; renderer.render(scene, camera); })(); window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); }); } catch (e) { } }
   renderMenu(); updateUI();
-  
-  // ===== QUICK INSTALL - IMMEDIATE CHECK =====
   setTimeout(() => { checkAndShowInstallPrompt(); }, 800);
 }
 
-// ===== PWA INSTALL LOGIC =====
+// ===== PWA INSTALL =====
 let deferredPrompt = null;
 let isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
 let isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
 function initPWA() {
-  // Listen for beforeinstallprompt (Android/Chrome)
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    // Show immediately when available
-    setTimeout(() => { checkAndShowInstallPrompt(); }, 500);
-  });
-  
-  // Listen for app installed
-  window.addEventListener('appinstalled', () => {
-    deferredPrompt = null;
-    closeInstallModal();
-    showToast('App Installed Successfully!');
-  });
+  window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; setTimeout(() => { checkAndShowInstallPrompt(); }, 500); });
+  window.addEventListener('appinstalled', () => { deferredPrompt = null; closeInstallModal(); showToast('App Installed!'); });
 }
 
 function checkAndShowInstallPrompt() {
-  // Don't show if already installed
-  if (isStandalone) return;
-  
-  // Don't show if dismissed in this session
-  if (sessionStorage.getItem('installDismissed')) return;
-  
-  // Show install modal
+  if (isStandalone || sessionStorage.getItem('installDismissed')) return;
   $('install-modal').classList.add('active');
-  
-  // Handle different platforms
-  if (isIOS) {
-    $('android-install').style.display = 'none';
-    $('ios-install').style.display = 'block';
-  } else {
-    $('android-install').style.display = 'block';
-    $('ios-install').style.display = 'none';
-    
-    // Setup install button for Android
+  if (isIOS) { $('android-install').style.display = 'none'; $('ios-install').style.display = 'block'; }
+  else { $('android-install').style.display = 'block'; $('ios-install').style.display = 'none';
     $('install-btn').onclick = async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          closeInstallModal();
-        }
-        deferredPrompt = null;
-      } else {
-        // Fallback - just close
-        closeInstallModal();
-        showToast('Check browser menu to install');
-      }
+      if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') closeInstallModal(); deferredPrompt = null; }
+      else { closeInstallModal(); showToast('Check browser menu to install'); }
     };
   }
 }
 
-function closeInstallModal() { 
-  $('install-modal').classList.remove('active'); 
-  sessionStorage.setItem('installDismissed', 'true');
-}
-
-// Initialize PWA on page load
+function closeInstallModal() { $('install-modal').classList.remove('active'); sessionStorage.setItem('installDismissed', 'true'); }
 initPWA();
 
-// ===== LOGIC FUNCS =====
+// ===== LOGIC =====
 let isRestaurantOpen = false;
 let selectedTip = 0;
+let billDetailsOpen = false;
+
+// Pairing Items IDs
+const CHHAS_ID = 98;
+const BREAD_SLICE_ID = 97;
+const chhasImg = "https://i.ibb.co/5W7r68NC/masala-chhas.jpg";
+// ===== UPDATED BREAD IMAGE URL =====
+const breadSliceImg = "https://i.ibb.co/xtxG5WBp/bread.jpg";
+
 function updateTimingStatus() { const h = new Date().getHours(); isRestaurantOpen = (h >= 8 && h < 14) || (h >= 19); const el = $('timing-status'); if (el) { el.textContent = isRestaurantOpen ? "WE ARE OPEN" : "WE ARE CLOSED"; el.className = "timing-status " + (isRestaurantOpen ? "open" : "closed"); } }
 function toggleLangDropdown() { $('lang-dropdown').classList.toggle('active'); }
 function setLanguage(l) { currentLang = l; const d = translations[l]; document.querySelectorAll('[data-translate]').forEach(e => { const k = e.getAttribute('data-translate'); if (d[k]) e.textContent = d[k]; }); $('current-lang').textContent = { en: 'ENG', hi: 'HIN', gu: 'GUJ' }[l]; document.querySelectorAll('.lang-option').forEach(o => { o.classList.remove('selected'); if (o.getAttribute('onclick').includes(`'${l}'`)) o.classList.add('selected'); }); $('lang-dropdown').classList.remove('active'); renderMenu(); updateUI(); }
 document.addEventListener('click', e => { if (!e.target.closest('.lang-switcher')) $('lang-dropdown').classList.remove('active'); });
+
+function toggleBillDetails() {
+  billDetailsOpen = !billDetailsOpen;
+  const details = $('bill-details');
+  const icon = $('bill-toggle-icon');
+  if (details) details.classList.toggle('open', billDetailsOpen);
+  if (icon) icon.classList.toggle('open', billDetailsOpen);
+}
 
 function renderMenu() {
   const t = translations[currentLang];
@@ -576,12 +540,7 @@ function addToCart(id, btn) {
   const ex = cart.find(c => c.id === id); 
   ex ? ex.qty++ : cart.push({ ...item, qty: 1 }); 
   const t = translations[currentLang]; 
-  if (btn) {
-    const s = btn.querySelector('span'); 
-    s.textContent = t.added; 
-    btn.classList.add('added'); 
-    setTimeout(() => { s.textContent = t.add_to_cart; btn.classList.remove('added'); }, 600);
-  }
+  if (btn) { const s = btn.querySelector('span'); s.textContent = t.added; btn.classList.add('added'); setTimeout(() => { s.textContent = t.add_to_cart; btn.classList.remove('added'); }, 600); }
   updateUI(); 
   showPairingModal(id);
 }
@@ -591,7 +550,10 @@ function showPairingModal(itemId) {
   const pairings = getPairings(itemId);
   if (pairings.length === 0) return;
   
-  $('pairing-modal-items').innerHTML = pairings.map(p => `
+  const availablePairings = pairings.filter(p => !cart.some(c => c.id === p.id));
+  if (availablePairings.length === 0) return;
+  
+  $('pairing-modal-items').innerHTML = availablePairings.map(p => `
     <div class="pairing-modal-item">
       <img src="${p.img}" class="pairing-modal-item-img" alt="${t[p.name] || p.name}">
       <div class="pairing-modal-item-info">
@@ -602,179 +564,102 @@ function showPairingModal(itemId) {
       <button class="pairing-modal-add-btn" onclick="addPairingItem(${p.id}, this)">Add +</button>
     </div>
   `).join('');
-  
   $('pairing-modal').classList.add('active');
 }
 
 function getPairings(itemId) {
-  const item = menu.find(m => m.id === itemId);
-  if (!item) return [];
-  
-  const pairingRules = {
-    1: [15, 17], 2: [99], 3: [99], 4: [15, 99], 5: [15, 17], 7: [99],
-    10: [15, 99], 11: [15], 13: [99], 14: [17, 99], 15: [99], 16: [99], 20: [15, 99],
-  };
-  
-  const pairingIds = pairingRules[itemId] || [];
-  return pairingIds.map(id => {
-    if (id === 99) return { id: 99, name: "Masala Chhas", price: 10, img: chhasImg, desc: "Refreshing buttermilk" };
-    return menu.find(m => m.id === id);
-  }).filter(Boolean);
+  const pairings = [];
+  pairings.push({ id: BREAD_SLICE_ID, name: "Extra Bread Slice", price: 5, img: breadSliceImg, desc: "Fresh bread slice" });
+  pairings.push({ id: CHHAS_ID, name: "Masala Chhas", price: 10, img: chhasImg, desc: "Refreshing spiced buttermilk" });
+  return pairings;
 }
 
 function addPairingItem(id, btn) {
-  if (id === 99) {
+  if (id === CHHAS_ID) {
     const e = cart.find(c => c.id === id);
-    e ? e.qty++ : cart.push({ id: 99, name: "Masala Chhas", price: 10, qty: 1, img: chhasImg });
+    e ? e.qty++ : cart.push({ id: CHHAS_ID, name: "Masala Chhas", price: 10, qty: 1, img: chhasImg });
+  } else if (id === BREAD_SLICE_ID) {
+    const e = cart.find(c => c.id === id);
+    e ? e.qty++ : cart.push({ id: BREAD_SLICE_ID, name: "Extra Bread Slice", price: 5, qty: 1, img: breadSliceImg });
   } else {
     const item = menu.find(m => m.id === id);
     const ex = cart.find(c => c.id === id);
     ex ? ex.qty++ : cart.push({ ...item, qty: 1 });
   }
-  btn.textContent = 'Added!';
-  btn.classList.add('added');
-  setTimeout(() => { btn.textContent = 'Add +'; btn.classList.remove('added'); }, 800);
+  btn.textContent = 'Added!'; btn.classList.add('added'); 
+  setTimeout(() => { btn.textContent = 'Add +'; btn.classList.remove('added'); }, 800); 
   updateUI();
 }
 
 function closePairingModal() { $('pairing-modal').classList.remove('active'); }
-
 function changeQty(id, d) { const i = cart.findIndex(c => c.id === id); if (i > -1) { cart[i].qty += d; if (cart[i].qty <= 0) cart.splice(i, 1); } updateUI(); }
 function toggleCart(v) { $('cart-slide').classList.toggle('active', v); $('cart-overlay').classList.toggle('active', v); if (!v) closePairingModal(); }
-
-function selectTip(amount) {
-  selectedTip = amount;
-  document.querySelectorAll('.tip-btn').forEach(btn => {
-    btn.classList.toggle('active', parseInt(btn.dataset.amount) === amount);
-  });
-  updateUI();
-}
+function selectTip(amount) { selectedTip = amount; document.querySelectorAll('.tip-btn').forEach(btn => { btn.classList.toggle('active', parseInt(btn.dataset.amount) === amount); }); updateUI(); }
 
 function updateUI() {
-  let subtotal = 0, count = 0; 
-  const t = translations[currentLang];
-  
+  let subtotal = 0, count = 0; const t = translations[currentLang];
   cart.forEach(i => { subtotal += i.price * i.qty; count += i.qty; });
   
-  if (cart.length === 0) { 
-    $('cart-items').innerHTML = '<div class="cart-empty"><span>🍽️</span><span>Empty Cart</span></div>'; 
-  } else { 
+  if (cart.length === 0) { $('cart-items').innerHTML = '<div class="cart-empty"><span>🍽️</span><span>Empty Cart</span></div>'; }
+  else { 
     $('cart-items').innerHTML = cart.map(i => { 
       const n = t[i.name] || i.name; 
       return `<div class="cart-item"><img src="${i.img || chhasImg}" class="cart-item-img"><div class="cart-item-info"><h4>${n}</h4><span>${t.rupee}${i.price}</span></div><div class="qty-controls"><button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button><span class="qty-num">${i.qty}</span><button class="qty-btn" onclick="changeQty(${i.id},1)">+</button></div><span class="item-total">${t.rupee}${i.price * i.qty}</span></div>`; 
     }).join(''); 
   }
   
-  if (cart.length > 0) {
-    const lastItem = cart[cart.length - 1];
-    const pairings = getPairings(lastItem.id);
+  if (cart.length > 0 && !$('pairing-modal').classList.contains('active')) {
+    const pairings = getPairings(1);
     const availablePairings = pairings.filter(p => !cart.some(c => c.id === p.id));
     
-    if (availablePairings.length > 0 && !$('pairing-modal').classList.contains('active')) {
-      $('pairing-container').innerHTML = `
-        <div class="pairing-section">
-          <div class="pairing-title">${t.pair_with || 'Pair with'}</div>
-          <div class="pairing-items">
-            ${availablePairings.slice(0, 2).map(p => `
-              <div class="pairing-item">
-                <img src="${p.img}" class="pairing-item-img">
-                <div class="pairing-item-info">
-                  <div class="pairing-item-name">${t[p.name] || p.name}</div>
-                  <div class="pairing-item-price">${t.rupee}${p.price}</div>
-                </div>
-                <button class="pairing-add-btn" onclick="addPairingItem(${p.id}, this)">Add +</button>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    } else {
-      $('pairing-container').innerHTML = '';
-    }
-  } else {
-    $('pairing-container').innerHTML = '';
-  }
+    if (availablePairings.length > 0) {
+      $('pairing-container').innerHTML = `<div class="pairing-section"><div class="pairing-title">${t.pair_with || 'Add Extra'}</div><div class="pairing-items">${availablePairings.map(p => `<div class="pairing-item"><img src="${p.img}" class="pairing-item-img"><div class="pairing-item-info"><div class="pairing-item-name">${t[p.name] || p.name}</div><div class="pairing-item-price">${t.rupee}${p.price}</div></div><button class="pairing-add-btn" onclick="addPairingItem(${p.id}, this)">Add +</button></div>`).join('')}</div></div>`;
+    } else { $('pairing-container').innerHTML = ''; }
+  } else { $('pairing-container').innerHTML = ''; }
   
-  const discount = Math.floor(subtotal * 0.1);
-  const packingCharge = 25;
-  const deliveryFee = 0;
-  const platformFee = Math.round(subtotal * 0.03);
+  const discount = Math.floor(subtotal * 0.1); const packingCharge = 5; const platformFee = Math.round(subtotal * 0.03);
   const gst = Math.round((subtotal - discount + platformFee) * 0.05);
-  const grandTotal = subtotal - discount + packingCharge + deliveryFee + platformFee + gst + selectedTip;
+  const grandTotal = subtotal - discount + packingCharge + platformFee + gst + selectedTip;
   const totalSavings = discount + 53;
   
   if (cart.length > 0) {
     $('bill-summary-container').innerHTML = `
-      <div class="bill-summary-section">
-        <div class="bill-summary-title">${t.bill_summary || 'Bill Summary'}</div>
-        <div class="bill-row">
-          <span>${t.item_total || 'Item Total'}</span>
-          <span><span class="strike-text">${t.rupee}${subtotal}</span>${t.rupee}${subtotal - discount}<span class="save-badge">Save ${t.rupee}${totalSavings}</span></span>
+      <div class="bill-summary-wrapper">
+        <div class="bill-summary-header" onclick="toggleBillDetails()">
+          <div class="bill-summary-left">
+            <span class="bill-summary-label">${t.bill_summary || 'Bill Summary'}</span>
+            <span class="bill-save-badge">${t.save || 'Save'} ${t.rupee}${totalSavings}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="bill-grand-total-mini">${t.rupee}${grandTotal}</span>
+            <span class="bill-toggle-icon ${billDetailsOpen ? 'open' : ''}" id="bill-toggle-icon">▼</span>
+          </div>
         </div>
-        <div class="bill-row discount">
-          <span>${t.discount || 'Discount'}</span>
-          <span>-${t.rupee}${discount}</span>
-        </div>
-        <div class="bill-row">
-          <span>${t.packing || 'Packing Charge'}</span>
-          <span>${t.rupee}${packingCharge}</span>
-        </div>
-        <div class="bill-row">
-          <span>${t.delivery || 'Delivery Fee'}</span>
-          <span style="color:#4ade80">${t.free || 'FREE'}</span>
-        </div>
-        <div class="bill-row">
-          <span>${t.platform_fee || 'Platform Fee'}</span>
-          <span>${t.rupee}${platformFee}</span>
-        </div>
-        <div class="bill-row">
-          <span>${t.gst || 'GST & Taxes'}</span>
-          <span>${t.rupee}${gst}</span>
-        </div>
-        ${selectedTip > 0 ? `<div class="bill-row"><span>${t.tip || 'Tip'}</span><span>${t.rupee}${selectedTip}</span></div>` : ''}
-        <div class="bill-row total">
-          <span>${t.grand_total || 'Grand Total'}</span>
-          <span>${t.rupee}${grandTotal}</span>
+        <div class="bill-details ${billDetailsOpen ? 'open' : ''}" id="bill-details">
+          <div class="bill-row"><span>${t.item_total || 'Item Total'}</span><span><span class="strike-text">${t.rupee}${subtotal}</span> ${t.rupee}${subtotal - discount}</span></div>
+          <div class="bill-row discount"><span>${t.discount || 'Discount'}</span><span>-${t.rupee}${discount}</span></div>
+          <div class="bill-divider"></div>
+          <div class="bill-row"><span>${t.packing || 'Packing'}</span><span>${t.rupee}${packingCharge}</span></div>
+          <div class="bill-row"><span>${t.delivery || 'Delivery'}</span><span style="color:#4ade80">${t.free || 'FREE'}</span></div>
+          <div class="bill-row"><span>${t.platform_fee || 'Platform Fee'}</span><span>${t.rupee}${platformFee}</span></div>
+          <div class="bill-row"><span>${t.gst || 'GST & Taxes'}</span><span>${t.rupee}${gst}</span></div>
+          ${selectedTip > 0 ? `<div class="bill-row"><span>${t.tip || 'Tip'}</span><span>${t.rupee}${selectedTip}</span></div>` : ''}
         </div>
       </div>
     `;
-    
-    $('tip-container').innerHTML = `
-      <div class="tip-section">
-        <div class="tip-title">${t.tip_delivery || 'Tip your delivery partner'}</div>
-        <div class="tip-buttons">
-          <button class="tip-btn" data-amount="10" onclick="selectTip(10)">${t.rupee}10</button>
-          <button class="tip-btn" data-amount="20" onclick="selectTip(20)">${t.rupee}20</button>
-          <button class="tip-btn" data-amount="30" onclick="selectTip(30)">${t.rupee}30</button>
-          <button class="tip-btn" data-amount="0" onclick="selectTip(0)">${t.none || 'None'}</button>
-        </div>
-      </div>
-    `;
-  } else {
-    $('bill-summary-container').innerHTML = '';
-    $('tip-container').innerHTML = '';
-  }
+    $('tip-container').innerHTML = `<div class="tip-section-compact"><div class="tip-title">${t.tip_delivery || 'Tip delivery partner'}</div><div class="tip-buttons"><button class="tip-btn" data-amount="10" onclick="selectTip(10)">${t.rupee}10</button><button class="tip-btn" data-amount="20" onclick="selectTip(20)">${t.rupee}20</button><button class="tip-btn" data-amount="30" onclick="selectTip(30)">${t.rupee}30</button><button class="tip-btn" data-amount="0" onclick="selectTip(0)">${t.none || 'None'}</button></div></div>`;
+  } else { $('bill-summary-container').innerHTML = ''; $('tip-container').innerHTML = ''; }
   
-  $('fc-total').textContent = t.rupee + grandTotal; 
-  $('fc-count').textContent = count;
+  $('fc-total').textContent = t.rupee + grandTotal; $('fc-count').textContent = count;
   const b = $('cart-count'); 
-  if (count > 0) { 
-    b.textContent = count; 
-    b.style.display = 'flex'; 
-    $('cart-icon-btn').classList.add('active'); 
-    $('floating-cart').classList.add('visible'); 
-  } else { 
-    b.style.display = 'none'; 
-    $('cart-icon-btn').classList.remove('active'); 
-    $('floating-cart').classList.remove('visible'); 
-  }
-  
+  if (count > 0) { b.textContent = count; b.style.display = 'flex'; $('floating-cart').classList.add('visible'); }
+  else { b.style.display = 'none'; $('floating-cart').classList.remove('visible'); }
   window.currentGrandTotal = grandTotal;
 }
 
 function openOrderForm() { if (cart.length === 0) return; $('order-modal').classList.add('active'); getLoc(); }
 function closeModal() { $('order-modal').classList.remove('active'); }
-function getLoc() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => { liveLocationUrl = `https://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`; $('loc-status').classList.add('active'); $('loc-icon').textContent = '✅'; $('loc-text').textContent = 'Location captured'; }, () => { $('loc-icon').textContent = '⚠️'; $('loc-text').textContent = 'Denied'; }); }
+function getLoc() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => { liveLocationUrl = `https://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`; $('loc-icon').textContent = '✅'; $('loc-text').textContent = 'Location captured'; }, () => { $('loc-icon').textContent = '⚠️'; $('loc-text').textContent = 'Denied'; }); }
 function showPaymentOptions() { const amt = window.currentGrandTotal || 0; if (!amt) return; $('pay-amt-display-modal').textContent = '₹' + amt; $('qr-code-img-modal').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`upi://pay?pa=${UPI_ID}&pn=${MERCHANT_NAME}&am=${amt}&cu=INR`)}`; $('order-modal').classList.remove('active'); $('payment-modal').classList.add('active'); }
 function closePaymentModal() { $('payment-modal').classList.remove('active'); }
 function openApp(t) { const a = window.currentGrandTotal || 0; const u = t === 'gpay' ? `gpay://upi/pay?pa=${UPI_ID}&pn=${MERCHANT_NAME}&am=${a}&cu=INR` : t === 'phonepe' ? `phonepe://pay?pa=${UPI_ID}&pn=${MERCHANT_NAME}&am=${a}&cu=INR` : `upi://pay?pa=${UPI_ID}&pn=${MERCHANT_NAME}&am=${a}&cu=INR`; window.location.href = u; }
@@ -783,9 +668,7 @@ async function submitOrder(m) {
   const n = $('c-name').value.trim(), p = $('c-phone').value.trim(), a = $('c-addr').value.trim();
   if (!n || !a) { alert('Please fill Name and Address'); return; }
   if (!/^\d{10}$/.test(p)) { alert('Please enter valid 10 digit phone number'); return; }
-  
   if (!isRestaurantOpen) { closeModal(); closePaymentModal(); $('closed-modal').classList.add('active'); return; }
-  
   const t = translations[currentLang], tot = '₹' + (window.currentGrandTotal || 0), oid = Math.floor(Math.random() * 9000) + 1000, d = new Date().toLocaleString('en-IN');
   $('bill-date').textContent = `${d} | #${oid}`;
   $('bill-items-list').innerHTML = cart.map(i => `<div class="bill-item-row"><span>${t[i.name] || i.name} x${i.qty}</span><span>₹${i.price * i.qty}</span></div>`).join('');
@@ -794,10 +677,9 @@ async function submitOrder(m) {
   await new Promise(r => setTimeout(r, 200));
   try { const c = await html2canvas(ba, { scale: 2.5 }); const l = document.createElement('a'); l.download = `Bill_${oid}.jpg`; l.href = c.toDataURL('jpeg', 0.9); l.click(); } catch (e) { }
   ba.style.cssText = 'position:fixed;left:-9999px;';
-  const msg = `🍳 *ORDER*\n👤 ${n}\n📞 ${p}\n📍 ${a}\n💰 ${tot}\n🗺 ${liveLocationUrl}\n📋 ${cart.map(i => `• ${t[i.name]} x${i.qty}`).join('\n')}${selectedTip > 0 ? `\n💵 Tip: ₹${selectedTip}` : ''}`;
+  const msg = `🍳 *ORDER*\n👤 ${n}\n📞 ${p}\n📍 ${a}\n💰 ${tot}\n🗺 ${liveLocationUrl}\n📋 ${cart.map(i => `• ${t[i.name] || i.name} x${i.qty}`).join('\n')}${selectedTip > 0 ? `\n💵 Tip: ₹${selectedTip}` : ''}`;
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-  cart = []; selectedTip = 0; updateUI(); closeModal(); closePaymentModal(); toggleCart(false); 
-  showToast();
+  cart = []; selectedTip = 0; updateUI(); closeModal(); closePaymentModal(); toggleCart(false); showToast();
 }
 
 function closeClosedModal() { $('closed-modal').classList.remove('active'); }
@@ -807,66 +689,25 @@ function showToast(msg = '🎉 Order Sent!') { const d = document.createElement(
 const WHATSAPP_NUMBER="919586096174";
 const UPI_ID="ashishchavda9586@oksbi";
 const MERCHANT_NAME="Egg Master";
-const CHHAS_ID=99;
-const chhasImg="https://i.ibb.co/5W7r68NC/masala-chhas.jpg";
 let cart=[];
 let currentLang='en';
 let liveLocationUrl="";
 
-// ===== UPDATED TRANSLATIONS =====
 const translations={
-  en:{ 
-    hero_eyebrow:"Gujarat's Finest", line1:"Special Egg", line2:"Delicacies", menu_title:"Signature Dishes", premium_tag:"Tasted By Kings, Made For You", 
-    your_cart:"Your Cart", checkout:"Checkout Now", delivery_info:"Delivery Info", enter_details:"Enter your details", 
-    add_to_cart:"Add", added:"Added!", rupee:"₹", dish_info: "Made with 2 eggs + 3 bread slices in our special style", 
-    closed_title: "Oho! Closed", closed_msg: "Kitchen is closed. Come tomorrow!",
-    pairing_title: "Recommended Pairings", pairing_subtitle: "Complete your meal with these popular additions",
-    pair_with: "Pair with", bill_summary: "Bill Summary", item_total: "Item Total", discount: "Discount",
-    packing: "Packing Charge", delivery: "Delivery Fee", free: "FREE", platform_fee: "Platform Fee",
-    gst: "GST & Taxes", grand_total: "Grand Total", tip: "Tip", tip_delivery: "Tip your delivery partner",
-    none: "None", add_btn: "Add +"
-  },
-  hi:{ 
-    hero_eyebrow:"गुजरात का सर्वश्रेष्ठ", line1:"विशेष अंडा", line2:"व्यंजन", menu_title:"हस्ताक्षर व्यंजन", premium_tag:"राजाओं का स्वाद", 
-    your_cart:"आपका कार्ट", checkout:"ऑर्डर करें", delivery_info:"डिलीवरी जानकारी", enter_details:"विवरण दर्ज करें", 
-    add_to_cart:"जोड़ें", added:"जोड़ा गया!", rupee:"₹", dish_info: "2 अंडे + 3 ब्रेड स्लाइस से बनेगा हमारी खास स्टाइल में", 
-    closed_title: "ओहो! बंद हो गया", closed_msg: "किचन बंद है। कल आना!",
-    pairing_title: "साथ में लें", pairing_subtitle: "अपने भोजन को पूरा करें",
-    pair_with: "साथ में", bill_summary: "बिल सारांश", item_total: "आइटम कुल", discount: "छूट",
-    packing: "पैकिंग शुल्क", delivery: "डिलीवरी शुल्क", free: "मुफ्त", platform_fee: "प्लेटफॉर्म शुल्क",
-    gst: "जीएसटी और कर", grand_total: "कुल योग", tip: "टिप", tip_delivery: "डिलीवरी पार्टनर को टिप दें",
-    none: "कोई नहीं", add_btn: "जोड़ें +"
-  },
-  gu:{ 
-    hero_eyebrow:"ગુજરાતનું શ્રેષ્ઠ", line1:"વિશેષ ઇંડા", line2:"વાનગીઓ", menu_title:"હસ્તાક્ષર વાનગીઓ", premium_tag:"રાજાઓનો સ્વાદ", 
-    your_cart:"તમારું કાર્ટ", checkout:"ઓર્ડર કરો", delivery_info:"ડિલિવરી", enter_details:"વિગતો", 
-    add_to_cart:"ઉમેરો", added:"ઉમેર્યું!", rupee:"₹", dish_info: "2 ઇંડા + 3 બ્રેડ સ્લાઇસથી બનશે અમારી ખાસ સ્ટાઇલમાં", 
-    closed_title: "અરે! બંધ થયું", closed_msg: "કિચન બંધ છે. કાલે આવજો!",
-    pairing_title: "સાથે લો", pairing_subtitle: "તમારા ભોજનને પૂર્ણ કરો",
-    pair_with: "સાથે", bill_summary: "બિલ સારાંશ", item_total: "વસ્તુ કુલ", discount: "છૂટ",
-    packing: "પેકિંગ ચાર્જ", delivery: "ડિલિવરી ચાર્જ", free: "મફત", platform_fee: "પ્લેટફોર્મ ચાર્જ",
-    gst: "જીએસટી અને કર", grand_total: "કુલ યોગ", tip: "ટિપ", tip_delivery: "ડિલિવરી પાર્ટનરને ટિપ આપો",
-    none: "નહીં", add_btn: "ઉમેરો +"
-  }
+  en:{ hero_eyebrow:"Gujarat's Finest", line1:"Special Egg", line2:"Delicacies", menu_title:"Signature Dishes", premium_tag:"Tasted By Kings, Made For You", your_cart:"Your Cart", checkout:"Checkout Now", delivery_info:"Delivery Info", enter_details:"Enter your details", add_to_cart:"Add", added:"Added!", rupee:"₹", dish_info: "Made with 2 eggs + 3 bread slices in our special style", closed_title: "Oho! Closed", closed_msg: "Kitchen is closed. Come tomorrow!", pairing_title: "Add Extra", pairing_subtitle: "Complete your meal", pair_with: "Add Extra", bill_summary: "Bill", item_total: "Item Total", discount: "Discount", packing: "Packing", delivery: "Delivery", free: "FREE", platform_fee: "Platform Fee", gst: "GST & Taxes", grand_total: "Grand Total", tip: "Tip", tip_delivery: "Tip delivery partner", none: "None", save: "Save", "Extra Bread Slice": "Extra Bread Slice", "Masala Chhas": "Masala Chhas" },
+  hi:{ hero_eyebrow:"गुजरात का सर्वश्रेष्ठ", line1:"विशेष अंडा", line2:"व्यंजन", menu_title:"हस्ताक्षर व्यंजन", premium_tag:"राजाओं का स्वाद", your_cart:"आपका कार्ट", checkout:"ऑर्डर करें", delivery_info:"डिलीवरी जानकारी", enter_details:"विवरण दर्ज करें", add_to_cart:"जोड़ें", added:"जोड़ा गया!", rupee:"₹", dish_info: "2 अंडे + 3 ब्रेड स्लाइस से बनेगा हमारी खास स्टाइल में", closed_title: "ओहो! बंद हो गया", closed_msg: "किचन बंद है। कल आना!", pairing_title: "एक्स्ट्रा जोड़ें", pairing_subtitle: "अपने भोजन को पूरा करें", pair_with: "एक्स्ट्रा जोड़ें", bill_summary: "बिल", item_total: "आइटम कुल", discount: "छूट", packing: "पैकिंग", delivery: "डिलीवरी", free: "मुफ्त", platform_fee: "प्लेटफॉर्म शुल्क", gst: "जीएसटी", grand_total: "कुल योग", tip: "टिप", tip_delivery: "टिप दें", none: "नहीं", save: "बचत", "Extra Bread Slice": "एक्स्ट्रा ब्रेड स्लाइस", "Masala Chhas": "मसाला छाछ" },
+  gu:{ hero_eyebrow:"ગુજરાતનું શ્રેષ્ઠ", line1:"વિશેષ ઇંડા", line2:"વાનગીઓ", menu_title:"હસ્તાક્ષર વાનગીઓ", premium_tag:"રાજાઓનો સ્વાદ", your_cart:"તમારું કાર્ટ", checkout:"ઓર્ડર કરો", delivery_info:"ડિલિવરી", enter_details:"વિગતો", add_to_cart:"ઉમેરો", added:"ઉમેર્યું!", rupee:"₹", dish_info: "2 ઇંડા + 3 બ્રેડ સ્લાઇસથી બનશે અમારી ખાસ સ્ટાઇલમાં", closed_title: "અરે! બંધ થયું", closed_msg: "કિચન બંધ છે. કાલે આવજો!", pairing_title: "વધારાનું ઉમેરો", pairing_subtitle: "તમારા ભોજનને પૂર્ણ કરો", pair_with: "વધારાનું", bill_summary: "બિલ", item_total: "વસ્તુ કુલ", discount: "છૂટ", packing: "પેકિંગ", delivery: "ડિલિવરી", free: "મફત", platform_fee: "પ્લેટફોર્મ ચાર્જ", gst: "જીએસટી", grand_total: "કુલ યોગ", tip: "ટિપ", tip_delivery: "ટિપ આપો", none: "નહીં", save: "બચત", "Extra Bread Slice": "વધારાની બ્રેડ સ્લાઇસ", "Masala Chhas": "મસાલા છાસ" }
 };
 
 const menu=[
-  {id:1,name:"Boiled Egg Fry",price:50,img:"https://i.ibb.co/xSdzbzzf/boild-egg-fry.jpg",badge:"popular"}, 
-  {id:2,name:"Bombay Omlet",price:50,img:"https://i.ibb.co/vv1xsk7G/bombe-omlet.jpg",badge:"popular"},
-  {id:3,name:"Bread Omlet",price:60,img:"https://i.ibb.co/JRS6Lcyc/bread-omlet.jpg"}, 
-  {id:4,name:"Egg Bhurji",price:60,img:"https://i.ibb.co/4Rh3gjss/egg-bhurji.jpg",badge:"spicy"}, 
-  {id:5,name:"Egg Kheema",price:60,img:"https://i.ibb.co/7NJbpHnw/egg-khima.jpg",badge:"spicy"}, 
-  {id:7,name:"Egg Tikka",price:60,img:"https://i.ibb.co/8DgfRBnK/egg-mashala-tikka.jpg",badge:"spicy"},
-  {id:10,name:"Egg Full Fry",price:50,img:"https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400"}, 
-  {id:11,name:"Masala Omelette",price:60,img:"https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400",badge:"spicy"},
-  {id:13,name:"Egg Cheese Omlet",price:90,img:"https://images.unsplash.com/photo-1584278860047-22db9ff82bed?w=400",badge:"new"}, 
-  {id:14,name:"Egg Curry",price:80,img:"https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400",badge:"popular"},
-  {id:15,name:"Egg Paratha",price:70,img:"https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400",badge:"new"}, 
-  {id:16,name:"Egg Maggi",price:70,img:"https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400",badge:"popular"},
-  {id:17,name:"Egg Rice",price:80,img:"https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400"}, 
-  {id:20,name:"Double Egg Omlet",price:80,img:"https://i.ibb.co/RTFjB7Mn/duble-egg-omlet.jpg",badge:"popular"}
+  {id:1,name:"Boiled Egg Fry",price:50,img:"https://i.ibb.co/xSdzbzzf/boild-egg-fry.jpg",badge:"popular"}, {id:2,name:"Bombay Omlet",price:50,img:"https://i.ibb.co/vv1xsk7G/bombe-omlet.jpg",badge:"popular"},
+  {id:3,name:"Bread Omlet",price:60,img:"https://i.ibb.co/JRS6Lcyc/bread-omlet.jpg"}, {id:4,name:"Egg Bhurji",price:60,img:"https://i.ibb.co/4Rh3gjss/egg-bhurji.jpg",badge:"spicy"},
+  {id:5,name:"Egg Kheema",price:60,img:"https://i.ibb.co/7NJbpHnw/egg-khima.jpg",badge:"spicy"}, {id:7,name:"Egg Tikka",price:60,img:"https://i.ibb.co/8DgfRBnK/egg-mashala-tikka.jpg",badge:"spicy"},
+  {id:10,name:"Egg Full Fry",price:50,img:"https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400"}, {id:11,name:"Masala Omelette",price:60,img:"https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400",badge:"spicy"},
+  {id:13,name:"Egg Cheese Omlet",price:90,img:"https://images.unsplash.com/photo-1584278860047-22db9ff82bed?w=400",badge:"new"}, {id:14,name:"Egg Curry",price:80,img:"https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400",badge:"popular"},
+  {id:15,name:"Egg Paratha",price:70,img:"https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400",badge:"new"}, {id:16,name:"Egg Maggi",price:70,img:"https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400",badge:"popular"},
+  {id:17,name:"Egg Rice",price:80,img:"https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400"}, {id:20,name:"Double Egg Omlet",price:80,img:"https://i.ibb.co/RTFjB7Mn/duble-egg-omlet.jpg",badge:"popular"}
 ];
-
 </script>
 </body>
 </html>

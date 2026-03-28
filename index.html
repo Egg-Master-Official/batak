@@ -244,7 +244,8 @@ nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); bor
 /* ===== INSTALL MODAL - ENHANCED ===== */
 #install-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 999999; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(20px); }
 #install-modal.active { display: flex; }
-.install-modal-content { width: 100%; max-width: 400px; background: linear-gradient(145deg, #151515, #0a0a0a); border: 1px solid rgba(201,162,39,0.3); border-radius: 24px; padding: 30px; text-align: center; position: relative; overflow: hidden; }
+.install-modal-content { width: 100%; max-width: 400px; background: linear-gradient(145deg, #151515, #0a0a0a); border: 1px solid rgba(201,162,39,0.3); border-radius: 24px; padding: 30px; text-align: center; position: relative; overflow: hidden; animation: installModalIn 0.4s ease; }
+@keyframes installModalIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 .install-modal-content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-gold); }
 .install-icon-wrap { width: 80px; height: 80px; background: rgba(201,162,39,0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2.5rem; animation: installPulse 2s ease-in-out infinite; }
 @keyframes installPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201,162,39,0.4); } 50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(201,162,39,0); } }
@@ -478,8 +479,8 @@ function initSite() {
   if (typeof THREE !== 'undefined') { try { const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); const renderer = new THREE.WebGLRenderer({ canvas: $('bg-canvas'), alpha: true }); renderer.setSize(window.innerWidth, window.innerHeight); renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.isMobile ? 1 : 1.5)); const seg = window.isMobile ? 0 : 1; const shape = new THREE.Mesh(new THREE.IcosahedronGeometry(15, seg), new THREE.MeshBasicMaterial({ color: 0xC9A227, wireframe: true, transparent: true, opacity: 0.2 })); scene.add(shape); camera.position.z = 40; (function anim() { requestAnimationFrame(anim); shape.rotation.x += 0.001; shape.rotation.y += 0.001; renderer.render(scene, camera); })(); window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); }); } catch (e) { } }
   renderMenu(); updateUI();
   
-  // ===== AUTO SHOW INSTALL PROMPT =====
-  setTimeout(() => { checkAndShowInstallPrompt(); }, 1500);
+  // ===== QUICK INSTALL - IMMEDIATE CHECK =====
+  setTimeout(() => { checkAndShowInstallPrompt(); }, 800);
 }
 
 // ===== PWA INSTALL LOGIC =====
@@ -492,8 +493,8 @@ function initPWA() {
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    // Auto show prompt after a delay
-    setTimeout(() => { checkAndShowInstallPrompt(); }, 2000);
+    // Show immediately when available
+    setTimeout(() => { checkAndShowInstallPrompt(); }, 500);
   });
   
   // Listen for app installed
@@ -695,7 +696,7 @@ function updateUI() {
   }
   
   const discount = Math.floor(subtotal * 0.1);
-  const packingCharge = 6;
+  const packingCharge = 25;
   const deliveryFee = 0;
   const platformFee = Math.round(subtotal * 0.03);
   const gst = Math.round((subtotal - discount + platformFee) * 0.05);
@@ -812,11 +813,12 @@ let cart=[];
 let currentLang='en';
 let liveLocationUrl="";
 
+// ===== UPDATED TRANSLATIONS =====
 const translations={
   en:{ 
     hero_eyebrow:"Gujarat's Finest", line1:"Special Egg", line2:"Delicacies", menu_title:"Signature Dishes", premium_tag:"Tasted By Kings, Made For You", 
     your_cart:"Your Cart", checkout:"Checkout Now", delivery_info:"Delivery Info", enter_details:"Enter your details", 
-    add_to_cart:"Add", added:"Added!", rupee:"₹", dish_info: "Made with 2 eggs + 3 bread slice in our special style", 
+    add_to_cart:"Add", added:"Added!", rupee:"₹", dish_info: "Made with 2 eggs + 3 bread slices in our special style", 
     closed_title: "Oho! Closed", closed_msg: "Kitchen is closed. Come tomorrow!",
     pairing_title: "Recommended Pairings", pairing_subtitle: "Complete your meal with these popular additions",
     pair_with: "Pair with", bill_summary: "Bill Summary", item_total: "Item Total", discount: "Discount",
@@ -827,7 +829,7 @@ const translations={
   hi:{ 
     hero_eyebrow:"गुजरात का सर्वश्रेष्ठ", line1:"विशेष अंडा", line2:"व्यंजन", menu_title:"हस्ताक्षर व्यंजन", premium_tag:"राजाओं का स्वाद", 
     your_cart:"आपका कार्ट", checkout:"ऑर्डर करें", delivery_info:"डिलीवरी जानकारी", enter_details:"विवरण दर्ज करें", 
-    add_to_cart:"जोड़ें", added:"जोड़ा गया!", rupee:"₹", dish_info: "2 अंडे से बनेगा और साथ में 2 रोटी", 
+    add_to_cart:"जोड़ें", added:"जोड़ा गया!", rupee:"₹", dish_info: "2 अंडे + 3 ब्रेड स्लाइस से बनेगा हमारी खास स्टाइल में", 
     closed_title: "ओहो! बंद हो गया", closed_msg: "किचन बंद है। कल आना!",
     pairing_title: "साथ में लें", pairing_subtitle: "अपने भोजन को पूरा करें",
     pair_with: "साथ में", bill_summary: "बिल सारांश", item_total: "आइटम कुल", discount: "छूट",
@@ -838,7 +840,7 @@ const translations={
   gu:{ 
     hero_eyebrow:"ગુજરાતનું શ્રેષ્ઠ", line1:"વિશેષ ઇંડા", line2:"વાનગીઓ", menu_title:"હસ્તાક્ષર વાનગીઓ", premium_tag:"રાજાઓનો સ્વાદ", 
     your_cart:"તમારું કાર્ટ", checkout:"ઓર્ડર કરો", delivery_info:"ડિલિવરી", enter_details:"વિગતો", 
-    add_to_cart:"ઉમેરો", added:"ઉમેર્યું!", rupee:"₹", dish_info: "2 ઇંડાથી બનશે અને સાથે 2 રોટલી", 
+    add_to_cart:"ઉમેરો", added:"ઉમેર્યું!", rupee:"₹", dish_info: "2 ઇંડા + 3 બ્રેડ સ્લાઇસથી બનશે અમારી ખાસ સ્ટાઇલમાં", 
     closed_title: "અરે! બંધ થયું", closed_msg: "કિચન બંધ છે. કાલે આવજો!",
     pairing_title: "સાથે લો", pairing_subtitle: "તમારા ભોજનને પૂર્ણ કરો",
     pair_with: "સાથે", bill_summary: "બિલ સારાંશ", item_total: "વસ્તુ કુલ", discount: "છૂટ",
